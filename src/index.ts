@@ -1,14 +1,14 @@
-export { default as DocumentTypeDefinition } from './src/DocumentTypeDefinition';
-export { default as XmlSchemaDefinition } from './src/XmlSchemaDefinition';
-export { default as OtherAttribute } from './src/OtherAttribute';
-export { default as Namespace } from './src/Namespace';
+export { default as DocumentTypeDefinition } from './lib/DocumentTypeDefinition';
+export { default as XmlSchemaDefinition } from './lib/XmlSchemaDefinition';
+export { default as OtherAttribute } from './lib/OtherAttribute';
+export { default as Namespace } from './lib/Namespace';
 
-export { default as Node } from './src/node/Node';
-export { default as Type } from './src/node/Type';
-export { default as Sequence } from './src/node/Sequence';
-export { default as Restriction } from './src/node/Restriction';
-export { default as Extension } from './src/node/Extension';
-export { default as Element } from './src/node/Element';
-export { default as ComplexType } from './src/node/ComplexType';
-export { default as ComplexContent } from './src/node/ComplexContent';
-export { default as SimpleType } from './src/node/simpleType/SimpleType';
+export { default as Node } from './lib/node/Node';
+export { default as Type } from './lib/node/Type';
+export { default as Sequence } from './lib/node/Sequence';
+export { default as Restriction } from './lib/node/Restriction';
+export { default as Extension } from './lib/node/Extension';
+export { default as Element } from './lib/node/Element';
+export { default as ComplexType } from './lib/node/ComplexType';
+export { default as ComplexContent } from './lib/node/ComplexContent';
+export { default as SimpleType } from './lib/node/simpleType/SimpleType';
