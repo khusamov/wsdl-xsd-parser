@@ -1,0 +1,59 @@
+{
+  "name": "wsdl-xsd-parser",
+  "version": "1.0.6",
+  "description": "Парсер WSDL-сервиса",
+  "author": "Khusamov Sukhrob <khusamov@yandex.ru>",
+  "homepage": "https://github.com/khusamov/wsdl-xsd-parser",
+  "repository": "github:khusamov/wsdl-xsd-parser",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": "^8.11.2"
+  },
+  "scripts": {
+    "test": "ts-mocha src/test/**/*.spec.ts",
+    "version:minor": "npm version minor",
+    "version:patch": "npm version patch",
+    "preversion": "npm test",
+    "version": "npm publish",
+    "postversion": "git push && git push --tags",
+    "prepublishOnly": "tsc",
+    "postpublish": "rmdir /S /Q dist"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.2",
+    "@types/del": "^3.0.1",
+    "@types/expect": "^1.20.3",
+    "@types/express": "^4.0.35",
+    "@types/jsonpath": "^0.2.0",
+    "@types/lodash": "^4.14.109",
+    "@types/mkdirp-promise": "^5.0.0",
+    "@types/mocha": "^5.2.0",
+    "@types/node": "^10.1.2",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "ts-mocha": "^1.2.0",
+    "ts-node": "^6.0.5",
+    "tslint": "^5.10.0",
+    "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "camelcase": "^4.1.0",
+    "del": "^2.2.2",
+    "express": "4.14.0",
+    "jsonix": "^2.4.1",
+    "lodash": "^4.17.4",
+    "lodash-decorators": "^4.3.1",
+    "mkdirp-promise": "^5.0.1",
+    "pascalcase": "^0.1.1",
+    "prettier": "^1.4.2",
+    "w3c-schemas": "^1.4.0",
+    "xml2js": "^0.4.17",
+    "xsd": "0.0.2",
+    "xsd2json": "^1.11.3"
+  }
+}
