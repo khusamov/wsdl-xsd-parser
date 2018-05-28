@@ -1,6 +1,5 @@
 
 import XmlSchemaDefinition from './XmlSchemaDefinition';
-import Type from './node/Type';
 import AutoType from './node/simpleType/AutoType';
 import IntType from './node/simpleType/IntType';
 import StringType from './node/simpleType/StringType';
@@ -13,31 +12,7 @@ import Base64BinaryType from './node/simpleType/Base64BinaryType';
 
 export default class DocumentTypeDefinition {
 
-	private xsds: XmlSchemaDefinition[] = [];
-
-	get schemas(): XmlSchemaDefinition[] {
-		return this.xsds;
-	}
-
-	// get models(): Model[] {
-	// 	return this.xsds.reduce((result, xsd) => result.concat(xsd.models), []);
-	// }
-
-	constructor() {
-		this.addXsd(this.createBaseXsd());
-	}
-
-	addXsd(xsd: XmlSchemaDefinition): this {
-		xsd.dtd = this;
-		this.xsds.push(xsd);
-		return this;
-	}
-
-	getXsd(namespace: string): XmlSchemaDefinition {
-		return this.xsds.find(xsd => xsd.namespace == namespace);
-	}
-
-	private createBaseXsd(): XmlSchemaDefinition {
+	static createBaseXsd(): XmlSchemaDefinition {
 		const baseXsd = new XmlSchemaDefinition({
 			value: {
 				targetNamespace: 'http://www.w3.org/2001/XMLSchema',
@@ -57,6 +32,26 @@ export default class DocumentTypeDefinition {
 		baseXsd.types.push(new IntegerType(baseXsd));
 		baseXsd.types.push(new Base64BinaryType(baseXsd));
 		return baseXsd;
+	}
+
+	private xsds: XmlSchemaDefinition[] = [];
+
+	get schemas(): XmlSchemaDefinition[] {
+		return this.xsds;
+	}
+
+	constructor() {
+		this.addXsd(DocumentTypeDefinition.createBaseXsd());
+	}
+
+	addXsd(xsd: XmlSchemaDefinition): this {
+		xsd.dtd = this;
+		this.xsds.push(xsd);
+		return this;
+	}
+
+	getXsd(namespace: string): XmlSchemaDefinition {
+		return this.xsds.find(xsd => xsd.namespace == namespace);
 	}
 
 }
