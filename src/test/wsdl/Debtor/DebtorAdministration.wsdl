@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://debtoradministration.eirc.mos.ru" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="http://domainmodel.eirc.mos.ru/model" xmlns:ns1="http://domainmodel.eirc.mos.ru/model/debtor" targetNamespace="http://debtoradministration.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://debtoradministration.eirc.mos.ru" schemaLocation="DebtorAdministration.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="LogClientErrorRequest">
+		<part name="parameters" element="tns:LogClientErrorRequest"/>
+	</message>
+	<message name="LogClientErrorResponse">
+		<part name="parameters" element="tns:LogClientErrorResponse"/>
+	</message>
+	<message name="GetManagementCompaniesRequest">
+		<part name="parameters" element="tns:GetManagementCompaniesRequest"/>
+	</message>
+	<message name="GetManagementCompaniesResponse">
+		<part name="parameters" element="tns:GetManagementCompaniesResponse"/>
+	</message>
+	<message name="GetDocumentTypesByManagementCompanyIdRequest">
+		<part name="parameters" element="tns:GetDocumentTypesByManagementCompanyIdRequest"/>
+	</message>
+	<message name="GetDocumentTypesByManagementCompanyIdResponse">
+		<part name="parameters" element="tns:GetDocumentTypesByManagementCompanyIdResponse"/>
+	</message>
+	<message name="GetAllDocumentTypesRequest"/>
+	<message name="GetAllDocumentTypesResponse">
+		<part name="parameter" element="tns:GetAllDocumentTypesResponse"/>
+	</message>
+	<message name="GetDocumentTemplateBinaryByManagementCompanyIdRequest">
+		<part name="parameters" element="tns:GetDocumentTemplateBinaryByManagementCompanyIdRequest"/>
+	</message>
+	<message name="GetDocumentTemplateBinaryByManagementCompanyIdResponse">
+		<part name="parameters" element="tns:GetDocumentTemplateBinaryByManagementCompanyIdResponse"/>
+	</message>
+	<message name="ChangeManagementCompanyDocumentTemplatesRequest">
+		<part name="parameters" element="tns:ChangeManagementCompanyDocumentTemplatesRequest"/>
+	</message>
+	<message name="ChangeManagementCompanyDocumentTemplatesResponse">
+		<part name="parameter" element="tns:ChangeManagementCompanyDocumentTemplatesResponse"/>
+	</message>
+	<message name="GetDocumentTemplatesRequest">
+		<part name="parameters" element="tns:GetDocumentTemplatesRequest"/>
+	</message>
+	<message name="GetDocumentTemplatesResponse">
+		<part name="parameters" element="tns:GetDocumentTemplatesResponse"/>
+	</message>
+	<message name="CreateManagementCompanySearchTemplateRequest">
+		<part name="parameters" element="tns:CreateManagementCompanySearchTemplateRequest"/>
+	</message>
+	<message name="CreateManagementCompanySearchTemplateResponse">
+		<part name="parameters" element="tns:CreateManagementCompanySearchTemplateResponse"/>
+	</message>
+	<message name="GetManagementCompanySearchTemplatesRequest">
+		<part name="parameters" element="tns:GetManagementCompanySearchTemplatesRequest"/>
+	</message>
+	<message name="GetManagementCompanySearchTemplatesResponse">
+		<part name="parameters" element="tns:GetManagementCompanySearchTemplatesResponse"/>
+	</message>
+	<message name="ModifyManagementCompanySearchTemplateRequest">
+		<part name="parameters" element="tns:ModifyManagementCompanySearchTemplateRequest"/>
+	</message>
+	<message name="ModifyManagementCompanySearchTemplateResponse">
+		<part name="parameters" element="tns:ModifyManagementCompanySearchTemplateResponse"/>
+	</message>
+	<message name="GetMCDefendantsCalculationTemplateRequest">
+		<part name="parameter" element="tns:GetMCDefendantsCalculationTemplateRequest"/>
+	</message>
+	<message name="GetMCDefendantsCalculationTemplateResponse">
+		<part name="parameter" element="tns:GetMCDefendantsCalculationTemplateResponse"/>
+	</message>
+	<message name="CreateMCDefendantsCalculationTemplateRequest">
+		<part name="parameter" element="tns:CreateMCDefendantsCalculationTemplateRequest"/>
+	</message>
+	<message name="CreateMCDefendantsCalculationTemplateResponse">
+		<part name="parameter" element="tns:CreateMCDefendantsCalculationTemplateResponse"/>
+	</message>
+	<message name="GetMFCDocumentsKitByMCIdRequest">
+		<part name="parameter" element="tns:GetMFCDocumentsKitByMCIdRequest"/>
+	</message>
+	<message name="GetMFCDocumentsKitByMCIdResponse">
+		<part name="parameter" element="tns:GetMFCDocumentsKitByMCIdResponse"/>
+	</message>
+	<message name="ModifyMCDefendantsCalculationTemplateRequest">
+		<part name="parameter" element="tns:ModifyMCDefendantsCalculationTemplateRequest"/>
+	</message>
+	<message name="ModifyMCDefendantsCalculationTemplateResponse">
+		<part name="parameter" element="tns:ModifyMCDefendantsCalculationTemplateResponse"/>
+	</message>
+	<message name="CreateMFCDocumentsKitByMCIdRequest">
+		<part name="parameter" element="tns:CreateMFCDocumentsKitByMCIdRequest"/>
+	</message>
+	<message name="CreateMFCDocumentsKitByMCIdResponse">
+		<part name="parameter" element="tns:CreateMFCDocumentsKitByMCIdResponse"/>
+	</message>
+	<message name="ModifyMFCDocumentsKitByMCIdRequest">
+		<part name="parameter" element="tns:ModifyMFCDocumentsKitByMCIdRequest"/>
+	</message>
+	<message name="ModifyMFCDocumentsKitByMCIdResponse">
+		<part name="parameter" element="tns:ModifyMFCDocumentsKitByMCIdResponse"/>
+	</message>
+	<message name="GetExpiredDateBySecurityTokenRequest">
+		<part name="parameter" element="tns:GetExpiredDateBySecurityTokenRequest"/>
+	</message>
+	<message name="GetExpiredDateBySecurityTokenResponse">
+		<part name="parameter" element="tns:GetExpiredDateBySecurityTokenResponse"/>
+	</message>
+	<message name="CreateDocumentsKitByMCIdRequest">
+		<part name="parameter" element="tns:CreateDocumentsKitByMCIdRequest"/>
+	</message>
+	<message name="CreateDocumentsKitByMCIdResponse">
+		<part name="parameter" element="tns:CreateDocumentsKitByMCIdResponse"/>
+	</message>
+	<message name="ModifyDocumentsKitByMCIdRequest">
+		<part name="parameter" element="tns:ModifyDocumentsKitByMCIdRequest"/>
+	</message>
+	<message name="ModifyDocumentsKitByMCIdResponse">
+		<part name="parameter" element="tns:ModifyDocumentsKitByMCIdResponse"/>
+	</message>
+	<message name="GetDocumentsKitByMCIdRequest">
+		<part name="parameter" element="tns:GetDocumentsKitByMCIdRequest"/>
+	</message>
+	<message name="GetDocumentsKitByMCIdResponse">
+		<part name="parameter" element="tns:GetDocumentsKitByMCIdResponse"/>
+	</message>
+	<message name="GetAdditionalRequestsByActionCodesRequest">
+		<part name="parameter" element="tns:GetAdditionalRequestsByActionCodesRequest"/>
+	</message>
+	<message name="GetAdditionalRequestsByActionCodesResponse">
+		<part name="parameter" element="tns:GetAdditionalRequestsByActionCodesResponse"/>
+	</message>
+	<message name="CreateAdditionalRequestsRequest">
+		<part name="parameter" element="tns:CreateAdditionalRequestsRequest"/>
+	</message>
+	<message name="CreateAdditionalRequestsResponse">
+		<part name="parameter" element="tns:CreateAdditionalRequestsResponse"/>
+	</message>
+	<message name="ModifyAdditionalRequestsRequest">
+		<part name="parameter" element="tns:ModifyAdditionalRequestsRequest"/>
+	</message>
+	<message name="ModifyAdditionalRequestsResponse">
+		<part name="parameter" element="tns:ModifyAdditionalRequestsResponse"/>
+	</message>
+	<message name="GetLoadJobExternalActionsByIdRequest">
+		<part name="parameter" element="tns:GetLoadJobExternalActionsByIdRequest"/>
+	</message>
+	<message name="GetLoadJobExternalActionsByIdResponse">
+		<part name="parameter" element="tns:GetLoadJobExternalActionsByIdResponse"/>
+	</message>
+	<message name="GetLoadJobExternalActionsHistoryRequest">
+		<part name="parameter" element="tns:GetLoadJobExternalActionsHistoryRequest"/>
+	</message>
+	<message name="GetLoadJobExternalActionsHistoryResponse">
+		<part name="parameter" element="tns:GetLoadJobExternalActionsHistoryResponse"/>
+	</message>
+	<message name="LoadExternalActionsCsvFileRequest">
+		<part name="parameter" element="tns:LoadExternalActionsCsvFileRequest"/>
+	</message>
+	<message name="LoadExternalActionsCsvFileResponse">
+		<part name="parameter" element="tns:LoadExternalActionsCsvFileResponse"/>
+	</message>
+	<portType name="DebtorAdministration">
+		<documentation>Служба, предоставляющая служебные методы</documentation>
+		<operation name="LogClientError">
+			<documentation>
+Логирование ошибок, происшедших на клиентской стороне
+</documentation>
+			<input message="tns:LogClientErrorRequest"/>
+			<output message="tns:LogClientErrorResponse"/>
+		</operation>
+		<operation name="GetManagementCompanies">
+			<documentation>Запрос управляющих команий</documentation>
+			<input message="tns:GetManagementCompaniesRequest"/>
+			<output message="tns:GetManagementCompaniesResponse"/>
+		</operation>
+		<operation name="GetDocumentTypesByManagementCompanyId">
+			<documentation>Запрос типов документов управляющей комании</documentation>
+			<input message="tns:GetDocumentTypesByManagementCompanyIdRequest"/>
+			<output message="tns:GetDocumentTypesByManagementCompanyIdResponse"/>
+		</operation>
+		<operation name="GetAllDocumentTypes">
+			<documentation>Запрос всех типов документов</documentation>
+			<input message="tns:GetAllDocumentTypesRequest"/>
+			<output message="tns:GetAllDocumentTypesResponse"/>
+		</operation>
+		<operation name="GetDocumentTemplateBinaryByManagementCompanyId">
+			<documentation>Запрос бинарника шаблона документа</documentation>
+			<input message="tns:GetDocumentTemplateBinaryByManagementCompanyIdRequest"/>
+			<output message="tns:GetDocumentTemplateBinaryByManagementCompanyIdResponse"/>
+		</operation>
+		<operation name="ChangeManagementCompanyDocumentTemplates">
+			<documentation>Изменение шаблонов документов компании</documentation>
+			<input message="tns:ChangeManagementCompanyDocumentTemplatesRequest"/>
+			<output message="tns:ChangeManagementCompanyDocumentTemplatesResponse"/>
+		</operation>
+		<operation name="GetDocumentTemplates">
+			<documentation>Запрос всех шаблонов документов</documentation>
+			<input message="tns:GetDocumentTemplatesRequest"/>
+			<output message="tns:GetDocumentTemplatesResponse"/>
+		</operation>
+		<operation name="CreateManagementCompanySearchTemplate">
+			<documentation>Сохранение поискового шаблона управляющей компании</documentation>
+			<input message="tns:CreateManagementCompanySearchTemplateRequest"/>
+			<output message="tns:CreateManagementCompanySearchTemplateResponse"/>
+		</operation>
+		<operation name="GetManagementCompanySearchTemplates">
+			<documentation>Получение поискового шаблона управляющей компании</documentation>
+			<input message="tns:GetManagementCompanySearchTemplatesRequest"/>
+			<output message="tns:GetManagementCompanySearchTemplatesResponse"/>
+		</operation>
+		<operation name="ModifyManagementCompanySearchTemplate">
+			<documentation>Изменение/удаление поискового шаблона управляющей компании</documentation>
+			<input message="tns:ModifyManagementCompanySearchTemplateRequest"/>
+			<output message="tns:ModifyManagementCompanySearchTemplateResponse"/>
+		</operation>
+		<operation name="GetMCDefendantsCalculationTemplate">
+			<documentation>Запрос шаблона формирования состава ответчиков в суде</documentation>
+			<input message="tns:GetMCDefendantsCalculationTemplateRequest"/>
+			<output message="tns:GetMCDefendantsCalculationTemplateResponse"/>
+		</operation>
+		<operation name="CreateMCDefendantsCalculationTemplate">
+			<documentation>Создание шаблона формирования состава ответчиков в суде</documentation>
+			<input message="tns:CreateMCDefendantsCalculationTemplateRequest"/>
+			<output message="tns:CreateMCDefendantsCalculationTemplateResponse"/>
+		</operation>
+		<operation name="GetMFCDocumentsKitByMCId">
+			<documentation>Запрос набора документов в МФЦ</documentation>
+			<input message="tns:GetMFCDocumentsKitByMCIdRequest"/>
+			<output message="tns:GetMFCDocumentsKitByMCIdResponse"/>
+		</operation>
+		<operation name="ModifyMCDefendantsCalculationTemplate">
+			<documentation>Изменение шаблона формирования состава ответчиков в суде</documentation>
+			<input message="tns:ModifyMCDefendantsCalculationTemplateRequest"/>
+			<output message="tns:ModifyMCDefendantsCalculationTemplateResponse"/>
+		</operation>
+		<operation name="CreateMFCDocumentsKitByMCId">
+			<documentation>Создание набора документов в МФЦ</documentation>
+			<input message="tns:CreateMFCDocumentsKitByMCIdRequest"/>
+			<output message="tns:CreateMFCDocumentsKitByMCIdResponse"/>
+		</operation>
+		<operation name="ModifyMFCDocumentsKitByMCId">
+			<documentation>Изменение набора документов в МФЦ</documentation>
+			<input message="tns:ModifyMFCDocumentsKitByMCIdRequest"/>
+			<output message="tns:ModifyMFCDocumentsKitByMCIdResponse"/>
+		</operation>
+		<operation name="GetExpiredDateBySecurityToken">
+			<documentation>Запрос даты истечения токена безопасности. При этом в заголовках http-запроса токен безопасности PIRToken не передается</documentation>
+			<input message="tns:GetExpiredDateBySecurityTokenRequest"/>
+			<output message="tns:GetExpiredDateBySecurityTokenResponse"/>
+		</operation>
+		<operation name="CreateDocumentsKitByMCId">
+			<documentation>Создание набора документов </documentation>
+			<input message="tns:CreateDocumentsKitByMCIdRequest"/>
+			<output message="tns:CreateDocumentsKitByMCIdResponse"/>
+		</operation>
+		<operation name="ModifyDocumentsKitByMCId">
+			<documentation>Изменение набора документов</documentation>
+			<input message="tns:ModifyDocumentsKitByMCIdRequest"/>
+			<output message="tns:ModifyDocumentsKitByMCIdResponse"/>
+		</operation>
+		<operation name="GetDocumentsKitByMCId">
+			<documentation>Запрос набора документов</documentation>
+			<input message="tns:GetDocumentsKitByMCIdRequest"/>
+			<output message="tns:GetDocumentsKitByMCIdResponse"/>
+		</operation>
+		<operation name="GetAdditionalRequestsByActionCodes">
+			<documentation>Запрос дополнительных заявок по массиву кодов стадий бизнесс процесса</documentation>
+			<input message="tns:GetAdditionalRequestsByActionCodesRequest"/>
+			<output message="tns:GetAdditionalRequestsByActionCodesResponse"/>
+		</operation>
+		<operation name="CreateAdditionalRequests">
+			<documentation>Создание дополнительных заявок</documentation>
+			<input message="tns:CreateAdditionalRequestsRequest"/>
+			<output message="tns:CreateAdditionalRequestsResponse"/>
+		</operation>
+		<operation name="ModifyAdditionalRequests">
+			<documentation>Изменение дополнительных заявок </documentation>
+			<input message="tns:ModifyAdditionalRequestsRequest"/>
+			<output message="tns:ModifyAdditionalRequestsResponse"/>
+		</operation>
+		<operation name="GetLoadJobExternalActionsById">
+			<documentation>Запрос данных загрузки внешних дел</documentation>
+			<input message="tns:GetLoadJobExternalActionsByIdRequest"/>
+			<output message="tns:GetLoadJobExternalActionsByIdResponse"/>
+		</operation>
+		<operation name="GetLoadJobExternalActionsHistory">
+			<documentation>Запрос данных истории загрузок внешних дел</documentation>
+			<input message="tns:GetLoadJobExternalActionsHistoryRequest"/>
+			<output message="tns:GetLoadJobExternalActionsHistoryResponse"/>
+		</operation>
+		<operation name="LoadExternalActionsCsvFile">
+			<documentation>Загрузка файла с внешними делами в ПИР</documentation>
+			<input message="tns:LoadExternalActionsCsvFileRequest"/>
+			<output message="tns:LoadExternalActionsCsvFileResponse"/>
+		</operation>
+	</portType>
+	<binding name="DebtorAdministrationPortBinding" type="tns:DebtorAdministration">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="LogClientError">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetManagementCompanies">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDocumentTypesByManagementCompanyId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetAllDocumentTypes">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDocumentTemplateBinaryByManagementCompanyId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangeManagementCompanyDocumentTemplates">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDocumentTemplates">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateManagementCompanySearchTemplate">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetManagementCompanySearchTemplates">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyManagementCompanySearchTemplate">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetMCDefendantsCalculationTemplate">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateMCDefendantsCalculationTemplate">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetMFCDocumentsKitByMCId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyMCDefendantsCalculationTemplate">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateMFCDocumentsKitByMCId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyMFCDocumentsKitByMCId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetExpiredDateBySecurityToken">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateDocumentsKitByMCId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyDocumentsKitByMCId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDocumentsKitByMCId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetAdditionalRequestsByActionCodes">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateAdditionalRequests">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyAdditionalRequests">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetLoadJobExternalActionsById">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetLoadJobExternalActionsHistory">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="LoadExternalActionsCsvFile">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="DebtorAdministrationService">
+		<port name="DebtorAdministrationPort" binding="tns:DebtorAdministrationPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

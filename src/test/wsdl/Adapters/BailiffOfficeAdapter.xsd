@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:tns="http://bailiffOffice.adapter.eirc.mos.ru" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:bailiffAdapter="http://bailiffOffice.adapter.eirc.mos.ru/model" targetNamespace="http://bailiffOffice.adapter.eirc.mos.ru" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:complexType name="GetDebtsByIspDocRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetDebtsByIspDoc</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="token" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Токен сервиса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="id_date" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата исполнительного документа </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="id_number" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер исполнительного документа (00000000000000000000), число, 20 символов</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDebtsByIspDocRequest" type="tns:GetDebtsByIspDocRequest">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BailiffResult">
+		<xs:sequence>
+			<xs:element name="ip_id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор исполнительного производства, число, 14 символов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="kladr_main_name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Населенный пункт регистрации должника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="kladr_street_name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Улица регистрации должника, строка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="id_date" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата исполнительного документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="id_type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип исполнительного документа, число 1 символ</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="id_number" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер исполнительного документа (00000000000000000000), число, 20 символов</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="id_issuer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Орган, выдавший исполнительный документ</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ip_number" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер ИП (n..n/yy/dd/rr или n..n/yy/ddddd-ИП)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ip_risedate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата возбуждения </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="id_debttext" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предмет исполнения</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="id_debtsum" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сумма долга по исполнит.документу</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ip_debt_rest_total" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Остаток долга всего</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ip_debt_rest_ip" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Остаток долга по ИП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ip_debt_rest_fine" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Остаток долга по штрафу суд.пристава</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unifo_charge_fssp" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>УИН ФССП (00000000000000000000), число, 20 символов</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="unifo_charge_ext" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>УИН Внешнего контрагента (00000000000000000000), число, 20 символов</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="osp_system_site_id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код ОСП по ВКСП (00000), число, 5 символов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ip_exec_prist_name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ФИО суд.пристава краткое (Фамилия И.О.)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="spi_tel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Телефон суд.пристава (+7(000)000-00-00)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unload_date" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата актуальности данных </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unload_status" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Состояние записи: N – новое ИП, U – изменения данных, С – ИП закрыто.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDebtsByIspDocResponse">
+		<xs:annotation>
+			<xs:documentation>ErrorCode определяются АПИ ФССП</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="ResultItems" type="tns:BailiffResult" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDebtsByIpNumberRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetDebtsByIspDoc</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="token" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Токен сервиса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ip_number" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер исполнительного производства (n..n/yy/dd/rr или n..n/yy/ddddd-ИП)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDebtsByIpNumberRequest" type="tns:GetDebtsByIpNumberRequest">
+		<xs:annotation>
+			<xs:documentation>
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="GetDebtsByIpNumberResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="ResultItems" type="tns:BailiffResult" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDebtsByUinOivRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetDebtsByIspDoc</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="token" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Токен сервиса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unifo_charge_ext" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Массив УИН Внешнего контрагента</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDebtsByUinOivRequest" type="tns:GetDebtsByUinOivRequest">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="GetDebtsByUinOivResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="ResultItems" type="tns:BailiffResult" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

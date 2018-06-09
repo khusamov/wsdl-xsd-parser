@@ -1,0 +1,98 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://measureSocialSupport.operations.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:ns="http://domainmodel.eirc.mos.ru/core" xmlns:ns1="http://domainmodel.eirc.mos.ru/model/agreement" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns2="http://domainmodel.eirc.mos.ru/model/mssp" targetNamespace="http://measureSocialSupport.operations.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://measureSocialSupport.operations.eirc.mos.ru" schemaLocation="MeasureSocialSupportOperations.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="CreateIndividualCardRequest">
+		<part name="parameters" element="tns:CreateIndividualCardRequest"/>
+	</message>
+	<message name="CreateIndividualCardResponse">
+		<part name="parameters" element="tns:CreateIndividualCardResponse"/>
+	</message>
+	<message name="ModifyIndividualCardRequest">
+		<part name="parameter" element="tns:ModifyIndividualCardRequest"/>
+	</message>
+	<message name="ModifyIndividualCardResponse">
+		<part name="parameter" element="tns:ModifyIndividualCardResponse"/>
+	</message>
+	<message name="CreateSocialSupportApplicationRequest">
+		<part name="parameter" element="tns:CreateSocialSupportApplicationRequest"/>
+	</message>
+	<message name="CreateSocialSupportApplicationResponse">
+		<part name="parameter" element="tns:CreateSocialSupportApplicationResponse"/>
+	</message>
+	<message name="LoadIndividualDocumentRequest">
+		<part name="parameter" element="tns:LoadIndividualDocumentRequest"/>
+	</message>
+	<message name="LoadIndividualDocumentResponse">
+		<part name="parameter" element="tns:LoadIndividualDocumentResponse"/>
+	</message>
+	<portType name="MeasureSocialSupportOperations">
+		<operation name="CreateIndividualCard">
+			<documentation>Создание карточки физического лица</documentation>
+			<input message="tns:CreateIndividualCardRequest"/>
+			<output message="tns:CreateIndividualCardResponse"/>
+		</operation>
+		<operation name="ModifyIndividualCard">
+			<documentation>Редактирование карточки физического лица</documentation>
+			<input message="tns:ModifyIndividualCardRequest"/>
+			<output message="tns:ModifyIndividualCardResponse"/>
+		</operation>
+		<operation name="CreateSocialSupportApplication">
+			<documentation>Создание заявки на предоставление соц поддержки</documentation>
+			<input message="tns:CreateSocialSupportApplicationRequest"/>
+			<output message="tns:CreateSocialSupportApplicationResponse"/>
+		</operation>
+		<operation name="LoadIndividualDocument">
+			<documentation>Загрузка документов физ лица</documentation>
+			<input message="tns:LoadIndividualDocumentRequest"/>
+			<output message="tns:LoadIndividualDocumentResponse"/>
+		</operation>
+	</portType>
+	<binding name="MeasureSocialSupportOperationsPortBinding" type="tns:MeasureSocialSupportOperations">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="CreateIndividualCard">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyIndividualCard">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateSocialSupportApplication">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="LoadIndividualDocument">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="MeasureSocialSupportOperationsService">
+		<port name="MeasureSocialSupportOperationsPort" binding="tns:MeasureSocialSupportOperationsPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

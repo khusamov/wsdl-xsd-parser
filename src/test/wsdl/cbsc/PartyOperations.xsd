@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<!-- edited with XMLSPY v5 rel. 4 U (http://www.xmlspy.com) by rado (RGB) -->
+<xs:schema xmlns:tns="http://party.operations.eirc.mos.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" targetNamespace="http://party.operations.eirc.mos.ru" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:complexType name="CreateManagingCompanyRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода CreateManagingCompany</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="ManagingCompany" type="dom:Organization" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Данные управляющей компании</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные параметры
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CreateManagingCompanyRequest" type="tns:CreateManagingCompanyRequest"/>
+	<xs:element name="CreateManagingCompanyResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+				<xs:element name="ManagingCompanyId" type="xs:integer" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Идентификатор управляющей компании</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

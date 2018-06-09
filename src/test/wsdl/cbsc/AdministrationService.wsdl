@@ -1,0 +1,44 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://administration.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://administration.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://administration.eirc.mos.ru" schemaLocation="AdministrationService.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="PartyHeader">
+		<part name="SubscriberInformation" element="core:SubscriberInformation"/>
+	</message>
+	<message name="GetOperatorByLoginParamsRequest">
+		<part name="parameter" element="tns:GetOperatorByLoginParamsRequest"/>
+	</message>
+	<message name="GetOperatorByLoginParamsResponse">
+		<part name="parameter" element="tns:GetOperatorByLoginParamsResponse"/>
+	</message>
+	<portType name="AdministrationService">
+		<operation name="GetOperatorByLoginParams">
+			<documentation>Аутентификация пользователя и получение данных
+				оператора </documentation>
+			<input message="tns:GetOperatorByLoginParamsRequest"/>
+			<output message="tns:GetOperatorByLoginParamsResponse"/>
+		</operation>
+	</portType>
+	<binding name="AdministrationServicePortBinding" type="tns:AdministrationService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="GetOperatorByLoginParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="AdministrationService">
+		<port name="AdministrationServicePort" binding="tns:AdministrationServicePortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

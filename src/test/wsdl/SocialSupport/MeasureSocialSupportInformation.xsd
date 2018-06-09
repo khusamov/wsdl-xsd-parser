@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://measureSocialSupport.information.eirc.mos.ru" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:mssp="http://domainmodel.eirc.mos.ru/model/mssp" targetNamespace="http://measureSocialSupport.information.eirc.mos.ru" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model/mssp" schemaLocation="MeasureSocialSupport.xsd"/>
+	<xs:complexType name="GetIndividualsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetIndividualsBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Фильтры поиска. В случае отсутствия фильтров выдаются все данные. Возможны следующие фильтры.
+
+Name: FIO
+Value: ФИО абонента
+DataType: String
+
+Name: DocumentNumber
+Value: номер документа
+DataType: String
+
+Name: DocumentType
+Value: тип документа
+DataType: String
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetIndividualsBySearchParamsRequest" type="tns:GetIndividualsBySearchParamsRequest"/>
+	<xs:complexType name="GetIndividualsBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetIndividualsBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="Individuals" type="dom:Individual" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>данные физических лиц</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetIndividualsBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetIndividualsBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDocumentsMetadataByPreferenceIdRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetDocumentsMetadataByPreferenceId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="PreferenceId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентифкатор льготы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDocumentsMetadataByPreferenceIdRequest" type="tns:GetDocumentsMetadataByPreferenceIdRequest"/>
+	<xs:complexType name="GetDocumentsMetadataByPreferenceIdResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetDocumentsMetadataByPreferenceId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="Preference" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>льгота</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DocumentsMetadata" type="mssp:PreferenceDocumentMetadata" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDocumentsMetadataByPreferenceIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDocumentsMetadataByPreferenceIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDictionaryDetailsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDictionariesBySearchParams.
+Заполняются поля 
+DictionaryCode - код справочника
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=String
+Characteristic.Value=name:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DictionaryCode" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Код словаря. 
+Используются следующие коды
+
+Preference - льготы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Поисковые параметры.
+
+Для поиска по названию льготы
+Name : PreferenceName
+Value - названиt льготы
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryDetailsBySearchParamsRequest" type="tns:GetDictionaryDetailsBySearchParamsRequest"/>
+	<xs:complexType name="GetDictionaryDetailsBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDictionaryDetailsBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryDetailsBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDictionaryDetailsBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

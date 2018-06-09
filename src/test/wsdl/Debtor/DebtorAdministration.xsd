@@ -1,0 +1,978 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://debtoradministration.eirc.mos.ru" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:debtor="http://domainmodel.eirc.mos.ru/model/debtor" targetNamespace="http://debtoradministration.eirc.mos.ru" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model/debtor" schemaLocation="DebtorModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:complexType name="LogClientErrorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода LogClientError</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Errors" type="core:OperationResult" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="LogClientErrorRequest" type="tns:LogClientErrorRequest"/>
+	<xs:element name="LogClientErrorResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetManagementCompaniesRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetManagementCompanies</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время запроса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Поисковое значение для поиска по названию управляющей компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetManagementCompaniesRequest" type="tns:GetManagementCompaniesRequest"/>
+	<xs:complexType name="GetManagementCompaniesResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetManagementCompanies. 
+В поле ManagementCompanies заполняются 
+
+PartyId - идентификатор управляющей компании в БД АСУ ЕИРЦ
+FullName - полное название управляющей компании</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ManagementCompanies" type="dom:Party" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetManagementCompaniesResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetManagementCompaniesResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDocumentTypesByManagementCompanyIdRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetDocumentTypesByManagementCompanyId</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDocumentTypesByManagementCompanyIdRequest" type="tns:GetDocumentTypesByManagementCompanyIdRequest"/>
+	<xs:element name="GetDocumentTypesByManagementCompanyIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetAllDocumentTypesResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetAllDocumentTypesRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetAllDocumentTypes</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetAllDocumentTypesRequest" type="tns:GetAllDocumentTypesRequest"/>
+	<xs:complexType name="GetAllDocumentTypesResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetAllDocumentTypes. 
+В поле DocumentTypes заполняются все поля кроме DateStart, DateFinish
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="DocumentTypes" type="dom:DocumentTemplate" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>шаблоны документов</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetAllDocumentTypesResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetAllDocumentTypesResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDocumentTemplateBinaryByManagementCompanyIdRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetDocumentTemplateByManagementCompanyId</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentType" type="dom:DocumentTemplate" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип документа.
+Заполняется поле Code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDocumentTemplateBinaryByManagementCompanyIdRequest" type="tns:GetDocumentTemplateBinaryByManagementCompanyIdRequest"/>
+	<xs:element name="GetDocumentTemplateBinaryByManagementCompanyIdResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDocumentTemplateByManagementCompanyId</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ChangeManagementCompanyDocumentTemplatesRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода ChangeManagementCompanyDocumentTemplates</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestItems" type="tns:ChangeManagementCompanyDocumentTemplatesRequestItem" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeManagementCompanyDocumentTemplatesRequestItem">
+		<xs:annotation>
+			<xs:documentation>Линейка запроса метода ChangeManagementCompanyDocumentTemplates. 
+
+Содержит только линейку c изменными пользователем данными: новым форматом документа или новым названием документа</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип документа. 
+В поле Id надо передавать  идентификатор шаблона который привязыывается к УК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentFormat" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Формат шаблона документа. Может быть равен pdf, docx, odt</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="pdf"/>
+						<xs:enumeration value="docx"/>
+						<xs:enumeration value="odt"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ChangeManagementCompanyDocumentTemplatesRequest" type="tns:ChangeManagementCompanyDocumentTemplatesRequest"/>
+	<xs:element name="ChangeManagementCompanyDocumentTemplatesResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDocumentTemplatesRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDocumentTemplates</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DocumentType" type="dom:DocumentTemplate" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Задается поле Code (которое возвращается методом GetAllDocumentTypes)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDocumentTemplatesRequest" type="tns:GetDocumentTemplatesRequest"/>
+	<xs:complexType name="GetDocumentTemplatesResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDocumentTemplates</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="Templates" type="dom:DocumentTemplate" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDocumentTemplatesResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDocumentTemplatesResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ManagementCompanySearchTemplateRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода CreateManagementCompanySearchTemplate</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Действие над поисковым шаблоном</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор оператора, выполнившего запрос</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Template" type="debtor:SearchTemplate" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>шаблон поиска должника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ManagementCompanySearchTemplateResult">
+		<xs:annotation>
+			<xs:documentation>запрос метода CreateManagementCompanySearchTemplate</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:OperationResult">
+				<xs:sequence>
+					<xs:element name="SearchTemplateId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор созданного шаблона поиска</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CreateManagementCompanySearchTemplateRequest" type="tns:ManagementCompanySearchTemplateRequest"/>
+	<xs:element name="CreateManagementCompanySearchTemplateResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода CreateManagementCompanySearchTemplate</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="tns:ManagementCompanySearchTemplateResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetManagementCompanySearchTemplatesRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetManagementCompanySearchTemplates</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetManagementCompanySearchTemplatesRequest" type="tns:GetManagementCompanySearchTemplatesRequest"/>
+	<xs:complexType name="GetManagementCompanySearchTemplatesResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetManagementCompanySearchTemplates</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="Templates" type="debtor:SearchTemplate" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetManagementCompanySearchTemplatesResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetManagementCompanySearchTemplatesResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ModifyManagementCompanySearchTemplateRequest" type="tns:ManagementCompanySearchTemplateRequest"/>
+	<xs:element name="ModifyManagementCompanySearchTemplateResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода ModifyManagementCompanySearchTemplate</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="tns:ManagementCompanySearchTemplateResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetMCDefendantsCalculationTemplateRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetMCDefendantsCalculationTemplate</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetMCDefendantsCalculationTemplateRequest" type="tns:GetMCDefendantsCalculationTemplateRequest"/>
+	<xs:complexType name="GetMCDefendantsCalculationTemplateResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetMCDefendantsCalculationTemplate</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="Templates" type="debtor:DefendantsCalculationTemplate" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetMCDefendantsCalculationTemplateResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetMCDefendantsCalculationTemplateResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="CreateMCDefendantsCalculationTemplateRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода CreateMCDefendantsCalculationTemplate</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Templates" type="debtor:DefendantsCalculationTemplate" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Шаблон формирования состава ответчиков в суде</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CreateMCDefendantsCalculationTemplateRequest" type="tns:CreateMCDefendantsCalculationTemplateRequest"/>
+	<xs:element name="CreateMCDefendantsCalculationTemplateResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода CreateMCDefendantsCalculationTemplate</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyMCDefendantsCalculationTemplateRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода ModifyMCDefendantsCalculationTemplate</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Действие с шаблоном</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Template" type="debtor:DefendantsCalculationTemplate" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>шаблон</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ModifyMCDefendantsCalculationTemplateRequest" type="tns:ModifyMCDefendantsCalculationTemplateRequest"/>
+	<xs:element name="ModifyMCDefendantsCalculationTemplateResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода ModifyMCDefendantsCalculationTemplate</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetMFCDocumentsKitByMCIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetMFCDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetMFCDocumentsKitByMCIdRequest" type="tns:GetMFCDocumentsKitByMCIdRequest"/>
+	<xs:complexType name="GetMFCDocumentsKitByMCIdResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetMFCDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultDetails" type="tns:DocumentsKitByMCIdRequest" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetMFCDocumentsKitByMCIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetMFCDocumentsKitByMCIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="CreateMFCDocumentsKitByMCIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода CreateMFCDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RequestDetails" type="tns:MFCDocumentsKitByMCIdRequest" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CreateMFCDocumentsKitByMCIdRequest" type="tns:CreateMFCDocumentsKitByMCIdRequest"/>
+	<xs:element name="CreateMFCDocumentsKitByMCIdResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода CreateMFCDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyMFCDocumentsKitByMCIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода ModifyMFCDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Действие с набором докуметов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RequestDetails" type="tns:MFCDocumentsKitByMCIdRequest" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ModifyMFCDocumentsKitByMCIdRequest" type="tns:ModifyMFCDocumentsKitByMCIdRequest"/>
+	<xs:element name="ModifyMFCDocumentsKitByMCIdResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода ModifyMFCDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="MFCDocumentsKitByMCIdRequest">
+		<xs:sequence>
+			<xs:element name="DocumentKitId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор набора документов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StandardDocuments" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Стандартный набор документов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NonStandardDocuments" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Нестандартный набор документов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetExpiredDateBySecurityTokenRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetExpiredDateBySecurityToken</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SecurityToken" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Токен  безопасности</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetExpiredDateBySecurityTokenRequest" type="tns:GetExpiredDateBySecurityTokenRequest"/>
+	<xs:complexType name="GetExpiredDateBySecurityTokenResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetExpiredDateBySecurityToken</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ExpiredDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Время истечения токена</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetExpiredDateBySecurityTokenResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetExpiredDateBySecurityTokenResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="CreateDocumentsKitByMCIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода CreateMFCDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KitType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Code = Court - документы в суд</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RequestDetails" type="tns:DocumentsKitByMCIdRequest" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CreateDocumentsKitByMCIdRequest" type="tns:CreateDocumentsKitByMCIdRequest"/>
+	<xs:element name="CreateDocumentsKitByMCIdResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода CreateMFCDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyDocumentsKitByMCIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода ModifyDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Действие с набором докуметов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KitType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Code = Court - документы в суд</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RequestDetails" type="tns:DocumentsKitByMCIdRequest" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ModifyDocumentsKitByMCIdRequest" type="tns:ModifyDocumentsKitByMCIdRequest"/>
+	<xs:element name="ModifyDocumentsKitByMCIdResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода ModifyDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDocumentsKitByMCIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KitType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Code = Court - документы в суд</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDocumentsKitByMCIdRequest" type="tns:GetDocumentsKitByMCIdRequest"/>
+	<xs:complexType name="GetDocumentsKitByMCIdResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultDetails" type="tns:DocumentsKitByMCIdRequest" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDocumentsKitByMCIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDocumentsKitByMCIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="DocumentsKitByMCIdRequest">
+		<xs:annotation>
+			<xs:documentation>детали ответа метода GetDocumentsKitByMCId</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DocumentKitId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор набора документов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KitType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Code = Court - документы в суд</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StandardDocuments" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Стандартный набор документов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NonStandardDocuments" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Нестандартный набор документов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetAdditionalRequestsByActionCodesRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetAdditionalRequestsByActionCodes</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата/время запроса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RequestType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип заявки
+Code = Cancellation, Name =Аннулирование</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ActionCodes" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>массив кодов стадий БП
+Code = CourtOrder, Name =Заявления о выдачи судебного приказа
+Code = Claim, Name = Исковые заявления
+Code = TaxAuthorityRequest, Name =Запросы в ИФНС
+Code = BankRequest, Name =Запросы в Банк
+Code = BailiffApplication, Name =Заявления в ФССП
+Code = PaymentAgreement, Name =Соглашение о погашени задоженности
+Code = MfcOrder, Name =Формирование пакета документов в суд
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные параметры
+
+Просмотрено:
+Name:IsViewed
+DataType:Boolean
+Value: true
+
+Осуществлено:
+Name:IsDone
+DataType:Boolean
+Value: true</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetAdditionalRequestsByActionCodesRequest" type="tns:GetAdditionalRequestsByActionCodesRequest"/>
+	<xs:complexType name="GetAdditionalRequestsByActionCodesResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetAdditionalRequestsByActionCodes</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="debtor:AdditionalRequest" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetAdditionalRequestsByActionCodesResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetAdditionalRequestsByActionCodesResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="CreateAdditionalRequestsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода CreateAdditionalRequests</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AdditionalRequests" type="debtor:AdditionalRequest" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>список дополнительных заявок</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CreateAdditionalRequestsRequest" type="tns:CreateAdditionalRequestsRequest"/>
+	<xs:element name="CreateAdditionalRequestsResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода CreateAdditionalRequests</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyAdditionalRequestsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода ModifyAdditionalRequest</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Действие с набором доп заявок</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalRequests" type="debtor:AdditionalRequest" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>список дополнительных заявок</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ModifyAdditionalRequestsRequest" type="tns:ModifyAdditionalRequestsRequest"/>
+	<xs:element name="ModifyAdditionalRequestsResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода ModifyAdditionalRequest</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetLoadJobExternalActionsByIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetLoadJobExternalActionsById</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время запроса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LoadJobId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор заявки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetLoadJobExternalActionsByIdRequest" type="tns:GetLoadJobExternalActionsByIdRequest"/>
+	<xs:complexType name="GetLoadJobExternalActionsByIdResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetLoadJobExternalActionsById</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LoadJobExternalActions" type="debtor:LoadJobExternalActions" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Загрузка внешних дел</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetLoadJobExternalActionsByIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetLoadJobExternalActionsByIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetLoadJobExternalActionsHistoryRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetLoadJobExternalActionsHistory</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата/время запроса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetLoadJobExternalActionsHistoryRequest" type="tns:GetLoadJobExternalActionsHistoryRequest"/>
+	<xs:complexType name="GetLoadJobExternalActionsHistoryResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetLoadJobExternalActionsHistory</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="debtor:LoadJobExternalActions" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Массив загрузок внешних дел. 
+
+Для ограничения объема возвращаемых данных поле LoadProtocol не передается.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetLoadJobExternalActionsHistoryResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetLoadJobExternalActionsHistoryResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="LoadExternalActionsCsvFileRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода LoadExternalActionsCsvFile</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FileName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>название загружаемого файла</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FileSize" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>размер файла в Kb</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="LoadExternalActionsCsvFileRequest" type="tns:LoadExternalActionsCsvFileRequest"/>
+	<xs:element name="LoadExternalActionsCsvFileResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода LoadExternalActionsCsvFile</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult">
+								<xs:sequence>
+									<xs:element name="LoadJobId" type="xs:integer" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Идентификатор загрузки</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

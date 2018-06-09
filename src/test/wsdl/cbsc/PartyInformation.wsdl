@@ -1,0 +1,232 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://party.information.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="http://party.information.eirc.mos.ru" targetNamespace="http://party.information.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://party.information.eirc.mos.ru" schemaLocation="PartyInformation.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="PartyHeader">
+		<part name="SubscriberInformation" element="core:SubscriberInformation"/>
+	</message>
+	<message name="GetManagingCompaniesBySearchParamsRequest">
+		<part name="parameter" element="tns:GetManagingCompaniesBySearchParamsRequest"/>
+	</message>
+	<message name="GetManagingCompaniesBySearchParamsResponse">
+		<part name="parameter" element="tns:GetManagingCompaniesBySearchParamsResponse"/>
+	</message>
+	<message name="GetStreetsListByOperatorLoginRequest">
+		<part name="parameter" element="tns:GetStreetsListByOperatorLoginRequest"/>
+	</message>
+	<message name="GetStreetsListByOperatorLoginResponse">
+		<part name="parameter" element="tns:GetStreetsListByOperatorLoginResponse"/>
+	</message>
+	<message name="GetHousesNumbersByStreetIdRequest">
+		<part name="parameter" element="tns:GetHousesNumbersByStreetIdRequest"/>
+	</message>
+	<message name="GetHousesNumbersByStreetIdResponse">
+		<part name="parameter" element="tns:GetHousesNumbersByStreetIdResponse"/>
+	</message>
+	<message name="GetOrganizationsListBySearchParamsRequest">
+		<part name="parameter" element="tns:GetOrganizationsListBySearchParamsRequest"/>
+	</message>
+	<message name="GetOrganizationsListBySearchParamsResponse">
+		<part name="parameter" element="tns:GetOrganizationsListBySearchParamsResponse"/>
+	</message>
+	<message name="GetEntrancesListByHouseAddressRequest">
+		<part name="parameter" element="tns:GetEntrancesListByHouseAddressRequest"/>
+	</message>
+	<message name="GetEntrancesListByHouseAddressResponse">
+		<part name="parameter" element="tns:GetEntrancesListByHouseAddressResponse"/>
+	</message>
+	<message name="GetAppartmentsListByAddressRequest">
+		<part name="parameter" element="tns:GetAppartmentsListByAddressRequest"/>
+	</message>
+	<message name="GetAppartmentsListByAddressResponse">
+		<part name="parameter" element="tns:GetAppartmentsListByAddressResponse"/>
+	</message>
+	<message name="GetIndividualsListBySearchParamsRequest">
+		<part name="parameter" element="tns:GetIndividualsListBySearchParamsRequest"/>
+	</message>
+	<message name="GetIndividualsListBySearchParamsResponse">
+		<part name="parameter" element="tns:GetIndividualsListBySearchParamsResponse"/>
+	</message>
+	<message name="GetBankSuppliersCodesByOrganizationIdRequest">
+		<part name="parameter" element="tns:GetBankSuppliersCodesBySearchParamsRequest"/>
+	</message>
+	<message name="GetBankSuppliersCodesBySearchParamsResponse">
+		<part name="parameter" element="tns:GetBankSuppliersCodesBySearchParamsResponse"/>
+	</message>
+	<message name="GetDistrictsListByOperatorLoginRequest">
+		<part name="parameter" element="tns:GetDistrictsListByOperatorLoginRequest"/>
+	</message>
+	<message name="GetDistrictsListByOperatorLoginResponse">
+		<part name="parameter" element="tns:GetDistrictsListByOperatorLoginResponse"/>
+	</message>
+	<message name="GetOrganizationsListByIdsRequest">
+		<part name="parameter" element="tns:GetOrganizationsListByIdsRequest"/>
+	</message>
+	<message name="GetOrganizationsListByIdsResponse">
+		<part name="parameter" element="tns:GetOrganizationsListByIdsResponse"/>
+	</message>
+	<portType name="PartyInformation">
+		<operation name="GetManagingCompaniesListBySearchParams">
+			<documentation>Запрос списка управляющих компаний по поисковым параметрам</documentation>
+			<input message="tns:GetManagingCompaniesBySearchParamsRequest"/>
+			<output message="tns:GetManagingCompaniesBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetStreetsListByOperatorLogin">
+			<documentation>Запрос списка улиц по данным оператора</documentation>
+			<input message="tns:GetStreetsListByOperatorLoginRequest"/>
+			<output message="tns:GetStreetsListByOperatorLoginResponse"/>
+		</operation>
+		<operation name="GetHousesNumbersByStreetId">
+			<documentation>Запрос номеров домов по идентификатору улицы</documentation>
+			<input message="tns:GetHousesNumbersByStreetIdRequest"/>
+			<output message="tns:GetHousesNumbersByStreetIdResponse"/>
+		</operation>
+		<operation name="GetOrganizationsListBySearchParams">
+			<documentation>Запрос списка организаций по поисковым параметрам</documentation>
+			<input message="tns:GetOrganizationsListBySearchParamsRequest"/>
+			<output message="tns:GetOrganizationsListBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetEntrancesListByHouseAddress">
+			<documentation>Запрос списка подъездов по адресу дома</documentation>
+			<input message="tns:GetEntrancesListByHouseAddressRequest"/>
+			<output message="tns:GetEntrancesListByHouseAddressResponse"/>
+		</operation>
+		<operation name="GetAppartmentsListByAddress">
+			<documentation>Запрос списка помещений по адресу дома и подъезду</documentation>
+			<input message="tns:GetAppartmentsListByAddressRequest"/>
+			<output message="tns:GetAppartmentsListByAddressResponse"/>
+		</operation>
+		<operation name="GetIndividualsListBySearchParams">
+			<documentation>Запрос списка физ лиц по поисковым параметрам</documentation>
+			<input message="tns:GetIndividualsListBySearchParamsRequest"/>
+			<output message="tns:GetIndividualsListBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetBankSuppliersCodesBySearchParams">
+			<documentation>Запрос банковского счета поставщика по идентификатору организации  и поисковым параметрам</documentation>
+			<input message="tns:GetBankSuppliersCodesByOrganizationIdRequest"/>
+			<output message="tns:GetBankSuppliersCodesBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetDistrictsListByOperatorLogin">
+			<documentation>Запрос списка районов по данным оператора</documentation>
+			<input message="tns:GetDistrictsListByOperatorLoginRequest"/>
+			<output message="tns:GetDistrictsListByOperatorLoginResponse"/>
+		</operation>
+		<operation name="GetOrganizationsListByIds">
+			<documentation>Запрос списка организаций по списку идентификаторов</documentation>
+			<input message="tns:GetOrganizationsListByIdsRequest"/>
+			<output message="tns:GetOrganizationsListByIdsResponse"/>
+		</operation>
+	</portType>
+	<binding name="PartyInformationPortBinding" type="tns:PartyInformation">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="GetManagingCompaniesListBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetStreetsListByOperatorLogin">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetHousesNumbersByStreetId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOrganizationsListBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetEntrancesListByHouseAddress">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetAppartmentsListByAddress">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetIndividualsListBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetBankSuppliersCodesBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDistrictsListByOperatorLogin">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOrganizationsListByIds">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="PartyInformation">
+		<port name="PartyInformationPort" binding="tns:PartyInformationPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

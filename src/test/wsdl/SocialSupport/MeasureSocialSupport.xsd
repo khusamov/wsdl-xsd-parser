@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mssp="http://domainmodel.eirc.mos.ru/model/mssp" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" targetNamespace="http://domainmodel.eirc.mos.ru/model/mssp" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:complexType name="SocialSupportApplication">
+		<xs:annotation>
+			<xs:documentation>заявление на льготу</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DateCreated" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата обновления статуса заявки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Individual" type="dom:Individual" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>данные физического лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateChanged" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата обновления статуса заявки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Source" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Источник заявки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус заявки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrivilegeCategory" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Льготные категории заявителя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Decision" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Решение по заявке</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Отрицательное"/>
+						<xs:enumeration value="Положительное"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OperatorId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сотрудник МФЦ, оформляющий заявку</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PreferenceDocumentMetadataItem">
+		<xs:annotation>
+			<xs:documentation>элемент метаданных документа на льготу</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DocumentField" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Поле метаданных льготы. Заполняются 
+Code - соответствуют названию поля типа IdentificationDocument или поля его производных типов
+Name - представление названия этого поля пользователю</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SortOrder" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Порядок отображения поля</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PreferenceDocumentMetadata">
+		<xs:annotation>
+			<xs:documentation>метаданные документа на льготу</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DocumentType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип документа льготы - IdentificationDocument, DeathSertificate</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MetadataItems" type="mssp:PreferenceDocumentMetadataItem" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Массив элементов метаданных</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

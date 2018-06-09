@@ -1,0 +1,241 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://dictionary.information.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:dictionary="http://domainmodel.eirc.mos.ru/model/dictionary" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://dictionary.information.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://dictionary.information.eirc.mos.ru" schemaLocation="DictionaryInformation.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/model/dictionary" schemaLocation="DictionaryModel.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="GetDictionaryTablesBySearchParamsRequest">
+		<part name="parameter" element="tns:GetDictionaryTablesBySearchParamsRequest"/>
+	</message>
+	<message name="GetDictionaryTablesBySearchParamsResponse">
+		<part name="parameter" element="tns:GetDictionaryTablesBySearchParamsResponse"/>
+	</message>
+	<message name="GetDictionaryColumnsByTableIdRequest">
+		<part name="parameter" element="tns:GetDictionaryColumnsByTableIdRequest"/>
+	</message>
+	<message name="GetDictionaryColumnsByTableIdResponse">
+		<part name="parameter" element="tns:GetDictionaryColumnsByTableIdResponse"/>
+	</message>
+	<message name="GetDictionaryGroupsBySearchParamsRequest">
+		<part name="parameter" element="tns:GetDictionaryGroupsBySearchParamsRequest"/>
+	</message>
+	<message name="GetDictionaryGroupsBySearchParamsResponse">
+		<part name="parameter" element="tns:GetDictionaryGroupsBySearchParamsResponse"/>
+	</message>
+	<message name="GetOperatorByLoginParamsRequest">
+		<part name="parameter" element="tns:GetOperatorByLoginParamsRequest"/>
+	</message>
+	<message name="GetOperatorByLoginParamsResponse">
+		<part name="parameter" element="tns:GetOperatorByLoginParamsResponse"/>
+	</message>
+	<message name="GetDictionaryDataByTableIdRequest">
+		<part name="parameter" element="tns:GetDictionaryDataByTableIdRequest"/>
+	</message>
+	<message name="GetDictionaryDataByTableIdResponse">
+		<part name="parameter" element="tns:GetDictionaryDataByTableIdResponse"/>
+	</message>
+	<message name="GetBaseDictionaryDataBySearchParamsRequest">
+		<part name="parameter" element="tns:GetBaseDictionaryDataBySearchParamsRequest"/>
+	</message>
+	<message name="GetBaseDictionaryDataBySearchParamsResponse">
+		<part name="parameter" element="tns:GetBaseDictionaryDataBySearchParamsResponse"/>
+	</message>
+	<message name="GetDictionaryDataBySearchParamsRequest">
+		<part name="parameter" element="tns:GetDictionaryDataBySearchParamsRequest"/>
+	</message>
+	<message name="GetDictionaryDataBySearchParamsResponse">
+		<part name="parameter" element="tns:GetDictionaryDataBySearchParamsResponse"/>
+	</message>
+	<message name="GetExpiredDateBySecurityTokenRequest">
+		<part name="parameter" element="tns:GetExpiredDateBySecurityTokenRequest"/>
+	</message>
+	<message name="GetExpiredDateBySecurityTokenResponse">
+		<part name="parameter" element="tns:GetExpiredDateBySecurityTokenResponse"/>
+	</message>
+	<message name="GetRawDictionariesDataBySearchParamsRequest">
+		<part name="parameter" element="tns:GetRawDictionariesDataBySearchParamsRequest"/>
+	</message>
+	<message name="GetRawDictionariesDataBySearchParamsResponse">
+		<part name="parameter" element="tns:GetRawDictionariesDataBySearchParamsResponse"/>
+	</message>
+	<message name="GetSynchronizationStatusesRequestByRecordId">
+		<part name="parameter" element="tns:GetSynchronizationStatusesRequestByRecordId"/>
+	</message>
+	<message name="GetSynchronizationStatusesResponseByRecordId">
+		<part name="parameter" element="tns:GetSynchronizationStatusesResponseByRecordId"/>
+	</message>
+	<message name="GetShortDictionaryDataBySearchParamsRequest">
+		<part name="parameter" element="tns:GetShortDictionaryDataBySearchParamsRequest"/>
+	</message>
+	<message name="GetShortDictionaryDataBySearchParamsResponse">
+		<part name="parameter" element="tns:GetShortDictionaryDataBySearchParamsResponse"/>
+	</message>
+	<portType name="DictionaryInformation">
+		<operation name="GetDictionaryTablesBySearchParams">
+			<documentation>Запрос справочников по поисковым параметрам</documentation>
+			<input message="tns:GetDictionaryTablesBySearchParamsRequest"/>
+			<output message="tns:GetDictionaryTablesBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetDictionaryColumnsByTableId">
+			<documentation>Запрос полей справочников по идентификатору таблицы</documentation>
+			<input message="tns:GetDictionaryColumnsByTableIdRequest"/>
+			<output message="tns:GetDictionaryColumnsByTableIdResponse"/>
+		</operation>
+		<operation name="GetDictionaryGroupsBySearchParams">
+			<documentation>Запрос групп справочников по поисковым параметрам</documentation>
+			<input message="tns:GetDictionaryGroupsBySearchParamsRequest"/>
+			<output message="tns:GetDictionaryGroupsBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetOperatorByLoginParams">
+			<documentation>Аутентификация пользователя и получение данных оператора </documentation>
+			<input message="tns:GetOperatorByLoginParamsRequest"/>
+			<output message="tns:GetOperatorByLoginParamsResponse"/>
+		</operation>
+		<operation name="GetDictionaryDataByTableId">
+			<documentation>Запрос данных справочника по идентификатору таблицы</documentation>
+			<input message="tns:GetDictionaryDataByTableIdRequest"/>
+			<output message="tns:GetDictionaryDataByTableIdResponse"/>
+		</operation>
+		<operation name="GetBaseDictionaryDataBySearchParams">
+			<documentation>Запрос данных базового типа справочника по поисковым параметрам</documentation>
+			<input message="tns:GetBaseDictionaryDataBySearchParamsRequest"/>
+			<output message="tns:GetBaseDictionaryDataBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetDictionaryDataBySearchParams">
+			<documentation>Запрос данных справочника по поисковым параметрам </documentation>
+			<input message="tns:GetDictionaryDataBySearchParamsRequest"/>
+			<output message="tns:GetDictionaryDataBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetExpiredDateBySecurityToken">
+			<documentation>Запрос даты истечения токена безопасности. </documentation>
+			<input message="tns:GetExpiredDateBySecurityTokenRequest"/>
+			<output message="tns:GetExpiredDateBySecurityTokenResponse"/>
+		</operation>
+		<operation name="GetRawDictionariesDataBySearchParams">
+			<documentation>Запрос конкатенированных значение поисковых столбцов справочника по поисковым параметрам </documentation>
+			<input message="tns:GetRawDictionariesDataBySearchParamsRequest"/>
+			<output message="tns:GetRawDictionariesDataBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetSynchronizationStatusesByRecordId">
+			<documentation>Запрос статуса синхронизации по идентификатору записи в БД НСИ</documentation>
+			<input message="tns:GetSynchronizationStatusesRequestByRecordId"/>
+			<output message="tns:GetSynchronizationStatusesResponseByRecordId"/>
+		</operation>
+		<operation name="GetShortDictionaryDataBySearchParams">
+			<documentation>Запрос кратких данных справочника по поисковым параметрам. В возвращаемые данные входит идентификатор строки справочника, код позиции справочника и полное название позиции справочника </documentation>
+			<input message="tns:GetShortDictionaryDataBySearchParamsRequest"/>
+			<output message="tns:GetShortDictionaryDataBySearchParamsResponse"/>
+		</operation>
+	</portType>
+	<binding name="DictionaryInformationPortBinding" type="tns:DictionaryInformation">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="GetDictionaryTablesBySearchParams">
+			<soap:operation soapAction="urn:#GetDictionariesBySearchParams"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDictionaryColumnsByTableId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDictionaryGroupsBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOperatorByLoginParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDictionaryDataByTableId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetBaseDictionaryDataBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDictionaryDataBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetExpiredDateBySecurityToken">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetRawDictionariesDataBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetSynchronizationStatusesByRecordId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetShortDictionaryDataBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="DictionaryInformationService">
+		<port name="DictionaryInformationPort" binding="tns:DictionaryInformationPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

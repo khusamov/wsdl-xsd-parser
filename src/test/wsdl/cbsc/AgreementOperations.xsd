@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:tns="http://agreement.operations.eirc.mos.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" targetNamespace="http://agreement.operations.eirc.mos.ru" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:complexType name="CreateAgreementRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода CreateAgreement.
+Заполняются поля AgreementId, AgreementNumber, AgreementType.Code, AgreementStatus.Code, DateStart, Services.Id, Parties.PartyId, Addresses, Attachments.AttachmentType.Code, Attachments.AttachmentType.AttachmentNumber
+
+В дополнительных параметрах передается Agreement.AdditionalCharacteristics.ConnectedManagingAgreementId </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="Agreement" type="dom:Agreement" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CreateAgreementRequest" type="tns:CreateAgreementRequest"/>
+	<xs:element name="CreateAgreementResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult">
+								<xs:sequence>
+									<xs:element name="AgreementId" type="xs:integer" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>идентификатор созданного договора</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyAgreementRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода ModifyAgreement.
+
+Возможные к заполнениям поля 
+AgreementId, 
+AgreementNumber,
+AgreementType.Code, 
+AgreementStatus.Code, DateStart, Services.Id, Parties.PartyId, Addresses, Attachments.AttachmentType.Code, Attachments.AttachmentType.AttachmentNumber</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Вид действия со столбцами словаря</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Agreement" type="dom:Agreement" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Данные договора</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ModifyAgreementRequest" type="tns:ModifyAgreementRequest"/>
+	<xs:element name="ModifyAgreementResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

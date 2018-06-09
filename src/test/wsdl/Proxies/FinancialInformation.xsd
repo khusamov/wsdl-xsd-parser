@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://external.information.mos.ru/financial" targetNamespace="http://external.information.mos.ru/financial">
+	<xs:complexType name="InvoiceRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос на получение счета (ЕПДА)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UIN" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Уникальный идентификатор счета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayerCode" type="tns:PayerCodeType">
+				<xs:annotation>
+					<xs:documentation>Код плательщика</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BillingPeriod" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Период, в котором создан счет (ЕПДА)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InvoiceType" type="tns:InvoiceType">
+				<xs:annotation>
+					<xs:documentation>Тип документа (счет или ЕПДА)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetInvoiceRequest" type="tns:InvoiceRequest">
+		<xs:annotation>
+			<xs:documentation>Элемент для InvoiceRequest</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetShortInvoicesRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос для "короткого метода" на получение спика счетов</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PayerCode" type="tns:PayerCodeType">
+				<xs:annotation>
+					<xs:documentation>Код плательщика</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StartPeriod" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Начальный период (включительно), за который создан счет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EndPeriod" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Конечный период (включительно), за который создан счет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ShortInvoice">
+		<xs:annotation>
+			<xs:documentation>Элемент списка ответа для "короткого метода"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UIN" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Уникальный идентификатор счета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Period" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Период, за который выставлен счет/ЕПДА</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Service" type="tns:ContractType">
+				<xs:annotation>
+					<xs:documentation>Тип платежного документа (КЭУ или КР)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Amount" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>Сумма по счету, переданная в банк (всего)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaidInBank" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Статус квитирования Банком ВТБ (ture - оплачен, false - не оплачен)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsPaidInRnip" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Признак оплаты в РНИП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Адрес помещения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetShortInvoicesRequest" type="tns:GetShortInvoicesRequest">
+		<xs:annotation>
+			<xs:documentation>Элемент для ShortRequest</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="GetShortInvoicesResponse">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetShortInvoices</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ShortInvoice" type="tns:ShortInvoice" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="InvoiceType">
+		<xs:annotation>
+			<xs:documentation>Тип платежного документа</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EPDA"/>
+			<xs:enumeration value="Invoice"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PayerCodeType">
+		<xs:annotation>
+			<xs:documentation>Тип кода плательщика</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="1000000000"/>
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ContractType">
+		<xs:annotation>
+			<xs:documentation>Тип договора (КЭУ или КР)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Overhaul">
+				<xs:annotation>
+					<xs:documentation source="Капитальный ремонт"/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Utilities">
+				<xs:annotation>
+					<xs:documentation source="Коммунально-эксплуатационные услуги"/>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

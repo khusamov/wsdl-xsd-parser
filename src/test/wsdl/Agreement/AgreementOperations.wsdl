@@ -1,0 +1,118 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://agreement.operations.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:ns="http://domainmodel.eirc.mos.ru/core" xmlns:ns1="http://domainmodel.eirc.mos.ru/model/agreement" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://agreement.operations.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://agreement.operations.eirc.mos.ru" schemaLocation="AgreementOperations.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="CreateAgreementRelationshipRequest">
+		<part name="parameters" element="tns:CreateAgreementRelationshipRequest"/>
+	</message>
+	<message name="CreateAgreementRelationshipResponse">
+		<part name="parameters" element="tns:CreateAgreementRelationshipResponse"/>
+	</message>
+	<message name="CreateManagingCompanyRequest">
+		<part name="parameter" element="tns:CreateManagingCompanyRequest"/>
+	</message>
+	<message name="CreateManagingCompanyResponse">
+		<part name="parameter" element="tns:CreateManagingCompanyResponse"/>
+	</message>
+	<message name="CreateAgreementRequest">
+		<part name="parameter" element="tns:CreateAgreementRequest"/>
+	</message>
+	<message name="CreateAgreementResponse">
+		<part name="parameter" element="tns:CreateAgreementResponse"/>
+	</message>
+	<message name="CreateAgreementsListRequest">
+		<part name="parameter" element="tns:CreateAgreementsListRequest"/>
+	</message>
+	<message name="CreateAgreementsListResponse">
+		<part name="parameter" element="tns:CreateAgreementsListResponse"/>
+	</message>
+	<message name="ModifyAgreementRequest">
+		<part name="parameter" element="tns:ModifyAgreementRequest"/>
+	</message>
+	<message name="ModifyAgreementResponse">
+		<part name="parameter" element="tns:ModifyAgreementResponse"/>
+	</message>
+	<portType name="AgreementOperations">
+		<operation name="CreateAgreementRelationship">
+			<documentation>Создание договора на расчет или другой связи договоров</documentation>
+			<input message="tns:CreateAgreementRelationshipRequest"/>
+			<output message="tns:CreateAgreementRelationshipResponse"/>
+		</operation>
+		<operation name="CreateManagingCompany">
+			<documentation>Создание управляющей компании</documentation>
+			<input message="tns:CreateManagingCompanyRequest"/>
+			<output message="tns:CreateManagingCompanyResponse"/>
+		</operation>
+		<operation name="CreateAgreement">
+			<documentation>Создание договора</documentation>
+			<input message="tns:CreateAgreementRequest"/>
+			<output message="tns:CreateAgreementResponse"/>
+		</operation>
+		<operation name="CreateAgreementsList">
+			<documentation>Создание списка договоров</documentation>
+			<input message="tns:CreateAgreementsListRequest"/>
+			<output message="tns:CreateAgreementsListResponse"/>
+		</operation>
+		<operation name="ModifyAgreement">
+			<documentation>Изменение договора</documentation>
+			<input message="tns:ModifyAgreementRequest"/>
+			<output message="tns:ModifyAgreementResponse"/>
+		</operation>
+	</portType>
+	<binding name="AgreementOperationsPortBinding" type="tns:AgreementOperations">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="CreateAgreementRelationship">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateManagingCompany">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateAgreement">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateAgreementsList">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyAgreement">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="AgreementOperationsService">
+		<port name="AgreementOperationsPort" binding="tns:AgreementOperationsPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

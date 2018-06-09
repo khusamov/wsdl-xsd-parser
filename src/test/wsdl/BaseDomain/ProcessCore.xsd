@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://domainmodel.eirc.mos.ru/core" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="OperationResult">
+		<xs:annotation>
+			<xs:documentation>Результат регистрации заявки или шага заявки. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ErrorCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код ошибки выполнения операции
+1 - без ошибок
+2 - ошибка
+3 - неверный пароль или логин
+4 - нет прав доступа
+5 - ошибка валидации исходных данных для выполнения операции
+6 - объект запроса на операцию есть null </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ErrorDescription" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание ошибки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Characteristic">
+		<xs:annotation>
+			<xs:documentation>Дополнительный параметр</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Имя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Value" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Значение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DataType" type="core:DataTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип данных</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PagingInfo">
+		<xs:annotation>
+			<xs:documentation>данные страничного вывода</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PageNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер страницы данных в выводе на UI</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PageSize" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Размер страницы данных</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SortOrder" type="core:Characteristic" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сортировка.
+Characteristic.Name=OrderBy
+Characteristic.DataType=String
+Characteristic.Value=название_поя:тип_сортировки,название_поля:тип_сортировки.
+тип_сортировки: A-по возрастанию, D - по убыванию
+
+Пример:debtAmount:D,debtDate:A,address:D
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BusinessProcessRequestBase">
+		<xs:annotation>
+			<xs:documentation>базовый класс бизнес-операции</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BusinessOperationId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор бизнес-операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BusinessProcessNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер бизнес-процесса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStarted" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время запуска БО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор оператор выполнившего БО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="DataTypeEnum">
+		<xs:annotation>
+			<xs:documentation>тип данных</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Integer"/>
+			<xs:enumeration value="String"/>
+			<xs:enumeration value="Date"/>
+			<xs:enumeration value="Double"/>
+			<xs:enumeration value="Boolean"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="GetReponseBase">
+		<xs:annotation>
+			<xs:documentation>базовый тип ответа get-методов</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TotalRecordCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общее количество строк, возвращаемых get-запросом, независимо от пейджинга</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ActionTypeEnum">
+		<xs:annotation>
+			<xs:documentation>Тип действия над сущностью</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None"/>
+			<xs:enumeration value="Create"/>
+			<xs:enumeration value="Read"/>
+			<xs:enumeration value="Update"/>
+			<xs:enumeration value="Delete"/>
+			<xs:enumeration value="Activate"/>
+			<xs:enumeration value="Deactivate"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="UniqueIdentifier">
+		<xs:annotation>
+			<xs:documentation>Уникальный идентификатор сущности во всех окружных БД</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EntityId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор сущности в окружной БД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DbInstanceId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор окружной БД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OperatorDetails">
+		<xs:annotation>
+			<xs:documentation>Данные оператора</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор оператора в АСУ ЕИРЦ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Login" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>логин оператора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Password" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пароль оператора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubscriberInformation">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>Информация о пользователе метода</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SubscriberName" type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>Название системы-потребителя </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Login" type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>Имя пользователя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegionId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор окружной БД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SubscriberInformation" type="core:SubscriberInformation"/>
+	<xs:simpleType name="BusinessProcessState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Unknown"/>
+			<xs:enumeration value="Registering"/>
+			<xs:enumeration value="InProgress"/>
+			<xs:enumeration value="Faulted"/>
+			<xs:enumeration value="Cancelled"/>
+			<xs:enumeration value="Completed"/>
+			<xs:enumeration value="Waiting"/>
+			<xs:enumeration value="ExpiredWaitingPeriod"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="MessageId" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Уникальный идентификатор сообщения в форме guid</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CorrelationId" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Идентификатор связанного сообщения, т.е. MessageId перавоначального сообщения, в ответ на который асинхронно отправляется callback-сообщение</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="DayOfWeekEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Monday"/>
+			<xs:enumeration value="Tuesday"/>
+			<xs:enumeration value="Wensday"/>
+			<xs:enumeration value="Thirsday"/>
+			<xs:enumeration value="Friday"/>
+			<xs:enumeration value="Saturday"/>
+			<xs:enumeration value="Sunday"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

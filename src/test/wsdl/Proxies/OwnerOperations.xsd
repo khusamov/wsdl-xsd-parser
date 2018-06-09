@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://external.operations.mos.ru/owner" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:extcore="http://external.model.eirc.mos.ru/core" targetNamespace="http://external.operations.mos.ru/owner" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:import namespace="http://external.model.eirc.mos.ru/core" schemaLocation="../BaseDomain/ExternalCore.xsd"/>
+	<xs:complexType name="ChangeOwnerRequest">
+		<xs:sequence>
+			<xs:element name="CadastralNumder" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>кадастровый номер объекта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateChangeOwnership" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>дата смены собственника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateEgrp" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>дата ЕГРП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NumEgrp" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Номер ЕГРП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChangingOrganizations" type="tns:ChangeOrganzationRequestItem" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изменяемые данные собственников - юр лиц</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChangingIndividuals" type="tns:ChangeIndividualRequestItem" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изменяемые данные собственников - физ лиц</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FileContent" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>Выписка ЕГРП zip-архив подписанный ЭП </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ChangeOwnerRequest" type="tns:ChangeOwnerRequest"/>
+	<xs:element name="ChangeOwnerResponse" type="extcore:ExternalOperationResult"/>
+	<xs:complexType name="ChangeIndividualRequestItem">
+		<xs:sequence>
+			<xs:element name="IndividualOld" type="dom:Individual" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>данные прежнего собственника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IndividualNew" type="dom:Individual" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>данные нового собственника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeOrganzationRequestItem">
+		<xs:sequence>
+			<xs:element name="OrganizationOld" type="dom:Organization" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>данные прежнего собственника - юр лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganizationNew" type="dom:Organization" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>данные нового собственника - юр лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

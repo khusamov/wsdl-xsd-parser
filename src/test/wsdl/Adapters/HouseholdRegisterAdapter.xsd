@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://household.register.adapter.eirc.mos.ru" xmlns:core="http://domainmodel.eirc.mos.ru/core" targetNamespace="http://household.register.adapter.eirc.mos.ru" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:complexType name="LoadHouseholdRegisterFullRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода LoadHouseholdRegisterFull</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:element name="LoadHouseholdRegisterFullRequest" type="tns:LoadHouseholdRegisterFullRequest">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LoadHouseholdRegisterFullResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="LoadHouseholdRegisterIncrementalRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода LoadHouseholdRegisterIncremental.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DateStart" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Дата/время начала временного диапазона изменений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFinish" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Дата/время конца временного диапазона изменений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="LoadHouseholdRegisterIncrementalRequest" type="tns:LoadHouseholdRegisterIncrementalRequest">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LoadHouseholdRegisterIncrementalResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,322 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://agreement.information.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:agreement="http://domainmodel.eirc.mos.ru/model/agreement" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://agreement.information.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://agreement.information.eirc.mos.ru" schemaLocation="AgreementInformation.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/model/agreement" schemaLocation="AgreementModel.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="GetAgreementsBySearchParamsRequest">
+		<part name="parameter" element="tns:GetAgreementsBySearchParamsRequest"/>
+	</message>
+	<message name="GetAgreementsBySearchParamsResponse">
+		<part name="parameter" element="tns:GetAgreementsBySearchParamsResponse"/>
+	</message>
+	<message name="GetAgreementsRelationshipsBySearchParamsRequest">
+		<part name="parameter" element="tns:GetAgreementsRelationshipsBySearchParamsRequest"/>
+	</message>
+	<message name="GetAgreementsRelationshipsBySearchParamsResponse">
+		<part name="parameter" element="tns:GetAgreementsRelationshipsBySearchParamsResponse"/>
+	</message>
+	<message name="GetDictionaryDetailsBySearchParamsRequest">
+		<part name="parameter" element="tns:GetDictionaryDetailsBySearchParamsRequest"/>
+	</message>
+	<message name="GetDictionaryDetailsBySearchParamsResponse">
+		<part name="parameter" element="tns:GetDictionaryDetailsBySearchParamsResponse"/>
+	</message>
+	<message name="GetHousesNumbersByStreetIdRequest">
+		<part name="parameter" element="tns:GetHousesNumbersByStreetIdRequest"/>
+	</message>
+	<message name="GetHousesNumbersByStreetIdResponse">
+		<part name="parameter" element="tns:GetHousesNumbersByStreetIdResponse"/>
+	</message>
+	<message name="GetOrganizationsBySearchParamsRequest">
+		<part name="parameter" element="tns:GetOrganizationsBySearchParamsRequest"/>
+	</message>
+	<message name="GetOrganizationsBySearchParamsResponse">
+		<part name="parameter" element="tns:GetOrganizationsBySearchParamsResponse"/>
+	</message>
+	<message name="GetServicesBySupplierCompanyIdRequest">
+		<part name="parameter" element="tns:GetServicesBySupplierCompanyIdRequest"/>
+	</message>
+	<message name="GetServicesBySupplierCompanyIdResponse">
+		<part name="parameter" element="tns:GetServicesBySupplierCompanyIdResponse"/>
+	</message>
+	<message name="GetAllServicesRequest">
+		<part name="parameter" element="tns:GetAllServicesRequest"/>
+	</message>
+	<message name="GetAllServicesResponse">
+		<part name="parameter" element="tns:GetAllServicesResponse"/>
+	</message>
+	<message name="GetEntrancesListByHouseAddressRequest">
+		<part name="parameter" element="tns:GetEntrancesListByHouseAddressRequest"/>
+	</message>
+	<message name="GetEntrancesListByHouseAddressResponse">
+		<part name="parameter" element="tns:GetEntrancesListByHouseAddressResponse"/>
+	</message>
+	<message name="GetIndividualsListBySearchParamsRequest">
+		<part name="parameter" element="tns:GetIndividualsListBySearchParamsRequest"/>
+	</message>
+	<message name="GetIndividualsListBySearchParamsResponse">
+		<part name="parameter" element="tns:GetIndividualsListBySearchParamsResponse"/>
+	</message>
+	<message name="GetAppartmentsListByAddressRequest">
+		<part name="parameter" element="tns:GetAppartmentsListByAddressRequest"/>
+	</message>
+	<message name="GetAppartmentsListByAddressResponse">
+		<part name="parameter" element="tns:GetAppartmentsListByAddressResponse"/>
+	</message>
+	<message name="GetOperatorByLoginParamsRequest">
+		<part name="parameters" element="tns:GetOperatorByLoginParamsRequest"/>
+	</message>
+	<message name="GetOperatorByLoginParamsResponse">
+		<part name="parameters" element="tns:GetOperatorByLoginParamsResponse"/>
+	</message>
+	<message name="GetBankSuppliersCodesBySearchParamsRequest">
+		<part name="parameter" element="tns:GetBankSuppliersCodesBySearchParamsRequest"/>
+	</message>
+	<message name="GetBankSuppliersCodesBySearchParamsResponse">
+		<part name="parameter" element="tns:GetBankSuppliersCodesBySearchParamsResponse"/>
+	</message>
+	<message name="GetDocumentBinaryByAttachmentIdRequest">
+		<part name="parameter" element="tns:GetDocumentBinaryByAttachmentIdRequest"/>
+	</message>
+	<message name="GetDocumentBinaryByAttachmentIdResponse">
+		<part name="parameter" element="tns:GetDocumentBinaryByAttachmentIdResponse"/>
+	</message>
+	<message name="GetExpiredDateBySecurityTokenRequest">
+		<part name="parameter" element="tns:GetExpiredDateBySecurityTokenRequest"/>
+	</message>
+	<message name="GetExpiredDateBySecurityTokenResponse">
+		<part name="parameter" element="tns:GetExpiredDateBySecurityTokenResponse"/>
+	</message>
+	<message name="GetRHAgreementsBySearchParamsRequest">
+		<part name="parameter" element="tns:GetRHAgreementsBySearchParamsRequest"/>
+	</message>
+	<message name="GetRHAgreementsBySearchParamsResponse">
+		<part name="parameter" element="tns:GetRHAgreementsBySearchParamsResponse"/>
+	</message>
+	<portType name="AgreementInformation">
+		<operation name="GetAgreementsBySearchParams">
+			<documentation>Запрос договоров по поисковым параметрам</documentation>
+			<input message="tns:GetAgreementsBySearchParamsRequest"/>
+			<output message="tns:GetAgreementsBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetAgreementsRelationshipsBySearchParams">
+			<documentation>Запрос отношений между договорами по поисковым параметрам</documentation>
+			<input message="tns:GetAgreementsRelationshipsBySearchParamsRequest"/>
+			<output message="tns:GetAgreementsRelationshipsBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetDictionaryDetailsBySearchParams">
+			<documentation>Запрос справочных данных</documentation>
+			<input message="tns:GetDictionaryDetailsBySearchParamsRequest"/>
+			<output message="tns:GetDictionaryDetailsBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetHousesNumbersByStreetId">
+			<documentation>Запрос номеров домов по идентификатору улицы</documentation>
+			<input message="tns:GetHousesNumbersByStreetIdRequest"/>
+			<output message="tns:GetHousesNumbersByStreetIdResponse"/>
+		</operation>
+		<operation name="GetOrganizationsBySearchParams">
+			<documentation>Запрос организаций по поисковым параметрам</documentation>
+			<input message="tns:GetOrganizationsBySearchParamsRequest"/>
+			<output message="tns:GetOrganizationsBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetServicesBySupplierCompanyId">
+			<documentation>Запрос списка услуг по идентификатору поставщика</documentation>
+			<input message="tns:GetServicesBySupplierCompanyIdRequest"/>
+			<output message="tns:GetServicesBySupplierCompanyIdResponse"/>
+		</operation>
+		<operation name="GetAllServices">
+			<documentation>Запрос списка всех услуг</documentation>
+			<input message="tns:GetAllServicesRequest"/>
+			<output message="tns:GetAllServicesResponse"/>
+		</operation>
+		<operation name="GetEntrancesListByHouseAddress">
+			<documentation>Запрос списка подъездов по адресу дома</documentation>
+			<input message="tns:GetEntrancesListByHouseAddressRequest"/>
+			<output message="tns:GetEntrancesListByHouseAddressResponse"/>
+		</operation>
+		<operation name="GetIndividualsListBySearchParams">
+			<documentation>Запрос списка физ лиц по поисковым параметрам</documentation>
+			<input message="tns:GetIndividualsListBySearchParamsRequest"/>
+			<output message="tns:GetIndividualsListBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetAppartmentsListByAddress">
+			<documentation>Запрос списка помещений по адресу дома и подъезду</documentation>
+			<input message="tns:GetAppartmentsListByAddressRequest"/>
+			<output message="tns:GetAppartmentsListByAddressResponse"/>
+		</operation>
+		<operation name="GetOperatorByLoginParams">
+			<documentation>Аутентификация пользователя и получение данных
+				оператора </documentation>
+			<input message="tns:GetOperatorByLoginParamsRequest"/>
+			<output message="tns:GetOperatorByLoginParamsResponse"/>
+		</operation>
+		<operation name="GetBankSuppliersCodesBySearchParams">
+			<documentation>Запрос списка кодов поставщиков банка по идентификатору организации и поисковым параметрам</documentation>
+			<input message="tns:GetBankSuppliersCodesBySearchParamsRequest"/>
+			<output message="tns:GetBankSuppliersCodesBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetDocumentBinaryByAttachmentId">
+			<documentation>Запрос бинарного документа по идентификатору бинарного вложения</documentation>
+			<input message="tns:GetDocumentBinaryByAttachmentIdRequest"/>
+			<output message="tns:GetDocumentBinaryByAttachmentIdResponse"/>
+		</operation>
+		<operation name="GetExpiredDateBySecurityToken">
+			<documentation>Запрос даты истечения токена безопасности.</documentation>
+			<input message="tns:GetExpiredDateBySecurityTokenRequest"/>
+			<output message="tns:GetExpiredDateBySecurityTokenResponse"/>
+		</operation>
+		<operation name="GetRHAgreementsBySearchParams">
+			<documentation>Запрос договоров с данными по УО из ГИС РД по поисковым параметрам</documentation>
+			<input message="tns:GetRHAgreementsBySearchParamsRequest"/>
+			<output message="tns:GetRHAgreementsBySearchParamsResponse"/>
+		</operation>
+	</portType>
+	<binding name="AgreementInformationPortBinding" type="tns:AgreementInformation">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="GetAgreementsBySearchParams">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetAgreementsRelationshipsBySearchParams">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDictionaryDetailsBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetHousesNumbersByStreetId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOrganizationsBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetServicesBySupplierCompanyId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetAllServices">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetEntrancesListByHouseAddress">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetIndividualsListBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetAppartmentsListByAddress">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOperatorByLoginParams">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetBankSuppliersCodesBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDocumentBinaryByAttachmentId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetExpiredDateBySecurityToken">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetRHAgreementsBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="AgreementInformationService">
+		<port name="AgreementInformationPort" binding="tns:AgreementInformationPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

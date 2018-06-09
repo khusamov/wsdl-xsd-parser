@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://external.information.mos.ru/financial" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:extcore="http://external.model.eirc.mos.ru/core" targetNamespace="http://external.information.mos.ru/financial">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://external.information.mos.ru/financial" schemaLocation="FinancialInformation.xsd"/>
+			<xsd:import namespace="http://external.model.eirc.mos.ru/core" schemaLocation="../BaseDomain/ExternalCore.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="SubscriberInformation">
+		<wsdl:part name="SubscriberInformation" element="extcore:ExternalSubscriberInformation"/>
+	</wsdl:message>
+	<wsdl:message name="GetShortInvoicesRequest">
+		<wsdl:part name="GetShortInvoicesRequest" element="tns:GetShortInvoicesRequest"/>
+	</wsdl:message>
+	<wsdl:message name="GetShortInvoicesResponse">
+		<wsdl:part name="GetShortInvoicesResponse" element="tns:GetShortInvoicesResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="InvoiceInformationPort">
+		<wsdl:documentation>служба, предоставляющая финансовую информацию</wsdl:documentation>
+		<wsdl:operation name="GetShortInvoices">
+			<wsdl:documentation>Запрос кратких данных инвойсов</wsdl:documentation>
+			<wsdl:input name="GetShortInvoicesRequest" message="tns:GetShortInvoicesRequest"/>
+			<wsdl:output name="GetShortInvoicesResponse" message="tns:GetShortInvoicesResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="InvoiceInformationPortSoap11" type="tns:InvoiceInformationPort">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="GetShortInvoices">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="GetShortInvoicesRequest">
+				<soap:body use="literal"/>
+				<soap:header message="tns:SubscriberInformation" part="SubscriberInformation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="GetShortInvoicesResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="InvoiceInformationService">
+		<wsdl:port name="InvoiceInformationPortSoap11" binding="tns:InvoiceInformationPortSoap11">
+			<soap:address location="http://localhost:8080/ws"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

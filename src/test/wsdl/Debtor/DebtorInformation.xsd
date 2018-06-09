@@ -1,0 +1,2807 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://debtorinformation.eirc.mos.ru" xmlns:debtor="http://domainmodel.eirc.mos.ru/model/debtor" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:dom="http://domainmodel.eirc.mos.ru/model" targetNamespace="http://debtorinformation.eirc.mos.ru" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model/debtor" schemaLocation="DebtorModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:complexType name="GetDebtorsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDebtors</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DueDate" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата/время, на которое предоставляются данные должников. В случае пустой даты, данные представляются на текущую дату.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDebtorsRequest" type="tns:GetDebtorsRequest"/>
+	<xs:complexType name="GetDebtorsResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDebtors</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="tns:GetDebtorResultItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GetDebtorResultItem">
+		<xs:annotation>
+			<xs:documentation>линейка ответа метода GetDebtors</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные должника.
+PartyType.Code = Individual
+
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OwnershipType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип собственности
+Code Owner 
+Name собственник
+или
+Code Renter 
+Name наниматель
+
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Notifications" type="debtor:DebtorNotification" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Массив уведомлений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Debts" type="debtor:Debt" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Массив долгов в привязке к услугам</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TotalDebtAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общий долг</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastPayment" type="debtor:Payment" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Последний платеж</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные параметры
+
+Процент последнего платежа:
+Name:lastPaymentPercent
+DataType:String
+
+Время последнего платежа:
+Name:lastPaymentPeriod
+DataType:String
+
+Срок задолженности:
+Name:debtPeriod
+DataType:String
+
+Общий долг, включая все услуги:
+Name:totalDebtAllServicesAmount
+DataType:String
+
+Количество собственников:
+Name:ownersNumber
+DataType:String
+
+Признак наличия платежного соглашения:
+Name:paymentAgreementStatus
+DataType:String
+Value: 
+Created - Выполнено
+InProcess
+Canceled
+Expired - Просрочено
+CanceledByExpiration
+Finished
+FinishedInAdvance
+FinishedWithExpiration
+Активные статусы InProcess, Expired. Остальные статусы неактивны.
+
+Признак наличия долга на разных стадиях ПИР
+Name:isDebtOnDifferentStages
+DataType:Boolean
+
+Признак наличия ограничения коммунальных услуг:
+Name:utilityActionStatus
+DataType:String
+Value: Limited или Suspended
+
+Стадия, на которой находится должник:
+Name:debtorStage
+DataType:String
+Value: PretrialProceeding, LawCaseProceeding, LawCaseExecution, UtilityAction, Several(несколько)
+
+Признак наличия места рождения:
+Name:isBirthPlaceExists
+DataType:Boolean
+
+Признак наличия даты рождения:
+Name:isBirthDateExists
+DataType:Boolean
+
+Признак наличия адреса регистрации:
+Name:isRegistrationAddressExists
+DataType:Boolean
+
+Признак наличия паспорта:
+Name:isPassportExists
+DataType:Boolean
+
+Признак наличия внешнего дела:
+Name:isExternalDebtorActionExists
+DataType:Boolean
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDebtorsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDebtorsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetPretrialProceedingsRequest">
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DueDate" type="xs:dateTime" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetPretrialProceedingsRequest" type="tns:GetPretrialProceedingsRequest"/>
+	<xs:complexType name="GetPretrialProceedingResultItem">
+		<xs:sequence>
+			<xs:element name="PretrialProceeding" type="debtor:PretrialProceeding" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetPretrialProceedingsResult">
+		<xs:sequence>
+			<xs:element name="ResultItems" type="tns:GetPretrialProceedingResultItem" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetPretrialProceedingsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetPretrialProceedingsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDocumentOrdersFromMfcRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDocumentOrdersFromMfc</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата, с которой ищутся заявки. В случае пустых значений, выбираются все заявки</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateTo" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата, по которую ищутся заявки. В случае пустых значений, выбираются все заявки.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDocumentOrdersFromMfcRequest" type="tns:GetDocumentOrdersFromMfcRequest"/>
+	<xs:complexType name="GetDocumentOrdersFromMfcResultItem">
+		<xs:annotation>
+			<xs:documentation>линейка ответа метода GetDocumentOrdersFromMfc</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BusinessProcessId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор БО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BusinessProcessNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер БП  созданного в ПИР, используемого для запроса документов в МФЦ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата запроса документов в МФЦ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Должник</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentTypes" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Массив типов документов, запрошенных в МФЦ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус заявки:
+Status.Code=
+Registered - Зарегистрирована
+InProcess - В процессе
+Finished - Завершена</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Priority" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Приоритет:
+Priority.Code=
+Normal - Обычный
+Urgent - Срочный</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SupplierId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор управляющей компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор оператора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsCommonDocumentComplect" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак  стандартного комплекта документов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentsPackagesNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество пакетов документов, создаваемых в МФЦ по данному запросу</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Note" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные параметры. 
+
+Для отображения на форме номера заказа документов МФЦ
+Code: ExposeRequestId
+DataType: Integer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetDocumentOrdersFromMfcResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDocumentOrdersFromMfc</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="tns:GetDocumentOrdersFromMfcResultItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDocumentOrdersFromMfcResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDocumentOrdersFromMfcResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetExtendedDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос карточки должника</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные должника.
+Заполняются Debtor.PartyId и Debtor.PersonalAccountNumber</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DueDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время на которую запрошены данные. По умолчанию - текущая дата/время</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetExtendedDebtorRequest" type="tns:GetExtendedDebtorRequest"/>
+	<xs:complexType name="GetExtendedDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ карточки должника</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные должника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OwnershipType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип собственности
+Code Owner 
+Name собственник
+или
+Code Renter 
+Name наниматель
+
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DueAmountTotal" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сумма долга всего</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DueAmountUtility" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сумма долга за ЖКУ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebtPeriod" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Срок задолженности</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SocialStatus" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Социальное положение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OwnersNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество собственников</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные параметры
+
+Признак наличия платежного соглашения:
+Name:paymentAgreementStatus
+DataType:String
+Value: 
+Created - Выполнено
+InProcess
+Canceled
+Expired - Просрочено
+CanceledByExpiration
+Finished
+FinishedInAdvance
+FinishedWithExpiration
+Активные статусы Created, Expired. Остальные статусы неактивны.
+
+Признак наличия досудебного разбирательства в активном статус:
+Name:IsPretrialProceedingActive
+DataType:Boolean
+Value: true
+
+Признак наличия судопроизводства в активном статусе:
+Name: IsLawCaseProceedingActive
+DataType:Boolean
+Value: true
+
+Признак наличия судопроизводства статусе Иск возвращен заявителю:
+Name: IsLawCaseProceedingReturned
+DataType:Boolean
+Value: true
+
+Признак наличия судопроизводства статусе Оставлено без движения:
+Name: IsLawCaseProceedingInProcess
+DataType:Boolean
+Value: true
+
+Признак наличия дела в суде в активном статусе:
+Name: IsLawCaseExecutionActive
+DataType:Boolean
+Value: true
+
+Признак наличия судопроизводства статусе Отказано в рассмотрении:
+Name: IsLawCaseProceedingDenied
+DataType:Boolean
+Value: true</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetExtendedDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetExtendedDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDebtorsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDebtorsBySearchParams.
+
+Для сортировки по коду плательщика: SortOrder.Value: payerCode:A или payerCode:D</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Возможные значения фильтров:
+
+Тип поля поиска
+Name: searchFieldType
+Value: fullName, fullAddress или payerCode
+DataType: String</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение. ФИО, адрес должника или код плательщика</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalFilter" type="debtor:SearchTemplate" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>По умолчанию необходимо передавать  DebtType = MCPeriod</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDebtorsBySearchParamsRequest" type="tns:GetDebtorsBySearchParamsRequest"/>
+	<xs:element name="GetDebtorsBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDebtorsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetLawCaseProceedingsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода получения списка судопроизводств. 
+
+Сортировка по статусу
+SortOrder.Characteristic.Name=orderBy
+SortOrder.Characteristic.DataType=String
+Value = status:A
+
+Сортировка по дате изменения
+SortOrder.Characteristic.Name=orderBy
+SortOrder.Characteristic.DataType=String
+Value = changeDate:A
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DueDate" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Для отображения страницы первичных заявок передается
+
+Возможные значения фильтров:
+Для возврата заявок 
+В стадии Зарегистрирована для отображения на вкладке судопроизводства (Подготовка документов)/(Зарегистрированные)
+Name: Status
+Value: LawCaseProcPrepareRegistered
+DataType: String
+В стадии В работе для отображения на вкладке судопроизводства (Подготовка документов)/(В работе)
+Name: Status
+Value: LawCaseProcPrepareInProcess
+DataType: String
+В стадии Выполненные для отображения на вкладке судопроизводства (Подготовка документов)/(Выполненные)
+Name: Status
+Value: LawCaseProcPrepareExecuted
+DataType: String
+В стадии Сформировано для отображения на вкладке судопроизводства (Подготовка документов)/(Завершенные)
+Name: Status
+Value: LawCaseProcPrepareFinished
+DataType: String
+В стадии Сформировано для отображения на вкладке судопроизводства (Подача заявления)/(Активные)
+Name: Status
+Value: LawCaseProcSubmitActive
+DataType: String
+В стадии Отказано во рассмотрении/принято в производство для отображения на вкладке судопроизводства (Подача заявления)/(Завершенные)
+Name: Status
+Value: LawCaseProcSubmitFinished
+DataType: String
+
+Для возврата всех данных судопроизводства, независимо от статуса
+Name: Status
+Value: LawCaseProcAll
+DataType: String
+
+Для возврата всех данных судопроизводства на вкладке (Подготовка документов)
+Name: Status
+Value: LawCaseProcPrepareAll
+DataType: String
+
+Для возврата всех данных судопроизводства на вкладке (Судебное производство)
+Name: Status
+Value: LawCaseProcCourtDecisionAll
+DataType: String
+
+Для возврата заявок 
+В стадии (Принято в производство)для отображения на вкладке (Судебное производство)
+Name: Status
+Value: LawCaseProcCourtTakeToProceeding
+DataType: String
+В стадии (Вынесено решение) для отображения на вкладке (Судебное производство)
+Name: Status
+Value: LawCaseProcCourtDecisionRendered
+DataType: String
+В стадии (Решение вступило в силу)для отображения на вкладке (Судебное производство)
+Name: Status
+Value: LawCaseProcCourtDecisionComingToForce
+DataType: String
+В стадии (Отмененные) для отображения на вкладке (Судебное производство)
+Name: Status
+Value: LawCaseProcCourtInArchive
+DataType: String
+В стадии (Апелляция) для отображения на вкладке (Судебное производство)
+Name: Status
+Value: LawCaseProcCourtAppeal
+DataType: String
+
+Для возврата приказов на вкладке (Судебное производство)/Приказы
+Name: LawCaseProcCourtProcType
+Value: Order
+DataType: String
+
+Для возврата исков на вкладке (Судебное производство)/Иски
+Name: LawCaseProcCourtProcType
+Value: Claim
+DataType: String
+
+Для возврата завершенных дел на вкладке (Судебное производство)/(Завершенные дела)
+Name: LawCaseProcCourtProcType
+Value: DecisionComingToForce
+DataType: String
+
+Для поиска по ФИО или адресу
+Тип поля поиска
+Name: searchFieldType
+Value: fullName или fullAddress
+DataType: String
+
+Для отображения на вкладке (Исполнительное производство)/(Исполнительный док)
+Name: Status
+Value: LawCaseExecCourtReceivingObtained
+DataType: String
+
+Пример: нужно отобразить все иски в стадии (Решение вступило в силу) для данного ФИО. Заполняются следующие данные
+LawCaseProcCourtProcType = Claim, Status = LawCaseProcCourtDecisionComingToForce, searchFieldType = fullName
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение. ФИО  или адрес должника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetLawCaseProceedingsRequest" type="tns:GetLawCaseProceedingsRequest"/>
+	<xs:complexType name="GetLawCaseProceedingsResult">
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="tns:GetLawCaseProceedingResultItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GetLawCaseProceedingResultItem">
+		<xs:annotation>
+			<xs:documentation>Линейка ответа списка судопроизводств.
+Для страницы первичных заявок обязательными являются следующие поля:
+
+BusinessProcessNumber,
+DateFrom,
+Debtor,
+Status
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LawCaseProceeding" type="debtor:LawCaseProceeding" minOccurs="0"/>
+			<xs:element name="DebtAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сумма долга</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные параметры.
+
+Для передачи массива должников на одном ФЛС, на который заводятся судебные дела
+Name - DebtorIds
+Value - идентификаторы должников через запятую
+DataType - String
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetLawCaseProceedingsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetLawCaseProceedingsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetLawCaseExecutionsRequest">
+		<xs:annotation>
+			<xs:documentation>Для сортировки используется
+SortOrder - сортировка
+по дате исполнительного документа 
+Characteristic.Name=orderBy
+Characteristic.Value=dateReceivingOrder:A
+
+по номеру исполнительного производства
+Characteristic.Name=orderBy
+Characteristic.Value=dealNumber:A
+
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DueDate" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Поисковые фильтры
+Возможные значения фильтров:
+Для возврата заявок 
+В стадии Исполнительный док для отображения на вкладке Исполнительное производство (Исполнительное производство)/(Исполнительный док)
+Name: Stage
+Value: ExecDocument
+DataType: String
+
+В стадии Заявление в ФСПП для отображения на вкладке Исполнительное производство (Исполнительное производство)/(Заявление в ФСПП)
+Name: Stage
+Value: BailiffApplication
+DataType: String
+
+В стадии Исполнительное производство в работе для отображения на вкладке Исполнительное производство (Исполнительное производство)/(Исполнительное производство)/(В работе)
+Name: Stage
+Value: ExecProceeding
+DataType: String
+и
+Name: Status
+Value: InProgress
+DataType: String
+
+В стадии Исполнительное производство в работе для отображения на вкладке Исполнительное производство (Исполнительное производство)/(Исполнительное производство)/(Завершено)
+Name: Stage
+Value: ExecProceeding
+DataType: String
+и
+Name: Status
+Value: Finished
+DataType: String
+
+Для поиска по ФИО 
+Тип поля поиска
+Name: searchFieldType
+Value: fullAddress
+DataType: String
+
+Для поиска по адресу
+Тип поля поиска
+Name: searchFieldType
+Value: fullAddress
+DataType: String
+
+Для поиска по серии номеру исполнительного документа
+Тип поля поиска
+Name: searchFieldType
+Value: receivingOrderNumber
+DataType: String
+
+Для поиска по номеру исполнительного производства
+Тип поля поиска
+Name: searchFieldType
+Value: courtOrderNumber
+DataType: String
+
+Для поиска по названию подразделения ССП
+Тип поля поиска
+Name: searchFieldType
+Value: bailiffOffice
+DataType: String
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetLawCaseExecutionsRequest" type="tns:GetLawCaseExecutionsRequest"/>
+	<xs:complexType name="GetLawCaseExecutionsResult">
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="tns:GetLawCaseExecutionResultItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GetLawCaseExecutionResultItem">
+		<xs:sequence>
+			<xs:element name="LawCaseExecution" type="debtor:LawCaseExecution" minOccurs="0"/>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetLawCaseExecutionsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetLawCaseExecutionsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetUtilityActionsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetUtilityActions</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DueDate" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Поисковые фильтры
+Возможные значения фильтров:
+Для возврата заявок 
+В стадии Предупреждение для отображения на вкладке Ограничение КУ (Ограничение КУ)/(Предупреждение)
+Name: Stage
+Value: Warning
+DataType: String
+и
+Name: Status
+Value: Одно из значений All, Created, Delivered или Received DataType: String
+
+В стадии Извещение по ограничению для отображения на вкладке Ограничение КУ (Ограничение КУ)/(Извещение)
+Name: Stage
+Value: RestrictionNote
+DataType: String
+и
+Name: Status
+Value: Одно из значений All, Created, Delivered или Received DataType: String
+
+В стадии Извещение по приостановке для отображения на вкладке Ограничение КУ (Ограничение КУ)/(Извещение)
+Name: Stage
+Value: SuspensionNote
+DataType: String
+и
+Name: Status
+Value: Одно из значений All, Created, Delivered или Received DataType: String
+
+В стадии Извещение для отображения на вкладке Ограничение КУ (Ограничение КУ)/(Извещение)
+Name: Stage
+Value: Note
+DataType: String
+и
+Name: Status
+Value: Одно из значений All, Created, Delivered или Received DataType: String
+
+В стадии Распоряжение о приостановке услуг для отображения на вкладке Ограничение КУ (Ограничение КУ)/(Распоряжение)
+Name: Stage
+Value: Termination
+DataType: String
+и
+Name: Status
+Value: Одно из значений All, Limited, Suspended или Resumed
+DataType: String
+
+Для поиска по ФИО или адресу
+Тип поля поиска
+Name: searchFieldType
+Value: fullName или fullAddress
+DataType: String
+
+При этом поисковое значение передается в поле SearchValue</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetUtilityActionsRequest" type="tns:GetUtilityActionsRequest"/>
+	<xs:complexType name="GetUtilityActionsResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetUtilityActions</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="UtilityActions" type="debtor:UtilityAction" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetUtilityActionsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetUtilityActionsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetCourtsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetCourtsBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Передаются значения:
+Тип суда
+Name: CourtType
+Value: Magistrate/District
+DataType: String
+
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Поисковое значение. Номер судебного участка для мирового суда</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetCourtsBySearchParamsRequest" type="tns:GetCourtsBySearchParamsRequest"/>
+	<xs:complexType name="GetCourtsBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetCourtsBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="debtor:Court" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetCourtsBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetCourtsBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetOperatorByLoginParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetOperatorByLoginParams</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Login" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Логин оператора
+
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Password" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пароль оператора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetOperatorByLoginParamsRequest" type="tns:GetOperatorByLoginParamsRequest"/>
+	<xs:complexType name="GetOperatorByLoginParamsResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetOperatorByLoginParams</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Operator" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Возвращается поле типа Individual.
+В нем заполняются поля: 
+PartyId, FirstName, SecondName, Surname</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SecurityToken" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Маркер безопасности</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ServerVersion" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Версия серверной части ПИР</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorRoles" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Список ролей оператора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManagementCompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификаторы управляющей компании, связанной с оператором</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetOperatorByLoginParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetOperatorByLoginParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDictionaryDetailsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDictionariesBySearchParams.
+Заполняются поля 
+DictionaryCode - код справочника
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=String
+Characteristic.Value=name:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DictionaryCode" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Код словаря. 
+Используются следующие коды
+MfcDocumentType - типы документов в МФЦ на досудебной стадии
+
+LawCaseProcStatusTrialCreated - статус дела в суде на стадии судопроизводства. Из таблицы БД статусов выставляются все с кодами  IN ('CourtTakeToProceeding','Denied','Returned', 'InProcess','Archive')
+
+PaymentAgreementStatus - статус платежного соглашения
+Street - названия улиц
+Area - перечень участков для УК
+OwnershipType - тип собственности
+AppartmentType - тип квартриры
+NotificationSearchType - тип поиска уведомлений
+
+SmallDebtorActionType - для комбобокса на стр учета работы по должнику вне ПИРа. Включает Исполнительное производство и судопроизводство
+
+BailiffOffice - для комбобокса со списком судебных приставов на стр Исполнительно производство 
+
+LawCaseProcStatusTrialChanged - для комбобокса смены статуса судебного дела на странице Судопроизводство/Приказы/(Приняты в производство). Из таблицы БД статусов выставляются все с кодами  IN ('CourtTakeToProceeding','CourtDecisionRendered','CourtDecisionComingToForce','CourtReceivingObtained', 'Finished', 'Canceled', 'Archive', 'SubmitAppeal')
+
+LawCaseExecStatus - для комбобокса статуса исполнительного производства на странице (Исполнительное производство)
+
+UtilityActionType - список типов операций с коммунальными услугами
+
+UtilityActionStatus - список статусов операций с коммунальными услугами
+
+EventType - список событий в системе ПИР
+
+DebtorActionType - список стадий в системе ПИР
+
+Bank - список банков
+
+TaxAuthority - список отделений ИФНС 
+
+District - список районов
+
+CourtDocumentStandardType - типы стандартных документов в суд на стадии судопроизводства
+
+CourtDocumentNonStandardType - типы нестандартных документов в суд на стадии судопроизводства
+
+CancellationReason - Причины аннулирования дела
+
+Supplier - список поставщиков услуг
+
+DetailAbsence - список отсутствующих данных</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение строки справочника. Соответствует BaseDictionary.Name. Используется при поиске по маске строк справочника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Возможные значения:
+
+ИД Участка
+Name: AreaId
+Value: идентификатор Участка для которого ищутся улицы
+DataType: Integer
+
+БИК банка
+Name: BIC
+Value: БИК банка
+DataType: String
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryDetailsBySearchParamsRequest" type="tns:GetDictionaryDetailsBySearchParamsRequest"/>
+	<xs:complexType name="GetDictionaryDetailsBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetCourtsBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryDetailsBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDictionaryDetailsBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetNotificationsHistoryByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetNotificationsHistoryByDebtor 
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=Date
+Characteristic.Value=dateFrom:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется DebtorId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetNotificationsHistoryByDebtorRequest" type="tns:GetNotificationsHistoryByDebtorRequest"/>
+	<xs:complexType name="GetNotificationsHistoryByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetNotificationsHistoryByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="dom:Notification" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Заполняются значения NotificationType
+DateSent
+NotificationsNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetNotificationsHistoryByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetNotificationsHistoryByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetPaymentsHistoryByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetPaymentsHistoryByDebtor 
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=Date
+Characteristic.Value=dateFrom:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется DebtorId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Period" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Заполняется период расчета платежей относительно теукщей даты. По умолчанию Period = 6 - история платежей за полгода.
+
+В случае Period = -1 возвращается последний платеж.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsAllServices" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак учета платежей по всем услугам</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetPaymentsHistoryByDebtorRequest" type="tns:GetPaymentsHistoryByDebtorRequest"/>
+	<xs:complexType name="GetPaymentsHistoryByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetPaymentsHistoryByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="debtor:Payment" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Заполняются все поля</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetPaymentsHistoryByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetPaymentsHistoryByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDebtsHistoryByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDebtsHistoryByDebtor
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=Date
+Characteristic.Value=dateFrom:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется PartyId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Period" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Заполняется период расчета долга относительно теукщей даты. По умолчанию Period = 6 - история долга за полгода
+Period = 0 - показываются все долги</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDebtsHistoryByDebtorRequest" type="tns:GetDebtsHistoryByDebtorRequest"/>
+	<xs:complexType name="GetDebtsHistoryByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDebtsHistoryByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="debtor:Debt" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Заполняются все поля</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Note" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Коментарий</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDebtsHistoryByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDebtsHistoryByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetPaymentAgreementByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetPaymentAgreementByDebtor
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Запоняется DebtorId и PersonalAccountNumber</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetPaymentAgreementByDebtorRequest" type="tns:GetPaymentAgreementByDebtorRequest"/>
+	<xs:complexType name="GetPaymentAgreementByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDebtsHistoryByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PaymentAgreement" type="debtor:PaymentAgreement" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные платежного соглашения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetPaymentAgreementByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetPaymentAgreementByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetPaymentAgreementsHistoryByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetPaymentAgreementsHistoryByDebtor
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=Date
+Characteristic.Value=dateFrom:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется DebtorId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Period" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Период за который предоставляется история платежных соглашений относительно текущей даты. По умолчанию Period = 6 - история долга за полгода</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetPaymentAgreementsHistoryByDebtorRequest" type="tns:GetPaymentAgreementsHistoryByDebtorRequest"/>
+	<xs:complexType name="GetPaymentAgreementsHistoryByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetPaymentAgreementsHistoryByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="debtor:PaymentAgreement" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Заполняются все поля</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetPaymentAgreementsHistoryByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetPaymentAgreementsHistoryByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetActionsHistoryByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetActionsHistoryByDebtor
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=Date
+Characteristic.Value=dateFrom:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется DebtorId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Period" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Период за который предоставляется история действий относительно теукщей даты. По умолчанию Period = 6 - история долга за полгода</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetActionsHistoryByDebtorRequest" type="tns:GetActionsHistoryByDebtorRequest"/>
+	<xs:complexType name="GetActionsHistoryByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetActionsHistoryByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="debtor:DebtorAction" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Заполняются все поля</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetActionsHistoryByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetActionsHistoryByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetPretrialProceedingsHistoryByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetPretrialProceedingsHistoryByDebtor
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=Date
+Characteristic.Value=dateFrom:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется DebtorId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Period" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Период за который предоставляется история досудебных действий относительно теукщей даты. По умолчанию Period = 6 - история долга за полгода</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NotificationType" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Может принимать следующие значения:
+Post - только почтовые уведомления
+Phone - только уведомления по звонку
+
+В случае отсутствия элемента выдаются все данныесех типов уведомлений</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetPretrialProceedingsHistoryByDebtorRequest" type="tns:GetPretrialProceedingsHistoryByDebtorRequest"/>
+	<xs:complexType name="GetPretrialProceedingsHistoryByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetPretrialProceedingsHistoryByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="debtor:PretrialProceeding" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Заполняются поля DebtorActionId, DateFrom, 
+Type.Code - код типа нотификации из типа DebtorNotification
+Status.Code - код статуса нотификации из типа DebtorNotification
+Status.Name - название статуса нотификации из типа DebtorNotification
+
+AdditionalCharacteristics:
+Name: DateNextCall
+Value: дата последнего звонка в формате xsd:date
+DataType: String
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetPretrialProceedingsHistoryByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetPretrialProceedingsHistoryByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetLawCaseProceedingsHistoryByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetLawCaseProceedingsHistoryByDebtor
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=Date
+Characteristic.Value=dateFrom:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется DebtorId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Period" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Период за который предоставляется история действий судопроизводства относительно теукщей даты. По умолчанию Period = 6 - история долга за полгода</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetLawCaseProceedingsHistoryByDebtorRequest" type="tns:GetLawCaseProceedingsHistoryByDebtorRequest"/>
+	<xs:complexType name="GetLawCaseProceedingsHistoryByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetLawCaseProceedingsHistoryByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="debtor:LawCaseProceeding" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetLawCaseProceedingsHistoryByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetLawCaseProceedingsHistoryByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDocumentBinaryByActionIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDocumentBinaryByActionId
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DebtorActionId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор действия, при котором был сгенерирован документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDocumentBinaryByActionIdRequest" type="tns:GetDocumentBinaryByActionIdRequest"/>
+	<xs:element name="GetDocumentBinaryByActionIdResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDocumentBinaryByActionId
+
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetPaymentAgreementBinaryByPADetailsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetPaymentAgreementBinaryByPADetails
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PaymentAgreement" type="debtor:PaymentAgreement" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetPaymentAgreementBinaryByPADetailsRequest" type="tns:GetPaymentAgreementBinaryByPADetailsRequest"/>
+	<xs:element name="GetPaymentAgreementBinaryByPADetailsResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetPaymentAgreementBinaryByPADetails
+
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetEpdBinaryByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetEpdBinaryByDebtor
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Запоняется DebtorId и PersonalAccountNumber</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата формирования ЕПД. По умолчанию текущая дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetEpdBinaryByDebtorRequest" type="tns:GetEpdBinaryByDebtorRequest"/>
+	<xs:element name="GetEpdBinaryByDebtorResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetEpdBinaryByDebtor
+
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetMassOperationDetailsByIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetMassOperationStatus
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MassOperationId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор масссовой операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время запроса статуса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Для возврата только статуса массовой операции:
+
+Name: statusOnly
+Vaule:true
+DataType: Boolean
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetMassOperationDetailsByIdRequest" type="tns:GetMassOperationDetailsByIdRequest"/>
+	<xs:complexType name="GetMassOperationDetailsByIdResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetMassOperationStatus</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MassOperation" type="dom:MassOperation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Массовая операция</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время запроса данных массовой операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetMassOperationDetailsByIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetMassOperationDetailsByIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetMassOperationDocumentBinaryByIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetMassOperationDocumentBinaryById
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MassOperationId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор масссовой операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetMassOperationDocumentBinaryByIdRequest" type="tns:GetMassOperationDocumentBinaryByIdRequest"/>
+	<xs:element name="GetMassOperationDocumentBinaryByIdResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetMassOperationDocumentBinaryById
+
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetHousesNumbersByStreetIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetHousesNumbersByStreetId
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=String
+Characteristic.Value=houseNumber:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="StreetId" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор улицы в АСУ ЕИРЦ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AreaId" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор Участка в АСУ ЕИРЦ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetHousesNumbersByStreetIdRequest" type="tns:GetHousesNumbersByStreetIdRequest"/>
+	<xs:complexType name="GetHousesNumbersByStreetIdResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetHousesNumbersByStreetId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="HousesNumbers" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetHousesNumbersByStreetIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetHousesNumbersByStreetIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetApartmentTenantsDetailsByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetApartmentTenantsDetailsByDebtor
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется DebtorId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата/время запроса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetApartmentTenantsDetailsByDebtorRequest" type="tns:GetApartmentTenantsDetailsByDebtorRequest"/>
+	<xs:complexType name="GetApartmentTenantsDetailsByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetApartmentTenantsDetailsByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="Tenants" type="dom:Tenant" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Данные квартиросъемщиков</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetApartmentTenantsDetailsByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetApartmentTenantsDetailsByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetExtendedDebtDetailsByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetExtendedDebtByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время запроса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Запоняется PartyId и PersonalAccountNumber</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetExtendedDebtDetailsByDebtorRequest" type="tns:GetExtendedDebtDetailsByDebtorRequest"/>
+	<xs:complexType name="GetExtendedDebtDetailsByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetExtendedDebtByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DebtDetails" type="debtor:Debt" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Детали долга</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Note" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Коментарий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TotalPayedAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общий оплаченный долг</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CurrentPayments" type="debtor:Payment" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Оплата в текущем месяце</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetExtendedDebtDetailsByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetExtendedDebtDetailsByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetAccountCategoriesResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetAccountCategoriesResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetAccountCategoriesResult">
+		<xs:sequence>
+			<xs:element name="AccountCategories" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="TotalRecordCount" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetAccountCategoriesRequest"/>
+	<xs:element name="GetAccountCategoriesRequest" type="tns:GetAccountCategoriesRequest"/>
+	<xs:complexType name="GetMassOperationsDetailsByCompanyIdRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetMassOperationsDetailsByCompanyId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="CompanyId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор управляющей компании</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата запроса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetMassOperationsDetailsByCompanyIdRequest" type="tns:GetMassOperationsDetailsByCompanyIdRequest"/>
+	<xs:complexType name="GetMassOperationsDetailsByCompanyIdResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetMassOperationsDetailsByCompanyId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Детали массовой операции</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="tns:GetMassOperationsDetailsByCompanyIdResultItem"/>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GetMassOperationsDetailsByCompanyIdResultItem">
+		<xs:annotation>
+			<xs:documentation>Линейка ответа метода GetMassOperationsDetailsByCompanyId </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MassOperation" type="dom:MassOperation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Массовая операция</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebtMinAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Минимальный долг, начиная с которого предоставляются данные</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Street" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Название и идентификатор улицы в АСУ ЕИРЦ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HouseNumbers" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Номера домов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsPaymentAgreementIncluded" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Имеется ли Соглашение о погашении</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsEPDIncluded" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Уведомление с ЕПД или нет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Участки в терминах АСУ ЕИРЦ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные параметры</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetMassOperationsDetailsByCompanyIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetMassOperationsDetailsByCompanyIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDebtPeriodReportBinaryByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDebtPeriodReportBinaryByDebtor
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата запроса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные должника. 
+PartyId - идентификатор должника 
+PersonalAccountNumber - идентификатор лицевого счета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDebtPeriodReportBinaryByDebtorRequest" type="tns:GetDebtPeriodReportBinaryByDebtorRequest"/>
+	<xs:element name="GetDebtPeriodReportBinaryByDebtorResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDebtBinaryByDebtor
+
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetExternalActionsHistoryByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetActionsHistoryByDebtor
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=Date
+Characteristic.Value=dateFrom:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется DebtorId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetExternalActionsHistoryByDebtorRequest" type="tns:GetExternalActionsHistoryByDebtorRequest"/>
+	<xs:complexType name="GetExternalActionsHistoryByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetActionsHistoryByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="debtor:ExternalDebtorAction" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Заполняются все поля</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetExternalActionsHistoryByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetExternalActionsHistoryByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDebtOwnersDistributionsByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDebtOwnersDistributionsByDebtor
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=Date
+Characteristic.Value=dateFrom:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется PartyId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDebtOwnersDistributionsByDebtorRequest" type="tns:GetDebtOwnersDistributionsByDebtorRequest"/>
+	<xs:complexType name="GetDebtOwnersDistributionsByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDebtOwnersDistributionsByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="tns:GetDebtOwnersDistributionsByDebtorResultItem" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Заполняются все поля</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TotalRedistributionAmount" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Доступная к перераспределению сумма долга</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDebtOwnersDistributionsByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDebtOwnersDistributionsByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDebtOwnersDistributionsByDebtorResultItem">
+		<xs:annotation>
+			<xs:documentation>линейка ответа метода GetDebtOwnersDistributionsByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Owner" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>собственник</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PropertyShare" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Доля собственности</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DueAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Долг</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaidAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Оплаченный долг</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RestAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Оставшийся долг</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetDebtStagesDistributionsByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDebtStagesDistributionsByDebtor
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=Date
+Characteristic.Value=dateFrom:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется DebtorId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDebtStagesDistributionsByDebtorRequest" type="tns:GetDebtStagesDistributionsByDebtorRequest"/>
+	<xs:complexType name="GetDebtStagesDistributionsByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDebtStagesDistributionsByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="tns:GetDebtStagesDistributionsByDebtorResultItem" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Заполняются все поля</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDebtStagesDistributionsByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDebtStagesDistributionsByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDebtStagesDistributionsByDebtorResultItem">
+		<xs:annotation>
+			<xs:documentation>линейка ответа метода GetDebtStagesDistributionsByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ActionType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>стадия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Amount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Долг</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetMFCOrderDebtorsListByActionIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetLawCaseProceedingByProceedingId
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="ProceedingId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор судопроизводства</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetMFCOrderDebtorsListByActionIdRequest" type="tns:GetMFCOrderDebtorsListByActionIdRequest"/>
+	<xs:complexType name="GetMFCOrderDebtorsListByActionIdResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetLawCaseProceedingByProceedingId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="AdditionalDebtorsArrays" type="debtor:DebtorsArray" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Данные массивов дополнительных должников в случае массовой заявки в МФЦ. Заполняются только Debtor.PartyId,  Debtor.PersonalAccountNumber, Debtor.Representative.PartyId. 
+
+В каждом массиве DebtorItem первым элементом в массиве идет должник-ОКС. При остутствии ОКС первым элементом в массиве иден должник-собственник.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetMFCOrderDebtorsListByActionIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetMFCOrderDebtorsListByActionIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetEventsInformationHistoryRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetEventsInformationHistory
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=Date
+Characteristic.Value=dateFrom:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="EventType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип события. В случае пустого EventType выдаются данные по всем событиям
+
+Code = OwnerDeath, Name = Смерть собственника
+Code = OwnerChange, Name = Смена собственника
+Code = PaymentAgreementConclusion, Name = Заключение Соглашения
+Code = PartialDebtRepayment, Name = Частичное погашение задолженности
+Code = FullDebtRepayment, Name = Полное погашение задолженности
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Stage" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Стадия
+Code = PretrialProceeding, Name = Досудебная стадия
+Code = LawCaseProceeding, Name = Стадия судопроизводства
+
+При заполененном поле выдаются данные тольео для указанной стадии. В случае незаполненного поля возвращаются данные для всех стадий</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetEventsInformationHistoryRequest" type="tns:GetEventsInformationHistoryRequest"/>
+	<xs:complexType name="GetEventsInformationHistoryResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetEventsInformationHistory</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="tns:GetEventsInformationHistoryResultItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetEventsInformationHistoryResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetEventsInformationHistoryResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetEventsInformationHistoryResultItem">
+		<xs:annotation>
+			<xs:documentation>линейка ответа метода GetDebtOwnersDistributionsByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EventType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип события
+
+Code = OwnerDeath, Name = Смерть собственника
+Code = OwnerChange, Name = Смена собственника
+Code = PaymentAgreementConclusion, Name = Заключение Соглашения
+Code = PartialDebtRepayment, Name = Частичное погашение задолженности
+Code = FullDebtRepayment, Name = Полное погашение задолженности
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="EventsInformation" type="debtor:EventInformation" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetRestrictionTravelAbroadBinaryRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetRestrictionTravelAbroadBinary
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Debtors" type="debtor:Debtor" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Запоняются DebtorId и PersonalAccountNumber</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата формирования заявления. По умолчанию текущая дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetRestrictionTravelAbroadBinaryRequest" type="tns:GetRestrictionTravelAbroadBinaryRequest"/>
+	<xs:element name="GetRestrictionTravelAbroadBinaryResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetRestrictionTravelAbroadBinary
+
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDebtOnDateByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDebtOnDateByDebtor
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=Date
+Characteristic.Value=dateFrom:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется PartyId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateRequested" type="xs:date" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата, на которую запрошен долг</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDebtOnDateByDebtorRequest" type="tns:GetDebtOnDateByDebtorRequest"/>
+	<xs:complexType name="GetDebtOnDateByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDebtOnDateByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Debt" type="debtor:Debt" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDebtOnDateByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDebtOnDateByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDocumentBinaryByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDocumentBinaryByDebtor
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DocumentType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>тип документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Debtor" type="debtor:Debtor" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Запоняется DebtorId и PersonalAccountNumber</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата формирования документа. По умолчанию текущая дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDocumentBinaryByDebtorRequest" type="tns:GetDocumentBinaryByDebtorRequest"/>
+	<xs:element name="GetDocumentBinaryByDebtorResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDocumentBinaryByDebtor
+
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetExternalRequestsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetExternalRequestsBySearchParams.
+Заполняются поля 
+SearchParameters.ExtRequestType - тип запроса
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=String
+Characteristic.Value=name:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Возможные значения:
+
+Тип внешнего запроса
+Name: ExternalRequestType
+Value: Bank или TaxAuthority
+DataType: String
+
+Статус внешнего запроса
+Name: ExternalRequestStatus
+Value: InProcess, AnswerReceived, Expired
+DataType: String
+
+Для поиска по адресу запроса или адресу должника
+Тип поля поиска
+Name: SearchFieldType
+Value: RequestAddress или DebtorAddress
+DataType: String</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetExternalRequestsBySearchParamsRequest" type="tns:GetExternalRequestsBySearchParamsRequest"/>
+	<xs:complexType name="GetExternalRequestsBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetCourtsBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="debtor:ExternalRequest" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetExternalRequestsBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetExternalRequestsBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetOwnersStageDetalsByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetOwnersStageDetalsByDebtor
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Запоняется PartyId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateRequested" type="xs:date" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата, на которую запрошен долг</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StageType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип стадии, на которой находится должник
+Code = PretrialProceeding, LawCaseProceeding, LawCaseExecution, UtilityAction</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetOwnersStageDetalsByDebtorRequest" type="tns:GetOwnersStageDetalsByDebtorRequest"/>
+	<xs:complexType name="GetOwnersStageDetalsByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetOwnersStageDetalsByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="tns:GetOwnersStageDetalsByDebtorResultItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GetOwnersStageDetalsByDebtorResultItem">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetOwnersStageDetalsByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Данные должника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StageSubType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Подтип стадии должника. Заполняются поля Code и Name</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StageStatus" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Статус стадии должника. Заполняются поля Code и Name</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DealNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер дела</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ClaimAmount" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сумма иска</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetOwnersStageDetalsByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetOwnersStageDetalsByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetPenaltyByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetPenaltyByDebtor.
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Запоняется PartyId и PersonalAccountNumber</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebtorPeriodType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип долгового периода
+Code = Account, Name = Весь период ФЛС
+Code = ManagingCompany, Name = Период действия УО
+Code = Other, Name = Другой</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата запроса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные параметры
+
+Оператор ввел сумму пени вручную
+Name:IsPenaltySetManualy
+DataType:Boolean
+Value: true</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetPenaltyByDebtorRequest" type="tns:GetPenaltyByDebtorRequest"/>
+	<xs:complexType name="GetPenaltyByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetPenaltyByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PenaltyAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сумма пени</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetPenaltyByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetPenaltyByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetManagingCompanyByMcIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetManagingCompanyByMcId
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ManagingCompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор управляющей компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetManagingCompanyByMcIdRequest" type="tns:GetManagingCompanyByMcIdRequest"/>
+	<xs:complexType name="GetManagingCompanyByMcIdResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetManagingCompanyByMcId</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ManagingCompany" type="dom:Organization" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>управляющая компания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetManagingCompanyByMcIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetManagingCompanyByMcIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetWorkScheduleByPartyIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetWorkScheduleByPartyId
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PartyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор участника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Физическое лицо: PartyType.Code = Individual
+Юридическое лицо: PartyType.Code = Organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetWorkScheduleByPartyIdRequest" type="tns:GetWorkScheduleByPartyIdRequest"/>
+	<xs:complexType name="GetWorkScheduleByPartyIdResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetWorkScheduleByPartyId</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="WorkSchedule" type="dom:WorkSchedule" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>рабочее расписание</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetWorkScheduleByPartyIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetWorkScheduleByPartyIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetCourtByDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetCourtByDebtor
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Запоняется PartyId и PersonalAccountNumber</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата запроса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetCourtByDebtorRequest" type="tns:GetCourtByDebtorRequest"/>
+	<xs:complexType name="GetCourtByDebtorResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetCourtByDebtor</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Court" type="debtor:Court" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сумма пени</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetCourtByDebtorResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetCourtByDebtorResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

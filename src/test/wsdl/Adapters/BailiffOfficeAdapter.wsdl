@@ -1,0 +1,81 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://bailiffOffice.adapter.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:agreement="http://domainmodel.eirc.mos.ru/model/agreement" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="http://bailiffOffice.adapter.eirc.mos.ru/model" targetNamespace="http://bailiffOffice.adapter.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://bailiffOffice.adapter.eirc.mos.ru" schemaLocation="BailiffOfficeAdapter.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="GetDebtsByIspDocRequest">
+		<part name="parameter" element="tns:GetDebtsByIspDocRequest"/>
+	</message>
+	<message name="GetDebtsByIspDocResponse">
+		<part name="parameter" element="tns:GetDebtsByIspDocResponse"/>
+	</message>
+	<message name="GetDebtsByIpNumberRequest">
+		<part name="parameter" element="tns:GetDebtsByIpNumberRequest"/>
+	</message>
+	<message name="GetDebtsByIpNumberResponse">
+		<part name="parameter" element="tns:GetDebtsByIpNumberResponse"/>
+	</message>
+	<message name="GetDebtsByUinOivRequest">
+		<part name="parameter" element="tns:GetDebtsByUinOivRequest"/>
+	</message>
+	<message name="GetDebtsByUinOivResponse">
+		<part name="parameter" element="tns:GetDebtsByUinOivResponse"/>
+	</message>
+	<portType name="BailiffOfficeAdapter">
+		<documentation>Служба для проксирования вызовов из внутренних систем АСУ ЕИРЦ к сервисам ФСПП. </documentation>
+		<operation name="GetDebtsByIspDoc">
+			<documentation>Метод получения из ФСПП информации о задолженностях по дате и номеру исполнительного документа</documentation>
+			<input message="tns:GetDebtsByIspDocRequest"/>
+			<output message="tns:GetDebtsByIspDocResponse"/>
+		</operation>
+		<operation name="GetDebtsByIpNumber">
+			<documentation>Метод получения информации о задолженностях по номеру исполнительного производства</documentation>
+			<input message="tns:GetDebtsByIpNumberRequest"/>
+			<output message="tns:GetDebtsByIpNumberResponse"/>
+		</operation>
+		<operation name="GetDebtsByUinOiv">
+			<documentation>Метод пакетного получения информации о задолженностях по списку УИН Внешнего контрагента</documentation>
+			<input message="tns:GetDebtsByUinOivRequest"/>
+			<output message="tns:GetDebtsByUinOivResponse"/>
+		</operation>
+	</portType>
+	<binding name="BailiffOfficeAdapterPortBinding" type="tns:BailiffOfficeAdapter">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="GetDebtsByIspDoc">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDebtsByIpNumber">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDebtsByUinOiv">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="BailiffOfficeAdapterService">
+		<port name="BailiffOfficeAdapterPort" binding="tns:BailiffOfficeAdapterPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

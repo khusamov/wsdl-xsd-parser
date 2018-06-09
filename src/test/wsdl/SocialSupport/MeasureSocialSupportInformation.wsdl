@@ -1,0 +1,80 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://measureSocialSupport.information.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="http://domainmodel.eirc.mos.ru/model/mssp" targetNamespace="http://measureSocialSupport.information.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://measureSocialSupport.information.eirc.mos.ru" schemaLocation="MeasureSocialSupportInformation.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="GetIndividualBySearchParamsRequest">
+		<part name="parameter" element="tns:GetIndividualsBySearchParamsRequest"/>
+	</message>
+	<message name="GetIndividualsBySearchParamsResponse">
+		<part name="parameter" element="tns:GetIndividualsBySearchParamsResponse"/>
+	</message>
+	<message name="GetDocumentsMetadataByPreferenceIdRequest">
+		<part name="parameter" element="tns:GetDocumentsMetadataByPreferenceIdRequest"/>
+	</message>
+	<message name="GetDocumentsMetadataByPreferenceIdResponse">
+		<part name="parameter" element="tns:GetDocumentsMetadataByPreferenceIdResponse"/>
+	</message>
+	<message name="GetDictionaryDetailsBySearchParamsRequest">
+		<part name="parameter" element="tns:GetDictionaryDetailsBySearchParamsRequest"/>
+	</message>
+	<message name="GetDictionaryDetailsBySearchParamsResponse">
+		<part name="parameter" element="tns:GetDictionaryDetailsBySearchParamsResponse"/>
+	</message>
+	<portType name="MeasureSocialSupportInformation">
+		<operation name="GetIndividualsBySearchParams">
+			<documentation>Запрос заявителя по поисковым параметрам</documentation>
+			<input message="tns:GetIndividualBySearchParamsRequest"/>
+			<output message="tns:GetIndividualsBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetDocumentsMetadataByPreferenceId">
+			<documentation>Запрос метаданных документов на льготы по идентификатору льготы</documentation>
+			<input message="tns:GetDocumentsMetadataByPreferenceIdRequest"/>
+			<output message="tns:GetDocumentsMetadataByPreferenceIdResponse"/>
+		</operation>
+		<operation name="GetDictionaryDetailsBySearchParams">
+			<documentation>Запрос справочных данных</documentation>
+			<input message="tns:GetDictionaryDetailsBySearchParamsRequest"/>
+			<output message="tns:GetDictionaryDetailsBySearchParamsResponse"/>
+		</operation>
+	</portType>
+	<binding name="MeasureSocialSupportInformationPortBinding" type="tns:MeasureSocialSupportInformation">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="GetIndividualsBySearchParams">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDocumentsMetadataByPreferenceId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDictionaryDetailsBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="MeasureSocialSupportInformationService">
+		<port name="MeasureSocialSupportPort" binding="tns:MeasureSocialSupportInformationPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

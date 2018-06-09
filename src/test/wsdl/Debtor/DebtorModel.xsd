@@ -1,0 +1,1316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:debtor="http://domainmodel.eirc.mos.ru/model/debtor" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" targetNamespace="http://domainmodel.eirc.mos.ru/model/debtor" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:complexType name="Debtor">
+		<xs:complexContent>
+			<xs:extension base="dom:Party">
+				<xs:sequence>
+					<xs:element name="Supplier" type="dom:Party" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Управляющая организация должника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Debts" type="debtor:Debt" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Долги</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Representative" type="dom:Party" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Представитель должника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DebtorAction">
+		<xs:annotation>
+			<xs:documentation>Данные бизнес-операции (БО)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DebtorActionId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BusinessProcessNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер БП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата начала БО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата конца БО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>должник</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Type" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип БО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус БО</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Note" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор оператора, выполнившего операцию</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebtAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сумма долга</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ParentBusinessProcessNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер родительского БП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ФИО оператора в формате
+Фамилия Имя Отчество</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CancellationReason" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Причина аннулирования дела</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PretrialProceeding">
+		<xs:complexContent>
+			<xs:extension base="debtor:DebtorAction">
+				<xs:sequence>
+					<xs:element name="NotificationsNumber" type="xs:int" minOccurs="0"/>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Признак наличия ограничения коммунальных услуг:
+Name:UtilityActionStatus
+Value: Limited или Suspended
+DataType:String
+
+Срок долга в месяцах:
+Name:DebtPeriod
+Value: срок долга в месяцах
+DataType:Integer
+
+Сумма последнего платежа:
+Name:LastPaymentAmount
+DataType:Double
+
+Срок последнего платежа:
+Name:LastPaymentPeriod
+Value: срок долга в месяцах
+DataType:Integer
+
+Идентификатор системного события (смерть собственника и пр):
+Name:SystemEventId
+DataType:Integer</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LawCaseProceeding">
+		<xs:annotation>
+			<xs:documentation>Судебное производство.
+
+В DebtorAction заполняются поля:
+DateFrom, Debtor.PartyId, DebtorPersonalAccountNumber
+
+Status.Code:
+Статусы судебного разбирательства
+
+Created - Сформировано
+Denied - Отказано в рассмотрении
+Returned - Иск возвращен заявителю
+InProcess - Оставлено без движения
+
+Заявка создается со статусом Created
+
+Type.Code:
+Тип досудебного разбирательства:
+First_Stage
+
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="debtor:DebtorAction">
+				<xs:sequence>
+					<xs:element name="DealNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер дела</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DueAmount" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сумма иска</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Court" type="debtor:Court" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Данные суда</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ApplicationType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип заявления в суд
+Code
+Claim - Исковое заявление
+Order - Судебный приказ
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsCourtProcedureSimplified" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак упрощенного судопроизводства</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DebtPeriodType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип долгового периода
+Code = Account, Value = Весь период ФЛС
+Code = ManagingCompany, Value = Период действия УО
+Code = Other, Value = Другой
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DebtPeriodFrom" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Долговой период с</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DebtPeriodTo" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Долговой период по</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateCourtDecisionRendered" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата вынесения решения судом</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateCourtDecisionForced" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата вступления в силу решения суда</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateReceivingOrderObtained" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата получения исполнительного документа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ReceivingOrderNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер исполнительного документа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateStatusChanged" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата изменения статуса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Penalties" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Пени</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StateFee" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Госпошлина</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Attachments" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Список приложений к заявлению в суд.
+Заполняется Code для предопределенных типов приложений и Name для новых типов приложений</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Ответчики
+Name: Defendants
+Value: ФИО ответчиков
+DataType: String
+
+Количество ответчиков
+Name: NumberOfDefendants
+Value: Количество ответчиков
+DataType: Integer
+
+Применить ко всем заявлениям в рамках данного ФЛС
+Name: IsForAllApplicationOnAccount
+Value: true или false
+DataType: Boolean
+
+Доля должника в собственности
+Name: DebtorPropertyShare
+Value: значение доли
+DataType: Double
+
+Признак наличия ограничения коммунальных услуг:
+Name:UtilityActionStatus
+Value: Limited или Suspended
+DataType:String
+
+Идентификатор системного события (смерть собственника и пр):
+Name:SystemEventId
+DataType:Integer
+
+Тип счета для основного долга должника 
+Name: MainDebtAccount
+Value: значение типа счета TransitAccount, CheckAccount, FinanceDepartmentAccount
+DataType: String
+
+Тип счета для госпошлины
+Name: StateFeeAccount
+Value: значение типа счета TransitAccount, CheckAccount, FinanceDepartmentAccount
+DataType: String
+
+Тип счета для пени
+Name: PenaltyAccount
+Value: значение типа счета TransitAccount, CheckAccount, FinanceDepartmentAccount
+DataType: String
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Payment">
+		<xs:annotation>
+			<xs:documentation>Платеж</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PaymentId" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaymentAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сумма</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaymentDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата платежа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LawCaseExecution">
+		<xs:annotation>
+			<xs:documentation>Исполнительно судопроизводство
+
+Возможные типы Type
+Code = ExecProceeding, Name = Исполнительное производство
+Code = ExecDocument, Name = Исполнительный документ
+Code = TaxAuthorityRequest, Name = Запрос в ИФНС
+Code = BankRequest, Name = Запрос в банк
+Code = BailiffApplication, Name = Заявление в ФСПП 
+
+Возможные статусы Status
+Code = Received, Name = Получен
+Code = SubmittedToBailiff, Name = Передан в ФСПП
+Code = Created, Name = Сформировано
+Code = ExecProceedingInitiated, Name = Возбуждено ИП
+Code = CompulsoryExecution, Name = Принудительное исполнение
+Code = RecoveriesAllocation, Name = Распределение взысканных сумм
+Code = ExecProceedingStoped, Name = ИП Прекращено
+Code = ExecDocumentReturned, Name = ИД Возвращен
+Code = InProgress, Name = В работе
+Code = Finished, Name = Завершено</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="debtor:DebtorAction">
+				<xs:sequence>
+					<xs:element name="DealNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер дела</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CollectedAmount" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Взысканная сумма</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AmountOnDistribution" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сумма распределения долга</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BaliffOffice" type="dom:Party" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ФСПП</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Documents" type="dom:Document" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Возможные типы документов
+Code = ReceivingOrder, Name = исполнительный лист
+Code = CourtOrder, Name = судебный приказ
+Code = BailiffOfficeApplication, Name = заявление в ФССП
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateStatusChanged" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата изменения статуса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные характеристики
+
+ФИО пристава
+Name: BailiffFullName
+Value: ФИО пристава
+DataType: String
+
+Признак наличия платежного соглашения:
+Name:PaymentAgreementStatus
+DataType:String
+Value: 
+Created - Выполнено
+InProcess
+Canceled
+Expired - Просрочено
+CanceledByExpiration
+Finished
+FinishedInAdvance
+FinishedWithExpiration
+Активные статусы InProcess, Expired. Остальные статусы неактивны.
+
+Признак наличия ограничения коммунальных услуг:
+Name:UtilityActionStatus
+DataType:String
+Value: Limited или Suspended
+
+Номер исполнительного документа
+Name:ReceivingOrderNumber
+DataType:String
+
+Дата исполнительного документа
+Name:ReceivingOrderDate
+DataType:Date
+Value: дата в формате xsd dateTime
+
+Номер Иска или приказа
+Name: ClaimOrderNumber
+DataType:String
+
+Сумма иска
+Name: DueAmount
+DataType:Double
+DueAmount
+
+Номер судебного дела. Соответствует LawCaseProceeding.DealNumber
+Name:CourtDealNumber
+DataType:String
+
+Тип исполнительного документа:
+Name:ExecDocumentType
+Value: тип исполнительного документа (Приказ или Иск)
+DataType:String
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="UtilityAction">
+		<xs:annotation>
+			<xs:documentation>
+Статусы операций с коммунальными услугами UtilityAction.Status
+Code = Created, Name = Сформировано
+Code = Delivered, Name = Доставляется
+Code = Received, Name = Получено
+Code = Limited, Name = Ограничено
+Code = Suspended, Name = Приостановлено
+Code = Resumed, Name = Возобновлено
+
+Типы операций с коммунальными услугами UtilityAction.Type
+Code = Warning Name = Предупреждение
+Code = RestrictionNote Name = Извещение по ограничению
+Code = SuspensionNote Name = Извещение по приостановке
+Code = Termination Name = Распоряжение о приостановке услуг
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="debtor:DebtorAction">
+				<xs:sequence>
+					<xs:element name="PaidAmount" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Оплаченная сумма</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DaysProhibited" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Срок ограничения в днях</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateProhibitionStarted" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата начала ограничения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateDocumentReceived" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата получения предупреждения или извещения </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DaysDocumentReceived" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дни с доставки предупреждения или извещения </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Services" type="dom:Service" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Услуги, предоставление которых ограничено. Передаются следующие коды услуг 
+
+Code = HotWater - горячая вода
+Code = Drainage - водоотведение</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsExcess" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак превышения норматива</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PaymentAgreement">
+		<xs:annotation>
+			<xs:documentation>
+Тип платежного соглашения
+Type.Code
+Installment - Рассрочка
+Postponement - Отсрочка
+
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="debtor:DebtorAction">
+				<xs:sequence>
+					<xs:element name="AgreementAmount" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сумма соглашения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AgreementNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер соглашения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateStartAgreement" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата начала соглашения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateFinishAgreement" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата начала соглашения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateFirstPayment" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата первого платежа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FirstPayment" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сумма первого платежа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DebtRepaymentSchedule" type="debtor:DebtRepaymentScheduleItem" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>График платежей.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные параметры
+
+Срок задолженности:
+Name:debtPeriod
+DataType:String
+
+Период просрочки (количество полных месяцев с даты возникновения просрочки)
+Name:overduePeriod
+DataType:String
+
+Сумма просрочки (сумма задолженности - сумма остатка задолженности по соглашению на дату проверки)
+Name:overdueAmount
+DataType:Double
+
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DebtorNotification">
+		<xs:annotation>
+			<xs:documentation>Уведомление должника</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NotificationType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип уведомления
+SMS-уведомление
+NotificationType.Code=SMS  
+Уведомление по email
+NotificationType.Code=Email
+Уведомление по почте
+NotificationType.Code=Post
+Уведомление по телефону
+NotificationType.Code=Phone</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotificationsNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество уведомлений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastNotificationDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время последнего уведомления</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotificationResult" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Результат уведомления
+NotificationResult.Code = 
+PromisedPayment - обещал оплатить
+PaymentAgreement - заключит соглашение
+Failed - разговор не состоялся
+Other - другое</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateNextCall" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время следующего звонка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HasPrintedDocument" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Отправляется ли печатный документ?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsDocumentEPD" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Отправляется ли документ с ЕПД?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Note" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Court">
+		<xs:annotation>
+			<xs:documentation>Code: Классификационный код суда
+Name: Наименование суда
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:BaseDictionary">
+				<xs:sequence>
+					<xs:annotation>
+						<xs:documentation/>
+					</xs:annotation>
+					<xs:element name="CourtType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип суда:
+Code
+Magistrate - Мировой
+District - Районный
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="District" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Район</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Address" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Строковый адрес </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Phone" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Телефон</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Email" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>адрес электронной почты</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="WebSiteUrl" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>url официального web-сайта суда</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="TrialApplication">
+		<xs:annotation>
+			<xs:documentation>Заявление в суд</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Document"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="TrialDecision">
+		<xs:annotation>
+			<xs:documentation>Решение суда</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Document"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ExecutionAct">
+		<xs:annotation>
+			<xs:documentation>Исполнительный лист</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Document"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Debt">
+		<xs:annotation>
+			<xs:documentation>Долг</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Amount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сумма</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата, на которую долг актуален</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" minOccurs="0"/>
+			<xs:element name="Service" type="dom:Service" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Услуга</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Признак наличия по данному долгу судопроизводства
+Name: IsLawCaseProceedingOn
+Value: true или false
+DataType: Boolean
+
+Признак наличия по данному долгу судебного приказа в статусе Отказано в рассмотрении
+Name: IsLawCaseProceedingOrderDenied
+Value: true или false
+DataType: Boolean</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DebtRepaymentScheduleItem">
+		<xs:annotation>
+			<xs:documentation>Детали соглашения о погашении задолженности. График платежей.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DueDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Оплатить до</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FactDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата фактического платежа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DueAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сумма к оплате</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FactAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фактический платеж</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RestDebtAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Оставшийся долг</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SearchTemplate">
+		<xs:annotation>
+			<xs:documentation>Шаблон поиска должников</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:BaseDictionary">
+				<xs:sequence>
+					<xs:element name="OwnershipTypes" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Тип собственности</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AppartmentType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип квартиры</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AccountCategories" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Категория лицевых счетов</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Area" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Участок</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Services" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Услуги</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NotificationsTemplates" type="debtor:NotificationSearchTemplate" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Шаблоны поиска уведомлений</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DebtPeriodMin" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Срок долга в месяцах, от</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DebtPeriodMax" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Срок долга в месяцах, до</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DebtAmountMin" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сумма долга, от</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DebtAmountMax" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Сумма долга, до</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsSubsidyExists" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип субсидии</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsExemptionExists" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак наличия льготы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PaymentAgreementType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип наличия платежного соглашения
+
+существует
+Code = Exists
+
+не существует
+Code = NotExist
+
+просрочено
+Code = Expired</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsServiceLimit" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак ограничения услуг</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsOrganization" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак того, что должник являеься организацией</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TelephoneType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип телефона
+
+только в ЕИРЦ
+Code = EIRCOnly
+
+только в ПИР
+Code = PIROnly
+
+В ПИР и в ЕИРЦ
+Code = EIRCPIR</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DebtType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Весь период ФЛС
+Code = EntirePeriod
+
+Период управления УО
+Code = MCPeriod</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OperatorId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор оператора, создавшего шаблон</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Districts" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Районы. Заполняется Id</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Suppliers" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Поставщики услуг. Заполняется Id</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные характеристики
+Признак должников, для которых уже есть заявления в суд, охватывающие весь долг
+Name:IsLcpEntireDebtExists
+Value: true или false
+DataType:Boolean
+
+Признак наличия места рождения:
+Name:IsBirthPlaceExists
+DataType:Boolean
+
+Признак наличия даты рождения:
+Name:IsBirthDateExists
+DataType:Boolean
+
+Признак наличия адреса регистрации:
+Name:IsRegistrationAddressExists
+DataType:Boolean
+
+Признак наличия паспорта:
+Name:IsPassportExists
+DataType:Boolean
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="NotificationSearchTemplate">
+		<xs:annotation>
+			<xs:documentation>Шаблон поиска уведомлений должников</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NotificationType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип уведомления</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotificationSearchType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип поиска уведомления
+
+Code:
+Today - сегодня
+ThisWeek - на этой неделе
+Last2Weeks - в последние 2 недели 
+ThisMonth - в этом месяце</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotificationNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество уведомлений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotificationPeriod" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Период учета уведомлений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsAllNotifications" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак учета всех уведомлений</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DefendantsCalculationTemplate">
+		<xs:annotation>
+			<xs:documentation>Шаблон формирования состава ответчиков в суде</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:BaseDictionary">
+				<xs:sequence>
+					<xs:element name="TemplateType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип шаблона
+Долевая собственность
+Code=Share 
+Совместная собственность
+Code=Joint
+Муниципальная собственность
+Code=Mrent
+Распределение платежа
+Code=PaymentDistribution
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsRegisteredOwnersOnly" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Только собственники с регистрацией</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsUnregisteredOwnersIncluded" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Включены зарегистрированные не собственники</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsUnderagedIncluded" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Включены несовершеннолетние без представителя</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsSingleUnderagedOwner" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Единственный несовершеннолетний собственник</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsSeparateApplication" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак отдельного заявления на каждого собственника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NonOwnerInclusionType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип включения несобственников
+Всех ко всем
+Code=All
+Всех к одному
+Code=AllToOne
+По родству
+Code=Relative</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PaymentDistributionTemplates" type="debtor:PaymentDistributionTemplate" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Шаблоны распределения платежей должника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristic" type="core:Characteristic" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дополнительные характеристики</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PaymentDistributionTemplate">
+		<xs:annotation>
+			<xs:documentation>Шаблон распределения платежей должника</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DistributionType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Типы распределения платежа
+Code = TransitAccount, Name = Транзитный счет
+Code = CheckAccount, Name = Расчетный счет
+Code = FinanceDepartmentAccount, Name = Счет Департамента Финансов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebtType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Типы долга
+Code = MainDebt, Name = Основной долг
+Code = StateFee, Name = Госпошлина</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristic" type="core:Characteristic" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дополнительные характеристики</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExternalDebtorAction">
+		<xs:annotation>
+			<xs:documentation>Данные операций с должником вне системы ПИР</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные должника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStart" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата начала действий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFinish" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата окончания действий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActionType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Стадия действий с должником</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebtAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сумма долга</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DebtorsArray">
+		<xs:annotation>
+			<xs:documentation>Массив должников</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DebtorItem" type="debtor:Debtor" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EventInformation">
+		<xs:annotation>
+			<xs:documentation>Данные о событиях для информации операторов</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Stage" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Стадия
+Code = PretrialProceeding, Name = Досудебная стадия
+Code = LawCaseProceeding, Name = Стадия судопроизводства</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebtorActions" type="debtor:DebtorAction" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>данные последней БО с должником</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExternalRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос к внешней системе
+
+Возможные типы запроса Type
+Code = Bank, Name = Банк
+Code = TaxAuthority, Name = ИФНС
+
+Возможные статусы запроса Status
+Code = InProcess, Name = Ожидается ответ
+Code = AnswerReceived, Name = Ответ получен
+Code = Expired, Name = Прошел срок ответа
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="debtor:DebtorAction">
+				<xs:sequence>
+					<xs:element name="TaxAuthority" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Ифнс. Заполняется Code и Name</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RequestAddress" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Адресат запроса (банка или ФНС)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DebtorAddress" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Адрес должника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DebtorTelephone" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Телефон должника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RequestPurposes" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Цели запроса
+
+Code=DebtorBankAccouns, Name=Банковские счета должника
+Code=DebtorProperty, Name=Имущество должника
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Тип исполнительного документа:
+Name:ExecDocumentType
+Value: тип исполнительного документа
+DataType:String</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ModifiedContact">
+		<xs:annotation>
+			<xs:documentation>Измененные контакты</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид действия с контактом</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Contact" type="dom:Contact" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Контактные данные</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdditionalRequest">
+		<xs:annotation>
+			<xs:documentation>Дополнительная заявка</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="debtor:DebtorAction">
+				<xs:sequence>
+					<xs:element name="DebtorAction" type="debtor:DebtorAction" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Стадия бизнес-процесса, над который выполнены дополнительные шаги</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalRequestType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>тип дополнительной заявки
+Code=Cancellation, Name=Аннулирование</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsViewed" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Просмотрено</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsDone" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Выполнено</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные характеристики</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LoadJobExternalActions">
+		<xs:annotation>
+			<xs:documentation>загрузка внешних дел</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LoadJobId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>идентификатор загрузки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFinish" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время окончания загрузки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStart" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время старта загрузки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LoadStatus" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>статус загрузки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LoadProtocol" type="xs:base64Binary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>протокол загрузки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FileName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>название загруженного файла</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FileSize" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>размер загруженного файла в Mb</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ImportedRecordsNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество импортируемых строк</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ErrorsNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество ошибок при импорте файла</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

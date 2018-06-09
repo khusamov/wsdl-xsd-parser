@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:tns="http://dictionary.processservice.eirc.mos.ru" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:dictionary="http://domainmodel.eirc.mos.ru/model/dictionary" targetNamespace="http://dictionary.processservice.eirc.mos.ru" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:complexType name="ProcessMessageRequest">
+		<xs:sequence>
+			<xs:element name="ProcessId" type="xs:string" minOccurs="0"/>
+			<xs:element name="ParentProcessId" type="xs:string" minOccurs="0"/>
+			<xs:element name="BusinessOperationName" type="xs:string" minOccurs="0"/>
+			<xs:element name="Request" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ProcessMessageRequest" type="tns:ProcessMessageRequest"/>
+	<xs:element name="ProcessMessageResponse" type="core:OperationResult"/>
+</xs:schema>

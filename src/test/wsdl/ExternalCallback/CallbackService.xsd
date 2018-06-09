@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:tns="http://external.operations.eirc.mos.ru/callback" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:extcore="http://external.model.eirc.mos.ru/core" targetNamespace="http://external.operations.eirc.mos.ru/callback" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:import namespace="http://external.model.eirc.mos.ru/core" schemaLocation="../BaseDomain/ExternalCore.xsd"/>
+	<xs:element name="UniversalCallbackRequest" type="extcore:ExternalOperationResult"/>
+</xs:schema>

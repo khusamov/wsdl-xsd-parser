@@ -1,0 +1,62 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://service.information.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://service.information.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://service.information.eirc.mos.ru" schemaLocation="ServiceInformation.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="PartyHeader">
+		<part name="SubscriberInformation" element="core:SubscriberInformation"/>
+	</message>
+	<message name="GetServicesBySupplierCompanyIdRequest">
+		<part name="parameter" element="tns:GetServicesBySupplierCompanyIdRequest"/>
+	</message>
+	<message name="GetServicesBySupplierCompanyIdResponse">
+		<part name="parameter" element="tns:GetServicesBySupplierCompanyIdResponse"/>
+	</message>
+	<message name="GetAllServicesRequest">
+		<part name="parameter" element="tns:GetAllServicesRequest"/>
+	</message>
+	<message name="GetAllServicesResponse">
+		<part name="parameter" element="tns:GetAllServicesResponse"/>
+	</message>
+	<portType name="ServiceInformation">
+		<operation name="GetServicesBySupplierCompanyId">
+			<input message="tns:GetServicesBySupplierCompanyIdRequest"/>
+			<output message="tns:GetServicesBySupplierCompanyIdResponse"/>
+		</operation>
+		<operation name="GetAllServices">
+			<input message="tns:GetAllServicesRequest"/>
+			<output message="tns:GetAllServicesResponse"/>
+		</operation>
+	</portType>
+	<binding name="ServiceInformationPortBinding" type="tns:ServiceInformation">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="GetServicesBySupplierCompanyId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetAllServices">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="ServiceInformation">
+		<port name="ServiceInformationPort" binding="tns:ServiceInformationPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

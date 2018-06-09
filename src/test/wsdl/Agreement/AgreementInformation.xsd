@@ -1,0 +1,992 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:tns="http://agreement.information.eirc.mos.ru" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:agreement="http://domainmodel.eirc.mos.ru/model/agreement" targetNamespace="http://agreement.information.eirc.mos.ru" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model/agreement" schemaLocation="AgreementModel.xsd"/>
+	<xs:complexType name="GetAgreementsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetAgreementsBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Фильтры поиска. В случае отсутствия фильтров выдаются все данные.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение. В случае отсутствия значения выдаются все данные.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetAgreementsBySearchParamsRequest" type="tns:GetAgreementsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>Для поиска в SearchParameters заполняются параметры:
+Тип договора
+Name: AgreementType
+Value -  ManagingAgreement - договор на управление или
+SupplyAgreement - договор на поставку или
+SettlementAgreement - договор  на расчет
+
+Для поиска договора на управление заполняется один из следующих наборов параметров
+1)
+По ИНН, улице, дому, подъезду, расчетному счету, коду поставщика по банку
+Name: INN, Value - Значение ИНН УК
+Name: INN-Suppl, Value - Значение ИНН Поставщика
+Name: Street, Value - название улицы
+Name: StreetId, Value - идентификатор улицы
+Name: Buildings, Value - Номера домов через разделитель ':'
+Name: Entrance, Value - Номер подъезда
+Name: OperatingAccount, Value - расчетный счет
+Name: SupplierBankCode, Value - код поставщика по банку
+2)
+По номеру договора
+Name: AgreementNumber, Value - Номер договора
+3) По идентификатору организации
+Name: PartyId, Value - идентификатор организации
+4) По идентификатору договора
+Name: AgreementId, Value - идентификатор договора
+5) По дате заключения договора
+Name: DateFrom, Value - дата-время в формате xsd date
+6) По диапазону дат заключения договора
+Name: DateFromStart, Value - дата начала диапазона в формате xsd date
+Name: DateFromEnd, Value - дата конца диапазона в формате xsd date
+7) Для поиска по массиву идентификаторов услуг 
+Name: ServiceIds, Value - идентификаторы услуг, разделенные запятыми 
+8) Для поиска по признаку полного состава договора, включая полные данные об участниках Parties
+Name: IsAgreementComplete, Value - true или false, DataType = Boolean
+9) Для поиска по подстроке названия управляющей компании, привязанной к договору
+Name: IsPartialManagingCompanyName, Value - true или false, DataType = Boolean. Поисковое значение передается в поле SearchValue
+9) Для поиска по по подстроке адреса, привязанного к договору
+Name: IsPartialAddress, Value - true или false, DataType = Boolean. Поисковое значение передается в поле SearchValue
+10) Для поиска прямых договоров
+Name: IsDirectAgreement, Value - true или false, DataType = Boolean
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetAgreementsBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetAgreementsBySearchParams
+
+Обязательные для заполнения поля
+AgrrementId, AgreementNumber, AgreementName, AgreementType.Code, AgreementType.Name, AgreementStatus.Code, AgreementStatus.Name, DateStart, Services.Name, Addresses.Street, Addresses.House</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="Agreements" type="dom:Agreement" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetAgreementsBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetAgreementsBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetAgreementsRelationshipsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetAgreementsRelationshipBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Фильтры поиска. 
+
+1) В случае поиска 3-х сторонних договоров 
+Code = AgreementRelType
+Value = Party-3
+DataType = String
+
+2) В случае поиска 4-х сторонних договоров 
+Code = AgreementRelType
+Value = Party-4
+DataType = String
+
+3) Для поиска по диапазону дат создания договоров на расчет
+Name: DateFromSettlementStart, Value - дата начала диапазона в формате xsd date
+Name: DateFromSettlementEnd, Value - дата конца диапазона в формате xsd date
+
+4) Для поиска по массиву идентификаторов услуг 
+Name: ServiceIds, Value - идентификаторы услуг, разделенные запятыми 
+
+5) Для поиска по признаку полного состава договора
+Name: IsAgreementComplete, Value - true или false, DataType = Boolean
+
+6) Для поиска по подстроке названия постащика
+Name: IsSupplierName, Value - true или false, DataType = Boolean
+Поисковое значение передается в SearchValue
+
+7) Для поиска по подстроке ИНН УО
+Name: IsMCINN, Value - true или false, DataType = Boolean
+Поисковое значение передается в SearchValue
+
+8) Для поиска по подстроке названия УО
+Name: IsMCName, Value - true или false, DataType = Boolean
+Поисковое значение передается в SearchValue
+
+9) Для поиска по подстроке названия услуги
+Name: IsServiceName, Value - true или false, DataType = Boolean
+Поисковое значение передается в SearchValue
+
+10) Для поиска по подстроке адреса МКД
+Name: IsHouseAddress, Value - true или false, DataType = Boolean
+Поисковое значение передается в SearchValue
+
+11) Для поиска по расчетному счету, коду поставщика по банку, номеру или идентификатору договора
+Name: OperatingAccount, Value - расчетный счет, DataType - String 
+Name: SupplierBankCode, Value - код поставщика по банку, DataType - String
+Name: AgreementNumber, Value - номер договора, DataType - String
+Name: AgreementId, Value - идентификатор договора, DataType - Integer
+Name: AgreementType, Value - тип договора, DataType - String
+Возможные типы договора 
+Management - договор на управление
+Delivery - договор на поставку
+Settlement - договор на расчет
+
+12)
+Для поиска по идентификатору улицы, номеру дома
+Name: StreetId, Value - идентификатор улицы, DataType - Integer
+Name: Buildings, Value - Номера домов через разделитель ':', DataType - String 
+
+13)
+По идентификатору связи 
+Name:AgreementRelationshipId, Value - идентификатор связи, DataType - Integer</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение. В случае отсутствия значения выдаются все данные.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetAgreementsRelationshipsBySearchParamsRequest" type="tns:GetAgreementsRelationshipsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>
+
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetAgreementsRelationshipsBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetAgreementsRelationshipBySearchParams
+Заполняются поля 
+AgreementRelationship.Service.Name - Услуга
+AgreementRelationship.RegionMFC - Район МФЦ
+AgreementRelationship.SettlementAgreement.AgreementNumber - номер договора расчета
+AgreementRelationship.ManagementCompanyName - название управляющей компании
+AgreementRelationship.SettlementAgreement.DateStart - дата начала договора расчета
+AgreementRelationship.SupplyAgreement.AgreementNumber - номер договора поставки
+AgreementRelationship.SupplyAgreement.DateStart - дата начала договора поставки
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="AgreementsRelationships" type="agreement:AgreementRelationship" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetAgreementsRelationshipsBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetAgreementsRelationshipsBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDictionaryDetailsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDictionariesBySearchParams.
+Заполняются поля 
+DictionaryCode - код справочника
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=String
+Characteristic.Value=name:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DictionaryCode" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Код словаря. 
+Используются следующие коды
+
+Street - названия улиц
+RegionDb - окружные БД</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение строки справочника. Соответствует значению из BaseDictionary.Name. Используется при поиске по маске строк справочника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Поисковые параметры.
+
+Для поиска по управляющей компании: 
+Name : ManagingCompanyId
+Value - идентификатор управляющей компании
+
+Для поиска по ИНН: 
+Name : INN
+Value - значение ИНН
+
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryDetailsBySearchParamsRequest" type="tns:GetDictionaryDetailsBySearchParamsRequest"/>
+	<xs:complexType name="GetDictionaryDetailsBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetCourtsBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryDetailsBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDictionaryDetailsBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetHousesNumbersByStreetIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetHousesNumbersByStreetId
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=String
+Characteristic.Value=houseNumber:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="StreetId" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор улицы в АСУ ЕИРЦ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetHousesNumbersByStreetIdRequest" type="tns:GetHousesNumbersByStreetIdRequest"/>
+	<xs:complexType name="GetHousesNumbersByStreetIdResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetHousesNumbersByStreetId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="HousesNumbers" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetHousesNumbersByStreetIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetHousesNumbersByStreetIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetOrganizationsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetOrganizationsBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Фильтры поиска. В случае отсутствия фильтров выдаются все данные.
+
+Виды организации
+Name: OrganizationType
+Value: ManagingCompany или SupplierCompany
+DataType: String
+
+Спецификация возврата данных в классе Organization.
+Возврат только полей Id, INN, FullName: 
+Name: ReturnType
+Value: ShortOrg
+DataType: String
+
+Для поиска по ИНН или названию организации
+Тип поля поиска
+Name: SearchFieldType
+Value: INN или FullName
+DataType: String
+
+Признак того, что организация является постащиком услуг для физических или юридических лиц
+Name: PartySupplier
+Value: IndividualSupplier или OrganizationSupplier
+DataType: String
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение. ИНН или полное название. В случае отсутствия значения выдаются все данные.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetOrganizationsBySearchParamsRequest" type="tns:GetOrganizationsBySearchParamsRequest"/>
+	<xs:complexType name="GetOrganizationsBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetOrganizationsBySearchParams
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="Organization" type="dom:Organization" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetOrganizationsBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetOrganizationsBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetServicesBySupplierCompanyIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода CompanyId
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=String
+Characteristic.Value=serviceName:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="CompanyId" type="core:UniqueIdentifier" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Уникальный идентификатор поставщика</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetServicesBySupplierCompanyIdRequest" type="tns:GetServicesBySupplierCompanyIdRequest"/>
+	<xs:complexType name="GetServicesBySupplierCompanyIdResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetServicesBySupplierCompanyId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="Service" type="dom:Service" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetServicesBySupplierCompanyIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetServicesBySupplierCompanyIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetAllServicesRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода CompanyId
+Заполняются поля 
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=String
+Characteristic.Value=serviceName:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetAllServicesRequest" type="tns:GetAllServicesRequest"/>
+	<xs:complexType name="GetAllServicesResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetServicesBySupplierCompanyId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="Service" type="dom:Service" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetAllServicesResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetAllServicesResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetEntrancesListByHouseAddressRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetEntrancesListByHouseAddress
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="StreetId" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор улицы в АСУ ЕИРЦ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="HouseNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер дома</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetEntrancesListByHouseAddressRequest" type="tns:GetEntrancesListByHouseAddressRequest"/>
+	<xs:complexType name="GetEntrancesListByHouseAddressResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetEntrancesListByHouseAddress</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="EntranceNumber" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Номер дома</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetEntrancesListByHouseAddressResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetEntrancesListByHouseAddressResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetIndividualsListBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetIndividualsListBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Фильтры поиска. В случае отсутствия фильтров выдаются все данные.
+
+Спецификация возврата данных в классе Individual.
+Возврат только полей Id, INN, FirstName, SecondName, SurName: 
+Name: ReturnType
+Value: ShortInd
+DataType: String
+
+Возврат полей Id, INN, FirstName, SecondName, SurName, FirstName, SecondName, SurName, RegistrationAddress, IdentificationDocuments: 
+Name: ReturnType
+Value: MiddleInd
+DataType: String
+
+Для поиска по
+ИНН, улице, дому
+Name: INN, Value - Значение ИНН
+Name: Street, Value - название улицы
+Name: Building, Value - Номер дома
+
+Для поиска по ФИО
+Тип поля поиска
+Name: searchFieldType
+Value: FullName
+DataType: String
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение. ФИО.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetIndividualsListBySearchParamsRequest" type="tns:GetIndividualsListBySearchParamsRequest"/>
+	<xs:complexType name="GetIndividualsListBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetIndividualsListBySearchParams
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="Individual" type="dom:Individual" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetIndividualsListBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetIndividualsListBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetAppartmentsListByAddressRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetAppartmentsListByAddress
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="StreetId" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор улицы в АСУ ЕИРЦ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="HouseNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер дома</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EntranceNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер подъезда</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetAppartmentsListByAddressRequest" type="tns:GetAppartmentsListByAddressRequest"/>
+	<xs:complexType name="GetAppartmentsListByAddressResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetAppartmentsListByAddress</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="AppartmentNumber" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Номер помещения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetAppartmentsListByAddressResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetAppartmentsListByAddressResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetOperatorByLoginParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetOperatorByLoginParams
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Login" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Логин оператора
+
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Password" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пароль оператора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegionId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор окружной БД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetOperatorByLoginParamsRequest" type="tns:GetOperatorByLoginParamsRequest"/>
+	<xs:complexType name="GetOperatorByLoginParamsResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetOperatorByLoginParams
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Operator" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Возвращается поле типа Individual.
+						В нем заполняются поля:
+						PartyId, FirstName, SecondName, Surname
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SecurityToken" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Маркер безопасности</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ServerVersion" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Версия серверной части ПИР</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorRoles" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Список ролей оператора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManagementCompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификаторы управляющей компании, связанной с
+						оператором</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetOperatorByLoginParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetOperatorByLoginParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetBankSuppliersCodesBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetBankSuppliersCodesBySearchParams
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="OrganizationId" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор организации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StreetId" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор улицы в АСУ ЕИРЦ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="HouseNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер дома</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Фильтры поиска. В случае отсутствия фильтров выдаются все данные.
+
+Признак того, что организация является постащиком услуг для физических или юридических лиц
+Name: PartySupplier
+Value: IndividualSupplier или OrganizationSupplier
+DataType: String
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetBankSuppliersCodesBySearchParamsRequest" type="tns:GetBankSuppliersCodesBySearchParamsRequest"/>
+	<xs:complexType name="GetBankSuppliersCodesBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetBankSuppliersCodesBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="SupplierBankAccounts" type="agreement:SupplierBankAccount" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Банковские реквизиты поставщика</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetBankSuppliersCodesBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetBankSuppliersCodesBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDocumentBinaryByAttachmentIdRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetDocumentBinaryByActionId
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AttachmentId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор вложения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDocumentBinaryByAttachmentIdRequest" type="tns:GetDocumentBinaryByAttachmentIdRequest"/>
+	<xs:element name="GetDocumentBinaryByAttachmentIdResponse">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetDocumentBinaryByActionId
+
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetExpiredDateBySecurityTokenRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetExpiredDateBySecurityToken</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SecurityToken" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Токен  безопасности</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные параметры
+
+Для включения данных оператора
+Name = IsOperatorDataIncluded
+Value = true
+DataType = Boolean</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetExpiredDateBySecurityTokenRequest" type="tns:GetExpiredDateBySecurityTokenRequest"/>
+	<xs:complexType name="GetExpiredDateBySecurityTokenResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetExpiredDateBySecurityToken</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ExpiredDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Время истечения токена</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorDetails" type="tns:GetOperatorByLoginParamsResult" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Заполняются в случае наличия в запросе опции IsOperatorDataIncluded</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetExpiredDateBySecurityTokenResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetExpiredDateBySecurityTokenResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetRHAgreementsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetRHAgreementsBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Фильтры поиска. В случае отсутствия фильтров выдаются все данные.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение. В случае отсутствия значения выдаются все данные.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetRHAgreementsBySearchParamsRequest" type="tns:GetRHAgreementsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>Для поиска в SearchParameters заполняются параметры:
+Тип договора
+Name: AgreementType
+Value -  ManagingAgreement - договор на управление или
+SupplyAgreement - договор на поставку или
+SettlementAgreement - договор  на расчет
+
+Для поиска договора на управление заполняется один из следующих наборов параметров
+1)
+По ИНН, улице, дому, подъезду, расчетному счету, коду поставщика по банку
+Name: INN, Value - Значение ИНН УК
+Name: INN-Suppl, Value - Значение ИНН Поставщика
+Name: Street, Value - название улицы
+Name: StreetId, Value - идентификатор улицы
+Name: Buildings, Value - Номера домов через разделитель ':'
+Name: Entrance, Value - Номер подъезда
+Name: OperatingAccount, Value - расчетный счет
+Name: SupplierBankCode, Value - код поставщика по банку
+2)
+По номеру договора
+Name: AgreementNumber, Value - Номер договора
+3) По идентификатору организации
+Name: PartyId, Value - идентификатор организации
+4) По идентификатору договора
+Name: AgreementId, Value - идентификатор договора
+5) По дате заключения договора
+Name: DateFrom, Value - дата-время в формате xsd date
+6) По диапазону дат заключения договора
+Name: DateFromStart, Value - дата начала диапазона в формате xsd date
+Name: DateFromEnd, Value - дата конца диапазона в формате xsd date
+7) Для поиска по массиву идентификаторов услуг 
+Name: ServiceIds, Value - идентификаторы услуг, разделенные запятыми 
+8) Для поиска по признаку полного состава договора
+Name: IsAgreementComplete, Value - true или false, DataType = Boolean
+9) Для поиска по подстроке названия управляющей компании, привязанной к договору
+Name: IsPartialManagingCompanyName, Value - true или false, DataType = Boolean. Поисковое значение передается в поле SearchValue
+9) Для поиска по по подстроке адреса, привязанного к договору
+Name: IsPartialAddress, Value - true или false, DataType = Boolean. Поисковое значение передается в поле SearchValue
+10) Для поиска прямых договоров
+Name: IsDirectAgreement, Value - true или false, DataType = Boolean
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetRHAgreementsBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetRHAgreementsBySearchParams
+
+Обязательные для заполнения поля
+AgrrementId, AgreementNumber, AgreementName, AgreementType.Code, AgreementType.Name, AgreementStatus.Code, AgreementStatus.Name, DateStart, Services.Name, Addresses.Street, Addresses.House</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="tns:GetRHAgreementsResultItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GetRHAgreementsResultItem">
+		<xs:annotation>
+			<xs:documentation>Линейка ответа метода GetRHAgreementsBySearchParams
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Agreement" type="dom:Agreement" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>договор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManagingCompany" type="dom:Organization" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>управляющая компания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RHManagingCompany" type="dom:Organization" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>управляющая компания из ГИС РД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetRHAgreementsBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetRHAgreementsBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

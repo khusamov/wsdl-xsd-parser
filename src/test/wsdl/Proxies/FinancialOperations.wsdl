@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://external.operations.eirc.mos.ru/financial" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:extcore="http://external.model.eirc.mos.ru/core" targetNamespace="http://external.operations.eirc.mos.ru/financial">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://external.operations.eirc.mos.ru/financial" schemaLocation="FinancialOperations.xsd"/>
+			<xsd:import namespace="http://external.model.eirc.mos.ru/core" schemaLocation="../BaseDomain/ExternalCore.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="SubscriberInformation">
+		<wsdl:part name="SubscriberInformation" element="extcore:ExternalSubscriberInformation"/>
+	</wsdl:message>
+	<wsdl:message name="CorrelationId">
+		<wsdl:part name="CorrelationId" element="extcore:CorrelationId"/>
+	</wsdl:message>
+	<wsdl:message name="LoadPaymentsRequest">
+		<wsdl:part name="parameter" element="tns:LoadPaymentsRequest"/>
+	</wsdl:message>
+	<wsdl:message name="LoadPaymentsResponse">
+		<wsdl:part name="parameter" element="tns:LoadPaymentsResponse"/>
+	</wsdl:message>
+	<wsdl:message name="LoadPaymentsAdjustmentsRequest">
+		<wsdl:part name="parameter" element="tns:LoadPaymentsAdjustmentsRequest"/>
+	</wsdl:message>
+	<wsdl:message name="LoadPaymentsAdjustmentsResponse">
+		<wsdl:part name="parameter" element="tns:LoadPaymentsAdjustmentsResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="FinancialOperations">
+		<wsdl:documentation>служба, предоставляющая бизнес-операции по обработке финансовых данных</wsdl:documentation>
+		<wsdl:operation name="LoadPayments">
+			<wsdl:documentation>Метод приема архива оплат</wsdl:documentation>
+			<wsdl:input message="tns:LoadPaymentsRequest"/>
+			<wsdl:output message="tns:LoadPaymentsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="LoadPaymentsAdjustments">
+			<wsdl:documentation>Метод приема архива корректировок оплат</wsdl:documentation>
+			<wsdl:input message="tns:LoadPaymentsAdjustmentsRequest"/>
+			<wsdl:output message="tns:LoadPaymentsAdjustmentsResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="FinancialOperationsPort" type="tns:FinancialOperations">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="LoadPayments">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:SubscriberInformation" part="SubscriberInformation" use="literal"/>
+				<soap:header message="tns:CorrelationId" part="CorrelationId" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="LoadPaymentsAdjustments">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:SubscriberInformation" part="SubscriberInformation" use="literal"/>
+				<soap:header message="tns:CorrelationId" part="CorrelationId" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="FinancialOperationsService">
+		<wsdl:port name="FinancialOperationsPort" binding="tns:FinancialOperationsPort">
+			<soap:address location="http://localhost:8080/ws"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<!-- edited with XMLSPY v5 rel. 4 U (http://www.xmlspy.com) by rado (RGB) -->
+<xs:schema xmlns:tns="http://dictionary.operations.eirc.mos.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:dictionary="http://domainmodel.eirc.mos.ru/model/dictionary" targetNamespace="http://dictionary.operations.eirc.mos.ru" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model/dictionary" schemaLocation="DictionaryModel.xsd"/>
+	<xs:complexType name="CreateDictionaryTableRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода CreateDictionaryTable. 
+Заполняются поля BusinessProcessRequestBase.DateStarted, BusinessProcessRequestBase.OperatorId,  и передаваемые поля DictionaryTable, за исключением полей Id, DateTo</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="DictionaryTable" type="dictionary:DictionaryTable" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CreateDictionaryTableRequest" type="tns:CreateDictionaryTableRequest"/>
+	<xs:element name="CreateDictionaryTableResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult">
+								<xs:sequence>
+									<xs:element name="DictionaryId" type="xs:integer" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Идентификатор справочника</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="CreateDictionaryTablesListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода CreateDictionaryTablesList.
+
+Заполняются поля BusinessProcessRequestBase.DateStarted, BusinessProcessRequestBase.OperatorId,  и передаваемые поля массива DictionaryTable, за исключением полей Id, DateTo</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="DictionaryTables" type="dictionary:DictionaryTable" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>массив справочников</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CreateDictionaryTablesListRequest" type="tns:CreateDictionaryTablesListRequest"/>
+	<xs:element name="CreateDictionaryTablesListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult">
+								<xs:sequence>
+									<xs:element name="CreatedTables" type="dictionary:DictionaryTable" minOccurs="0" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>массив созданных справочников</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyDictionaryTablesListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода ModifyDictionaryTablesList.
+
+Заполняются поля BusinessProcessRequestBase.DateStarted, BusinessProcessRequestBase.OperatorId,  Action, Id и модифицируемые поля DictionaryTable. Список столбцов Columns не передается. Напримаер, при переносе таблицы в другую группу передается Action, Id и новый GroupId. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="RequestItems" type="tns:ModifyDictionaryTablesRequestItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ModifyDictionaryTablesListRequest" type="tns:ModifyDictionaryTablesListRequest"/>
+	<xs:element name="ModifyDictionaryTablesListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyDictionaryTablesRequestItem">
+		<xs:annotation>
+			<xs:documentation>линейка запроса метода ModifyDictionaryTablesList</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид действия со словарями</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DictionaryTable" type="dictionary:DictionaryTable" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>словарь</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CreateDictionaryColumnsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода CreateDictionaryColumnsList
+
+Заполняются поля BusinessProcessRequestBase.DateStarted, BusinessProcessRequestBase.OperatorId,  и передаваемые поля массива DictionaryColumn, за исключением полей Id, DateTo. Обязательно передается TableId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="DictionaryColumns" type="dictionary:DictionaryColumn" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>массив столбцов таблицы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CreateDictionaryColumnsListRequest" type="tns:CreateDictionaryColumnsListRequest"/>
+	<xs:element name="CreateDictionaryColumnsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult">
+								<xs:sequence>
+									<xs:element name="CreatedColumns" type="dictionary:DictionaryColumn" minOccurs="0" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>массив созданных столбцов таблицы</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyDictionaryColumnsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода ModifyDictionaryColumnsList.
+
+Заполняются поля BusinessProcessRequestBase.DateStarted, BusinessProcessRequestBase.OperatorId,  Action, Id, TableId и модифицируемые поля DictionaryColumn. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="RequestItems" type="tns:ModifyDictionaryColumnsRequestItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ModifyDictionaryColumnsListRequest" type="tns:ModifyDictionaryColumnsListRequest"/>
+	<xs:element name="ModifyDictionaryColumnsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyDictionaryColumnsRequestItem">
+		<xs:annotation>
+			<xs:documentation>линейка запроса метода ModifyDictionaryColumnsList</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид действия со столбцами словаря</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DictionaryColumn" type="dictionary:DictionaryColumn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>словарь</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CreateDictionaryGroupsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода CreateDictionaryColumnsList</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="DictionaryGroups" type="dictionary:DictionaryGroup" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>массив групп таблиц</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CreateDictionaryGroupsListRequest" type="tns:CreateDictionaryGroupsListRequest"/>
+	<xs:element name="CreateDictionaryGroupsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult">
+								<xs:sequence>
+									<xs:element name="CreatedGroups" type="dictionary:DictionaryGroup" minOccurs="0" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>массив созданных групп таблиц</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyDictionaryGroupsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода ModifyDictionaryColumnsList.
+
+Заполняются поля BusinessProcessRequestBase.DateStarted, BusinessProcessRequestBase.OperatorId,  Action, Id  и модифицируемые поля DictionaryGroup. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="RequestItems" type="tns:ModifyDictionaryGroupsRequestItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ModifyDictionaryGroupsListRequest" type="tns:ModifyDictionaryGroupsListRequest"/>
+	<xs:element name="ModifyDictionaryGroupsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyDictionaryGroupsRequestItem">
+		<xs:annotation>
+			<xs:documentation>линейка запроса метода ModifyDictionaryColumnsList</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид действия со столбцами словаря</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DictionaryGroup" type="dictionary:DictionaryGroup" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>группа словарей</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CreateDictionaryGroupRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода CreateDictionaryGroup.
+
+Заполняются поля BusinessProcessRequestBase.DateStarted, BusinessProcessRequestBase.OperatorId,  и передаваемые поля DictionaryGroup, за исключением полей Id, DateTo. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="DictionaryGroup" type="dictionary:DictionaryGroup" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>группа таблиц</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CreateDictionaryGroupRequest" type="tns:CreateDictionaryGroupRequest"/>
+	<xs:element name="CreateDictionaryGroupResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult">
+								<xs:sequence>
+									<xs:element name="DictionaryGroupId" type="xs:integer" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Идентификатор группы справочников</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="InsertDictionaryRecordsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода InsertRecordsIntoDictionary.
+
+Заполняются поля BusinessProcessRequestBase.DateStarted, BusinessProcessRequestBase.OperatorId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="TableId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор таблицы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Records" type="dictionary:DictionaryRecord" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>массив записей</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Note" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Комментарий</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="InsertDictionaryRecordsListRequest" type="tns:InsertDictionaryRecordsListRequest"/>
+	<xs:element name="InsertDictionaryRecordsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyRecordRequestItem">
+		<xs:annotation>
+			<xs:documentation>Модифицируемая словарная запись</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Действие</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Record" type="dictionary:DictionaryRecord" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>массив записей</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ModifyDictionaryRecordsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода ModifyRecordsIntoDictionary.
+
+Заполняются поля BusinessProcessRequestBase.DateStarted, BusinessProcessRequestBase.OperatorId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="TableId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор таблицы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DictionaryRecords" type="tns:ModifyRecordRequestItem" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>массив записей</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Note" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Комментарий</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ModifyDictionaryRecordsListRequest" type="tns:ModifyDictionaryRecordsListRequest"/>
+	<xs:element name="ModifyDictionaryRecordsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="LoadDictionaryCsvFileRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода LoadDictionaryCsvFileMultiPartRequest. 
+
+Загружает данные csv-файла на сервер. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="TableId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор таблицы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Note" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Комментарий</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Attachment" type="xs:base64Binary" minOccurs="0" xmime:expectedContentTypes="text/csv">
+						<xs:annotation>
+							<xs:documentation>Содержимое файла в кодировке base-64</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="LoadDictionaryCsvFileRequest" type="tns:LoadDictionaryCsvFileRequest"/>
+	<xs:element name="LoadDictionaryCsvFileResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SubmitChangesToRegionsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода SubmitChangesToRegions</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="RequestItems" type="tns:SubmitChangesToRegionsRequestItem" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Массив измененных данных</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Note" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Комментарий</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SubmitChangesToRegionsRequestItem">
+		<xs:annotation>
+			<xs:documentation>Линейка запроса метода SubmitChangesToRegions</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SourceTableId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор таблицы источнока данных в НСИ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DestinationTableName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Таблица окружной БД с изменяемыми данными</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DictionaryRecords" type="tns:ModifyRecordRequestItem" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>массив записей для переноса в окружные БД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Note" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SubmitChangesToRegionsRequest" type="tns:SubmitChangesToRegionsRequest"/>
+	<xs:element name="SubmitChangesToRegionsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

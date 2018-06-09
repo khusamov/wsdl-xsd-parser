@@ -1,0 +1,41 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://external.operations.eirc.mos.ru/callback" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:extcore="http://external.model.eirc.mos.ru/core" xmlns:callback="http://external.operations.eirc.mos.ru/callback" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://external.operations.eirc.mos.ru/callback">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://external.operations.eirc.mos.ru/callback" schemaLocation="CallbackService.xsd"/>
+			<xsd:import namespace="http://external.model.eirc.mos.ru/core" schemaLocation="../BaseDomain/ExternalCore.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="MessageId">
+		<part name="MessageId" element="extcore:MessageId"/>
+	</message>
+	<message name="CorrelationId">
+		<part name="CorrelationId" element="extcore:CorrelationId"/>
+	</message>
+	<message name="UniversalCallbackRequest">
+		<part name="parameter" element="tns:UniversalCallbackRequest"/>
+	</message>
+	<portType name="CallbackService">
+		<documentation>Служба callback-методов</documentation>
+		<operation name="UniversalCallback">
+			<documentation>Универсальный callback-метод</documentation>
+			<input message="tns:UniversalCallbackRequest"/>
+		</operation>
+	</portType>
+	<binding name="CallbackServicePortBinding" type="tns:CallbackService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="UniversalCallback">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:MessageId" part="MessageId" use="literal"/>
+				<soap:header message="tns:CorrelationId" part="CorrelationId" use="literal"/>
+			</input>
+		</operation>
+	</binding>
+	<service name="CallbackService">
+		<port name="CallbackServicePort" binding="tns:CallbackServicePortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

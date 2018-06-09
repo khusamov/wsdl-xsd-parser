@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:extcore="http://external.model.eirc.mos.ru/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://external.model.eirc.mos.ru/core" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="ExternalOperationResult">
+		<xs:annotation>
+			<xs:documentation>Результат выполнения бизнес операции, инициированной из внешней системы. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="State" type="extcore:BusinessProcessState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Состояние бизнес операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Errors" type="extcore:Error" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Ошибки выполнения операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExternalSubscriberInformation">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>Информация о внешнем пользователе БО</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MessageId" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Уникальный идентификатор сообщения в виде GUID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubscriberName" type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>Название системы-потребителя </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Login" type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo/>
+					<xs:documentation>Имя пользователя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ExternalSubscriberInformation" type="extcore:ExternalSubscriberInformation"/>
+	<xs:simpleType name="BusinessProcessState">
+		<xs:annotation>
+			<xs:documentation>
+Unknown - Неизвестно 
+Registering - В процессе регистрации 
+InProgress - В процессе 
+Faulted - Окончилось ошибкой 
+Cancelled - Отозвано 
+Completed - Завершено 
+Waiting - В ожидании 
+ExpiredWaitingPeriod - период ожидания истек
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Unknown"/>
+			<xs:enumeration value="Registering"/>
+			<xs:enumeration value="InProgress"/>
+			<xs:enumeration value="Faulted"/>
+			<xs:enumeration value="Cancelled"/>
+			<xs:enumeration value="Completed"/>
+			<xs:enumeration value="Waiting"/>
+			<xs:enumeration value="ExpiredWaitingPeriod"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Error">
+		<xs:sequence>
+			<xs:element name="ErrorCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код ошибки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ErrorDescription" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание ошибки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="MessageId" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Уникальный идентификатор сообщения в форме guid</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CorrelationId" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>Идентификатор связанного сообщения, т.е. MessageId перавоначального сообщения, в ответ на который асинхронно отправляется callback-сообщение</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

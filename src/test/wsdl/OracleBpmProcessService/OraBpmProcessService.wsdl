@@ -1,0 +1,58 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://bpm.ora.processservice.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns="http://domainmodel.eirc.mos.ru/core" targetNamespace="http://bpm.ora.processservice.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://bpm.ora.processservice.eirc.mos.ru" schemaLocation="OraBpmProcessService.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="StartBusinessProcessRequest">
+		<part name="parameter" element="tns:StartBusinessProcessRequest"/>
+	</message>
+	<message name="StartBusinessProcessResponse">
+		<part name="parameter" element="tns:StartBusinessProcessResponse"/>
+	</message>
+	<message name="ExecuteHumanTaskRequest">
+		<part name="parameter" element="tns:ExecuteHumanTaskRequest"/>
+	</message>
+	<message name="ExecuteHumanTaskResponse">
+		<part name="parameter" element="tns:ExecuteHumanTaskResponse"/>
+	</message>
+	<portType name="OraBpmProcessService">
+		<operation name="StartBusinessProcess">
+			<documentation>Запуск бизнес-процесса Oracle BPMN</documentation>
+			<input message="tns:StartBusinessProcessRequest"/>
+			<output message="tns:StartBusinessProcessResponse"/>
+		</operation>
+		<operation name="ExecuteHumanTask">
+			<documentation>Выполнение пользовательской задачи Oracle BPMN</documentation>
+			<input message="tns:ExecuteHumanTaskRequest"/>
+			<output message="tns:ExecuteHumanTaskResponse"/>
+		</operation>
+	</portType>
+	<binding name="OraBpmProcessServicePortBinding" type="tns:OraBpmProcessService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="StartBusinessProcess">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ExecuteHumanTask">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="OraBpmProcessService">
+		<port name="OraBpmProcessServicePort" binding="tns:OraBpmProcessServicePortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

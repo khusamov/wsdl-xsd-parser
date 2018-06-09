@@ -1,0 +1,258 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://dictionary.operations.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:ns="http://domainmodel.eirc.mos.ru/core" xmlns:ns1="http://domainmodel.eirc.mos.ru/model/dictionary" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://dictionary.operations.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://dictionary.operations.eirc.mos.ru" schemaLocation="DictionaryOperations.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="CreateDictionaryTableRequest">
+		<part name="parameter" element="tns:CreateDictionaryTableRequest"/>
+	</message>
+	<message name="CreateDictionaryTableResponse">
+		<part name="parameter" element="tns:CreateDictionaryTableResponse"/>
+	</message>
+	<message name="CreateDictionaryTablesListRequest">
+		<part name="parameter" element="tns:CreateDictionaryTablesListRequest"/>
+	</message>
+	<message name="CreateDictionaryTablesListResponse">
+		<part name="parameter" element="tns:CreateDictionaryTablesListResponse"/>
+	</message>
+	<message name="ModifyDictionaryTablesListRequest">
+		<part name="parameter" element="tns:ModifyDictionaryTablesListRequest"/>
+	</message>
+	<message name="ModifyDictionaryTablesListResponse">
+		<part name="parameter" element="tns:ModifyDictionaryTablesListResponse"/>
+	</message>
+	<message name="CreateDictionaryColumnsListRequest">
+		<part name="parameter" element="tns:CreateDictionaryColumnsListRequest"/>
+	</message>
+	<message name="CreateDictionaryColumnsListResponse">
+		<part name="parameter" element="tns:CreateDictionaryColumnsListResponse"/>
+	</message>
+	<message name="ModifyDictionaryColumnsListRequest">
+		<part name="parameter" element="tns:ModifyDictionaryColumnsListRequest"/>
+	</message>
+	<message name="CreateDictionaryGroupsListRequest">
+		<part name="parameter" element="tns:CreateDictionaryGroupsListRequest"/>
+	</message>
+	<message name="CreateDictionaryGroupsListResponse">
+		<part name="parameter" element="tns:CreateDictionaryGroupsListResponse"/>
+	</message>
+	<message name="ModifyDictionaryGroupsListRequest">
+		<part name="parameter" element="tns:ModifyDictionaryGroupsListRequest"/>
+	</message>
+	<message name="ModifyDictionaryGroupsListResponse">
+		<part name="parameter" element="tns:ModifyDictionaryGroupsListResponse"/>
+	</message>
+	<message name="ModifyDictionaryColumnsListResponse">
+		<part name="parameter" element="tns:ModifyDictionaryColumnsListResponse"/>
+	</message>
+	<message name="CreateDictionaryGroupRequest">
+		<part name="parameter" element="tns:CreateDictionaryGroupRequest"/>
+	</message>
+	<message name="CreateDictionaryGroupResponse">
+		<part name="parameter" element="tns:CreateDictionaryGroupResponse"/>
+	</message>
+	<message name="InsertDictionaryRecordsListRequest">
+		<part name="parameter" element="tns:InsertDictionaryRecordsListRequest"/>
+	</message>
+	<message name="InsertDictionaryRecordsListResponse">
+		<part name="parameter" element="tns:InsertDictionaryRecordsListResponse"/>
+	</message>
+	<message name="ModifyDictionaryRecordsListRequest">
+		<part name="parameter" element="tns:ModifyDictionaryRecordsListRequest"/>
+	</message>
+	<message name="ModifyDictionaryRecordsListResponse">
+		<part name="parameter" element="tns:ModifyDictionaryRecordsListResponse"/>
+	</message>
+	<message name="LoadDictionaryCsvFileRequest">
+		<part name="parameter" element="tns:LoadDictionaryCsvFileRequest"/>
+	</message>
+	<message name="LoadDictionaryCsvFileResponse">
+		<part name="parameter" element="tns:LoadDictionaryCsvFileResponse"/>
+	</message>
+	<message name="SubmitChangesToRegionsRequest">
+		<part name="parameter" element="tns:SubmitChangesToRegionsRequest"/>
+	</message>
+	<message name="SubmitChangesToRegionsResponse">
+		<part name="parameter" element="tns:SubmitChangesToRegionsResponse"/>
+	</message>
+	<portType name="DictionaryOperations">
+		<operation name="CreateDictionaryTable">
+			<documentation>Создание словаря</documentation>
+			<input message="tns:CreateDictionaryTableRequest"/>
+			<output message="tns:CreateDictionaryTableResponse"/>
+		</operation>
+		<operation name="CreateDictionaryTablesList">
+			<documentation>Создание списка словарей</documentation>
+			<input message="tns:CreateDictionaryTablesListRequest"/>
+			<output message="tns:CreateDictionaryTablesListResponse"/>
+		</operation>
+		<operation name="ModifyDictionaryTablesList">
+			<documentation>Изменение списка словарей</documentation>
+			<input message="tns:ModifyDictionaryTablesListRequest"/>
+			<output message="tns:ModifyDictionaryTablesListResponse"/>
+		</operation>
+		<operation name="CreateDictionaryColumnsList">
+			<documentation>Создание списка столбцов словарей</documentation>
+			<input message="tns:CreateDictionaryColumnsListRequest"/>
+			<output message="tns:CreateDictionaryColumnsListResponse"/>
+		</operation>
+		<operation name="ModifyDictionaryColumnsList">
+			<documentation>Изменение списка столбцов словарей</documentation>
+			<input message="tns:ModifyDictionaryColumnsListRequest"/>
+			<output message="tns:ModifyDictionaryColumnsListResponse"/>
+		</operation>
+		<operation name="CreateDictionaryGroupsList">
+			<documentation>Создание списка групп словарей</documentation>
+			<input message="tns:CreateDictionaryGroupsListRequest"/>
+			<output message="tns:CreateDictionaryGroupsListResponse"/>
+		</operation>
+		<operation name="ModifyDictionaryGroupsList">
+			<documentation>Изменение списка групп словарей</documentation>
+			<input message="tns:ModifyDictionaryGroupsListRequest"/>
+			<output message="tns:ModifyDictionaryGroupsListResponse"/>
+		</operation>
+		<operation name="CreateDictionaryGroup">
+			<documentation>Создание группы словарей</documentation>
+			<input message="tns:CreateDictionaryGroupRequest"/>
+			<output message="tns:CreateDictionaryGroupResponse"/>
+		</operation>
+		<operation name="InsertDictionaryRecordsList">
+			<documentation>Создание словарных записей</documentation>
+			<input message="tns:InsertDictionaryRecordsListRequest"/>
+			<output message="tns:InsertDictionaryRecordsListResponse"/>
+		</operation>
+		<operation name="ModifyDictionaryRecordsList">
+			<documentation>Изменение словарных записей</documentation>
+			<input message="tns:ModifyDictionaryRecordsListRequest"/>
+			<output message="tns:ModifyDictionaryRecordsListResponse"/>
+		</operation>
+		<operation name="LoadDictionaryCsvFile">
+			<documentation>Загрузка данных csv-файла на сервер</documentation>
+			<input message="tns:LoadDictionaryCsvFileRequest"/>
+			<output message="tns:LoadDictionaryCsvFileResponse"/>
+		</operation>
+		<operation name="SubmitChangesToRegions">
+			<documentation>Изменение словарных записей в окружных БД</documentation>
+			<input message="tns:SubmitChangesToRegionsRequest"/>
+			<output message="tns:SubmitChangesToRegionsResponse"/>
+		</operation>
+	</portType>
+	<binding name="DictionaryOperationsPortBinding" type="tns:DictionaryOperations">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="CreateDictionaryTable">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateDictionaryTablesList">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyDictionaryTablesList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateDictionaryColumnsList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyDictionaryColumnsList">
+			<soap:operation soapAction="urn:#ModifyDictionaryColumnsList"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateDictionaryGroupsList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyDictionaryGroupsList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateDictionaryGroup">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="InsertDictionaryRecordsList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyDictionaryRecordsList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="LoadDictionaryCsvFile">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SubmitChangesToRegions">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="DictionaryOperationsService">
+		<port name="DictionaryOperationsPort" binding="tns:DictionaryOperationsPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

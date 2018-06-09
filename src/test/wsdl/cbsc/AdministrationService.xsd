@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:tns="http://administration.eirc.mos.ru" xmlns:core="http://domainmodel.eirc.mos.ru/core" targetNamespace="http://administration.eirc.mos.ru" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:complexType name="GetOperatorByLoginParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetOperatorByLoginParams.
+Поля Login и Password являются обязательными элементами
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Login" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Логин оператора
+
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Password" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пароль оператора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetOperatorByLoginParamsRequest" type="tns:GetOperatorByLoginParamsRequest"/>
+	<xs:complexType name="GetOperatorByLoginParamsResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetOperatorByLoginParams.
+Поля Operator, SecurityToken, ServerVersion, OperatorRloes являются обязательными			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Operator" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Возвращается поле типа Individual.
+В нем заполняются поля: PartyId, FirstName, SecondName, Surname
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SecurityToken" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Маркер безопасности</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ServerVersion" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Версия серверной части ПИР</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorRoles" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Список ролей оператора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManagementCompanyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификаторы управляющей компании, связанной с оператором</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetOperatorByLoginParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetOperatorByLoginParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

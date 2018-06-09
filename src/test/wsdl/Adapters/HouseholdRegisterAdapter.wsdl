@@ -1,0 +1,70 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://household.register.adapter.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://household.register.adapter.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://household.register.adapter.eirc.mos.ru" schemaLocation="HouseholdRegisterAdapter.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="SubscriberInformation">
+		<part name="SubscriberInformation" element="core:SubscriberInformation"/>
+	</message>
+	<message name="MessageId">
+		<part name="MessageId" element="core:MessageId"/>
+	</message>
+	<message name="LoadHouseholdRegisterFullRequest">
+		<part name="parameter" element="tns:LoadHouseholdRegisterFullRequest"/>
+	</message>
+	<message name="LoadHouseholdRegisterFullResponse">
+		<part name="parameter" element="tns:LoadHouseholdRegisterFullResponse"/>
+	</message>
+	<message name="LoadHouseholdRegisterIncrementalRequest">
+		<part name="parameter" element="tns:LoadHouseholdRegisterIncrementalRequest"/>
+	</message>
+	<message name="LoadHouseholdRegisterIncrementalResponse">
+		<part name="parameter" element="tns:LoadHouseholdRegisterIncrementalResponse"/>
+	</message>
+	<portType name="HouseholdRegisterAdapter">
+		<documentation>Служба для проксирования вызовов из внутренних систем АСУ ЕИРЦ к сервисам Реестра домовладений. </documentation>
+		<operation name="LoadHouseholdRegisterFull">
+			<documentation>Полная загрузка данных РД</documentation>
+			<input message="tns:LoadHouseholdRegisterFullRequest"/>
+			<output message="tns:LoadHouseholdRegisterFullResponse"/>
+		</operation>
+		<operation name="LoadHouseholdRegisterIncremental">
+			<documentation>Инкрементальная загрузка данных РД</documentation>
+			<input message="tns:LoadHouseholdRegisterIncrementalRequest"/>
+			<output message="tns:LoadHouseholdRegisterIncrementalResponse"/>
+		</operation>
+	</portType>
+	<binding name="HouseholdRegisterAdapterPortBinding" type="tns:HouseholdRegisterAdapter">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="LoadHouseholdRegisterFull">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:MessageId" part="MessageId" use="literal"/>
+				<soap:header message="tns:SubscriberInformation" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="LoadHouseholdRegisterIncremental">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:MessageId" part="MessageId" use="literal"/>
+				<soap:header message="tns:SubscriberInformation" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="HouseholdRegisterAdapterService">
+		<port name="HouseholdRegisterAdapterPort" binding="tns:HouseholdRegisterAdapterPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

@@ -1,0 +1,1562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://debtoroperations.eirc.mos.ru" xmlns:debtor="http://domainmodel.eirc.mos.ru/model/debtor" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:mime="http://www.w3.org/2005/05/xmlmime" targetNamespace="http://debtoroperations.eirc.mos.ru" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model/debtor" schemaLocation="DebtorModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:complexType name="StartBusinessProcessRequest">
+		<xs:sequence>
+			<xs:element name="BusinessProcessName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Передается значение debtorEntireProcess</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStarted" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текущее дата/время</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>При запуске из ПИР заполняется PartyId и PersonalAccountNumber</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="StartBusinessProcessRequest" type="tns:StartBusinessProcessRequest"/>
+	<xs:element name="StartBusinessProcessResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+				<xs:element name="BusinessProcessNumber" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="FinishBusinessProcessRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="FinishBusinessProcessRequest" type="core:BusinessProcessRequestBase"/>
+	<xs:element name="FinishBusinessProcessResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- Pretrial Messages -->
+	<xs:complexType name="CreatePretrialProceedingsListRequest">
+		<xs:sequence>
+			<xs:element name="PretrialProceedings" type="debtor:PretrialProceeding" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CreatePretrialProceedingsListRequest" type="tns:CreatePretrialProceedingsListRequest"/>
+	<xs:element name="CreatePretrialProceedingsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="FinishPretrialProceedingSubProcessRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="FinishPretrialProceedingSubProcessRequest" type="tns:FinishPretrialProceedingSubProcessRequest"/>
+	<xs:element name="FinishPretrialProceedingSubProcessResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="StartLawCaseProceedingSubProcessRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="StartLawCaseProceedingSubProcessRequest" type="tns:StartLawCaseProceedingSubProcessRequest"/>
+	<xs:element name="StartLawCaseProceedingSubProcessResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ChangePretrialProceedingStatusRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="NewStatus" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>В случае ответа от МФЦ о подготовке комлектов документа в суд:
+Code = Finished
+В случае ответа от МФЦ о взятии документов в работу:
+Code = InProcess</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateChanged" type="xs:dateTime" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ChangePretrialProceedingStatusRequest" type="tns:ChangePretrialProceedingStatusRequest"/>
+	<xs:element name="ChangePretrialProceedingStatusResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ChangePretrialProceedingsStatusListRequest">
+		<xs:annotation>
+			<xs:documentation>В случае изменения статуса досудебного производства с отменой существующего у должника судопроизводства помимо данных в AdditionalCharacteristics добавляются следующие данные
+
+RequestItems.NewStatus.Code = InProcess</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestItems" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="tns:ChangePretrialProceedingStatusRequest">
+							<xs:sequence>
+								<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+									<xs:annotation>
+										<xs:documentation>В случае изменения статуса досудебного производства с отменой существующего у должника судопроизводства, в AdditionalCharacteristics добавляются следующие данные
+
+Name: CloseLawCaseProceeding
+Value: true
+DataType: Boolean
+Value:true
+
+</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CancellationReason" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Причина аннулирования</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Note" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ChangePretrialProceedingsStatusListRequest" type="tns:ChangePretrialProceedingsStatusListRequest"/>
+	<xs:element name="ChangePretrialProceedingsStatusListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SendNotificationToCustomerRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода SendNotificationToCustomer. 
+Заполняются поля DateStarted, OperatorId, Debtor, Notification</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Данные должника. 
+Используются только поля 
+PartyId - идентификатор должника 
+PersonalAccountNumber - идентификатор лицевого счета</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Notification" type="debtor:DebtorNotification" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Уведомление</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="SendNotificationToCustomerRequest" type="tns:SendNotificationToCustomerRequest"/>
+	<xs:element name="SendNotificationToCustomerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ReceivePaymentFromCustomerRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="Payment" type="debtor:Payment" minOccurs="0"/>
+					<xs:element name="DateReceived" type="xs:dateTime" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ReceivePaymentFromCustomerRequest" type="tns:ReceivePaymentFromCustomerRequest"/>
+	<xs:element name="ReceivePaymentFromCustomerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="CreatePretrialProceedingRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="PretrialProceeding" type="debtor:PretrialProceeding" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="CreatePretrialProceedingRequest" type="tns:CreatePretrialProceedingsListRequest"/>
+	<xs:element name="CreatePretrialProceedingResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SendNotificationsListRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода SendNotificationsList</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Notifications" type="tns:SendNotificationToCustomerRequest" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SendNotificationsListRequest" type="tns:SendNotificationsListRequest"/>
+	<xs:element name="SendNotificationsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SendApplicationToTrialRequest">
+		<xs:annotation>
+			<xs:documentation>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="Debtor" type="dom:Party" minOccurs="0"/>
+					<xs:element name="DateSent" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="Court" type="debtor:Court" minOccurs="0"/>
+					<xs:element name="Applications" type="debtor:TrialApplication" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Priority" type="xs:string" minOccurs="0"/>
+					<xs:element name="IsCommonDocumentComplect" type="xs:boolean" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="SendApplicationToTrialRequest" type="tns:SendApplicationToTrialRequest"/>
+	<xs:element name="SendApplicationToTrialResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SendDocumentsOrderToMfcRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода SendDocumentsOrderToMfc
+BusinessOperationId и BusinessProcessNumber не заполняется				</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="DateSent" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата/время заказа пачки документов в МФЦ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateRequested" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата/время, на которое заказана пачки документов в МФЦ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Данные должника. Заполняется только Debtor.PartyId и Debtor.PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DocumentTypes" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>General_House_Doc = Единый жилищный документ
+
+Finance_Position_PA_Ref = Справка о фин.состоянии ЛС 
+
+Debt_PA_Statement= Выписка из ЛС о задолженности
+
+Debt_Sertificate = Справка о наличии долга
+
+Cons_Balance_Sheet = Сводно-сальдовая ведомость
+
+House_RightHolder_Copy = Копия правоуст. документа на жильё
+
+Court_Decision_Copy = Копии решений суда по квартире	</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Priority" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Приоритет:
+Priority.Code=
+Normal - Обычный
+Urgent - Срочный</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsCommonDocumentComplect" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак  стандартного комплекта документов</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalDebtorsArrays" type="debtor:DebtorsArray" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Данные массивов дополнительных должников в случае массовой заявки в МФЦ. Заполняются только Debtor.PartyId,  Debtor.PersonalAccountNumber, Debtor.Representative.PartyId. 
+
+В каждом массиве DebtorItem первым элементом в массиве идет должник-ОКС. При остутствии ОКС первым элементом в массиве иден должник-собственник.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsSeparateApplicationForOwner" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак отдельного заявления на каждого собственника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Representative" type="dom:Party" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Представитель должника. Заполняются только PartyId и PersonalAccountNumber</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BalancePeriodType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Период оборотной ведомости по лицевому счету
+Code = Account, Name = Весь период ФЛС
+Code = ManagingCompany, Name = Период действий УО
+Code = Other, Name = Другой
+В случае Code = Other в полях DateStart и DateFinish передаются период с и период по</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="SendDocumentsOrderToMfcRequest" type="tns:SendDocumentsOrderToMfcRequest"/>
+	<xs:element name="SendDocumentsOrderToMfcResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SendDocumentOrdersListToMfcRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода SendDocumentOrdersListToMfc</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Orders" type="tns:SendDocumentsOrderToMfcRequest" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SendDocumentOrdersListToMfcRequest" type="tns:SendDocumentOrdersListToMfcRequest"/>
+	<xs:element name="SendDocumentOrdersListToMfcResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="CreatePaymentAgreementRequest">
+		<xs:annotation>
+			<xs:documentation>Для обоих типов платежных соглашений 
+Postponement и Installment
+запоняются Debtor.PartyId, Debtor.PersonalAccountNumber,
+OperatorId,
+Type.Code
+
+В случае типа Postponement заполняется еще только DateFinishAgreement
+
+В случае создания Платежного соглашения с отменой существующего у должника судопроизводства (см ФТ 070), в AdditionalCharacteristics добавляются следующие данные
+
+Name: CloseLawCaseProceeding
+DataType: Boolean
+Value:true
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PaymentAgreement" type="debtor:PaymentAgreement" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CreatePaymentAgreementRequest" type="tns:CreatePaymentAgreementRequest"/>
+	<xs:element name="CreatePaymentAgreementResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- LawCaseProceeding Messages -->
+	<xs:complexType name="ReceiveCourtDecisionRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="Court" type="debtor:Court" minOccurs="0"/>
+					<xs:element name="Decision" type="debtor:TrialDecision" minOccurs="0"/>
+					<xs:element name="DateReceived" type="xs:dateTime" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ReceiveCourtDecisionRequest" type="tns:ReceiveCourtDecisionRequest"/>
+	<xs:element name="ReceiveCourtDecisionResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="StartLawCaseExecutionSubProcessRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="StartLawCaseExecutionSubProcessRequest" type="tns:StartLawCaseExecutionSubProcessRequest"/>
+	<xs:element name="StartLawCaseExecutionSubProcessResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ChangeLawCaseProceedingStatusRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода изменение статуса судопроизводства.
+
+Из BusinessProcessRequestBase заполняются:
+BusinessProcessNumber, DateStarted, OperatorId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="NewStatus" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Статусы судопризводства. Возможны варианты
+Code =
+CourtTakeToProceeding - Принято в производство
+Denied - Отказано в рассмотрении
+Returned - Иск возвращен заявителю
+InProcess - Оставлено без движения
+CourtDecisionRendered - Вынесено решение суда
+CourtDecisionComingToForce - Решение суда вступило в силу</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateChanged" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата/время изменения статуса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DealNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер дела</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные атрибуты:
+
+Name: CourtPaymentDecision - решение суда о погашении задолженности
+Value: Full, Part или Denial - полная, частичная, отказ
+DataType: String
+
+Name: CourtPaymentAmount - сумма по решению суда о погашении задолженности
+Value: значение суммы
+DataType: Double
+
+Name: DateCourtDecisionRendered - дата вынесенения решения судом
+Value: дата в формате xml
+DataType: Date
+
+Name: DateCourtComingToForce - дата вступления в силу решения суда
+Value: дата в формате xml
+DataType: Date
+
+Name: DateReceivingOrderObtained - дата получения исполнительного документа
+Value: дата в формате xml
+DataType: Date
+
+Name: ReceivingOrderNumber - номер исполнительного документа
+Value: номер исполнительного документа
+DataType: String</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ChangeLawCaseProceedingStatusRequest" type="tns:ChangeLawCaseProceedingStatusRequest"/>
+	<xs:element name="ChangeLawCaseProceedingStatusResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ChangeLawCaseProceedingsStatusListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода изменение статусов массива судопроизводства</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestItems" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="tns:ChangeLawCaseProceedingStatusRequest"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CancellationReason" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Причина аннулирования</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Note" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ChangeLawCaseProceedingsStatusListRequest" type="tns:ChangeLawCaseProceedingsStatusListRequest"/>
+	<xs:element name="ChangeLawCaseProceedingsStatusListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="FinishLawCaseProceedingSubProcessRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="FinishLawCaseProceedingSubProcessRequest" type="tns:FinishLawCaseProceedingSubProcessRequest"/>
+	<xs:element name="FinishLawCaseProceedingSubProcessResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="CreateLawCaseProceedingsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода создания массива судопроизводств по должникам </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LawCaseProceedings" type="debtor:LawCaseProceeding" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CreateLawCaseProceedingsListRequest" type="tns:CreateLawCaseProceedingsListRequest"/>
+	<xs:element name="CreateLawCaseProceedingsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- LawCaseExecution Messages -->
+	<xs:complexType name="ReceiveExecutionActRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="Court" type="debtor:Court" minOccurs="0"/>
+					<xs:element name="ExecutionAct" type="debtor:ExecutionAct" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ReceiveExecutionActRequest" type="tns:ReceiveExecutionActRequest"/>
+	<xs:element name="ReceiveExecutionActResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SentRequestToBankRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="Bank" type="dom:Organization" minOccurs="0"/>
+					<xs:element name="BankRequest" type="dom:Document" minOccurs="0"/>
+					<xs:element name="DateSent" type="xs:dateTime" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="SentRequestToBankRequest" type="tns:SentRequestToBankRequest"/>
+	<xs:element name="SentRequestToBankResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SendRequestToTaxAuthorityRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="TaxAuthority" type="dom:Organization" minOccurs="0"/>
+					<xs:element name="AuthorityRequest" type="dom:BaseDictionary" minOccurs="0"/>
+					<xs:element name="DateSent" type="xs:dateTime" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="SendRequestToTaxAuthorityRequest" type="tns:SendRequestToTaxAuthorityRequest"/>
+	<xs:element name="SendRequestToTaxAuthorityResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SendExecutionActToBailiffOfficeRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="ExecutionAct" type="debtor:LawCaseExecution" minOccurs="0"/>
+					<xs:element name="DateSent" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные характеристики</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="SendExecutionActToBailiffOfficeRequest" type="tns:SendExecutionActToBailiffOfficeRequest"/>
+	<xs:element name="SendExecutionActToBailiffOfficeResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ChangeLawCaseExecutionStatusRequest" type="tns:ChangeLawCaseExecutionStatusRequest"/>
+	<xs:element name="ChangeLawCaseExecutionStatusResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="FinishLawCaseExecutionSubProcessRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="FinishLawCaseExecutionSubProcessRequest" type="tns:FinishLawCaseExecutionSubProcessRequest"/>
+	<xs:element name="FinishLawCaseExecutionSubProcessResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="StartUtilityActionSubProcessRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="StartUtilityActionSubProcessRequest" type="tns:StartUtilityActionSubProcessRequest"/>
+	<xs:element name="StartUtilityActionSubProcessResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- UtilityAction Messages -->
+	<xs:complexType name="ChangeUtilityActionStatusRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="NewStatus" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>новый статус</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateChanged" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата изменения статуса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateRestrictionStarted" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата начала действия ограничения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ChangeUtilityActionStatusRequest" type="tns:ChangeUtilityActionStatusRequest"/>
+	<xs:element name="ChangeUtilityActionStatusResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="FinishUtilityActionSubProcessRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="FinishUtilityActionSubProcessRequest" type="tns:FinishUtilityActionSubProcessRequest"/>
+	<xs:element name="FinishUtilityActionSubProcessResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ApplyUtilityActionRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="UtilityAction" type="debtor:UtilityAction" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ApplyUtilityActionRequest" type="tns:ApplyUtilityActionRequest"/>
+	<xs:element name="ApplyUtilityActionResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ChangePaymentAgreementStatusRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода изменение статуса платежного соглашения
+
+Из BusinessProcessRequestBase заполняются:
+BusinessProcessNumber, DateStarted, OperatorId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="NewStatus" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Статусы платежного соглашения
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateChanged" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата/время изменения статуса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ChangePaymentAgreementStatusRequest" type="tns:ChangePaymentAgreementStatusRequest"/>
+	<xs:element name="ChangePaymentAgreementStatusResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="AddCommentRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода добавления комментария</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="Note" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Комментарий</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ParentBusinessProcessNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор родительского бизнесс-процесса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Данные должника. Заполняется </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные параметры</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="AddCommentRequest" type="tns:AddCommentRequest"/>
+	<xs:element name="AddCommentResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SendMassNotificationsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода массовой рассылки уведомлений</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OperatorId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор оператора, выполнившего массовую операцию</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MassOperationType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип массовой операции
+
+Для операции формирования информационных листов
+Code: InformationList
+
+Для операции формирования уведомлений
+Code: PretrialProcNotification
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebtMinAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Минимальный долг, начиная с которого предоставляются данные</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebtMinPeriod" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количество месяцев задолженности свыше указанного</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Street" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Название и идентификатор улицы в АСУ ЕИРЦ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HouseNumbers" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Номера домов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsEPDIncluded" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Уведомление с ЕПД или нет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные параметры</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsPaymentAgreementIncluded" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Включать должников имеющих Соглашение о погашении</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Участки в терминах АСУ ЕИРЦ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SendMassNotificationsRequest" type="tns:SendMassNotificationsRequest"/>
+	<xs:element name="SendMassNotificationsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+				<xs:element name="MassOperationId" type="xs:integer" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ChangeDebtorResponse">
+		<xs:annotation>
+			<xs:documentation>Запрос метода изменения должника</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ChangeDebtorRequest">
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="Debtor" type="dom:Party" minOccurs="0"/>
+					<xs:element name="ModifiedContacts" type="debtor:ModifiedContact" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Измененные контакты должника. Если действий над контактом не производилось передается Action=None и данные неизменного контакта</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ChangeDebtorRequest" type="tns:ChangeDebtorRequest">
+		<xs:annotation>
+			<xs:documentation>Можно редактировать:
+
+Контакты - одна сущность  для каждого типа (Phone, Email) у которой isEditable = true.
+
+Категории ФЛС - должны быть заданы ИД категорий.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CreateExternalDebtorActionsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода создания действий с должником не в системе ПИР</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Actions" type="debtor:ExternalDebtorAction" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Список действий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStarted" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>дата создания спсика действий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CreateExternalDebtorActionsListRequest" type="tns:CreateExternalDebtorActionsListRequest"/>
+	<xs:element name="CreateExternalDebtorActionsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult">
+								<xs:sequence>
+									<xs:element name="ActionId" type="xs:integer" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Идентификатор созданного действия с должником</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DebtAmount" type="xs:decimal" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Сумма долга</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ExternalDebtorActionsRequestItem">
+		<xs:annotation>
+			<xs:documentation>Линейка запроса метода модификации действий с должником </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид действия с должником</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExternalDebtorAction" type="debtor:ExternalDebtorAction" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Действие с должником не в системе ПИР</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ModifyExternalDebtorActionsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода модификации действий с должником не в системе ПИР</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestItems" type="tns:ExternalDebtorActionsRequestItem" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Массив модифицируемых действий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStarted" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время модификации списка действий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ModifyExternalDebtorActionsListRequest" type="tns:ModifyExternalDebtorActionsListRequest"/>
+	<xs:element name="ModifyExternalDebtorActionsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="core:OperationResult">
+								<xs:sequence>
+									<xs:element name="DebtAmount" type="xs:decimal" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Сумма долга</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifyMassOperationsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода модификации массовых операций</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestItems" type="tns:MassOperationsRequestItem" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Массив массовых операций</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStarted" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время модификации списка массовых операций</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ModifyMassOperationsListRequest" type="tns:ModifyMassOperationsListRequest"/>
+	<xs:element name="ModifyMassOperationsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="MassOperationsRequestItem">
+		<xs:annotation>
+			<xs:documentation>Линейка запроса метода модификации массовых операций</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид действия с массовой операцией</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MassOperation" type="dom:MassOperation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Массовая операция</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeDebtorsBalancesRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода изменение баланса должников
+
+Из BusinessProcessRequestBase заполняются:
+BusinessProcessNumber, DateStarted, OperatorId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="RequestItems" type="tns:ChangeDebtorsBalancesRequestItem" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Балансы должников</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateChanged" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата/время изменения статуса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ChangeDebtorsBalancesRequestItem">
+		<xs:annotation>
+			<xs:documentation>линейка запроса метода ChangeDebtorsBalances</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>должник</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NewBalance" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>текущий баланс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ChangeDebtorsBalancesRequest" type="tns:ChangeDebtorsBalancesRequest"/>
+	<xs:element name="ChangeDebtorsBalancesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SendExecutionActsToBailiffOfficeListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода SendExecutionActsToBailiffOffice в ФСПП.
+
+Из BusinessProcessRequestBase заполняются:
+BusinessProcessNumber, DateStarted, OperatorId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="RequestItems" type="tns:SendExecutionActsToBailiffOfficeListRequestItem" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>линейки запроса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BailiffOffice" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Подразделение ФСПП</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateSent" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата отправки заявки в ФСПП</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SendExecutionActsToBailiffOfficeListRequestItem">
+		<xs:sequence>
+			<xs:element name="LawCaseProceedingId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Спиоск идентификаторов судопроизводства</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristic" type="core:Characteristic" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дополнительные характеристики</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SendExecutionActsToBailiffOfficeListRequest" type="tns:SendExecutionActsToBailiffOfficeListRequest"/>
+	<xs:element name="SendExecutionActsToBailiffOfficeListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ChangeLawCaseExecutionStatusRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода изменение статуса  исполнительного производcтва.
+
+Из BusinessProcessRequestBase заполняются:
+BusinessProcessNumber, DateStarted, OperatorId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="NewStatus" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Статусы исполнительного производства</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateChanged" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата/время изменения статуса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DealNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер дела</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CollectedAmount" type="xs:decimal" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Взысканная сумма</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные атрибуты:</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ChangeLawCaseExecutionsStatusListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода изменение статусов массива  исполнительных производcтв</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestItems" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="tns:ChangeLawCaseExecutionStatusRequest"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CancellationReason" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Причина аннулирования</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Note" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные атрибуты:
+
+Для получения статуса из ФССП 
+Name: IsBailiffStatusRequested
+Value: true
+DataType: Boolean
+
+ФИО пристава
+Name: BailiffFullName
+Value: ФИО пристава
+DataType: String
+
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ChangeLawCaseExecutionsStatusListRequest" type="tns:ChangeLawCaseExecutionsStatusListRequest"/>
+	<xs:element name="ChangeLawCaseExecutionsStatusListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="CreateLawCaseExecutionsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода создания массива  исполнительных производcтв по должникам </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LawCaseExecutions" type="debtor:LawCaseExecution" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CreateLawCaseExecutionsListRequest" type="tns:CreateLawCaseExecutionsListRequest"/>
+	<xs:element name="CreateLawCaseExecutionsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ResumeLawCaseExecutionsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода изменение баланса должников
+
+Из BusinessProcessRequestBase заполняются:
+BusinessProcessNumber, DateStarted, OperatorId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="RequestItems" type="tns:ResumeLawCaseExecutionsListRequestItem" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Балансы должников</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateExecutionResumed" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата возобновления исполнительных производcтв</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ResumeLawCaseExecutionsListRequestItem">
+		<xs:annotation>
+			<xs:documentation>Запрос метода возобновления массива исполнительных производcтв</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LawCaseExecutionId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор возобновляемого дела исполнительного производства</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristic" type="core:Characteristic" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дополнительные характеристики</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ResumeLawCaseExecutionsListRequest" type="tns:ResumeLawCaseExecutionsListRequest"/>
+	<xs:element name="ResumeLawCaseExecutionsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifySystemEventsListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода модификации массовых операций</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestItems" type="tns:ModifySystemEventRequestItem" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Массив массовых операций</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStarted" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата/время модификации списка массовых операций</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ModifySystemEventsListRequest" type="tns:ModifySystemEventsListRequest"/>
+	<xs:element name="ModifySystemEventsListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ModifySystemEventRequestItem">
+		<xs:annotation>
+			<xs:documentation>Линейка запроса метода модификации массовых операций</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид действия с массовой операцией. Вслучае изменения флага IsShown  нужно передать Update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SystemEventId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор системного события</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsShown" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак того, что событие показано оператору. true если "Просмотрено"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SendRequestsToBankListRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода SendNotificationToCustomer</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Banks" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Банки. Заполняются поля Code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExternalRequests" type="debtor:ExternalRequest" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Из базового класса DebtorAction заполняются поля DateStarted, Debtor. Из производного класса ExternalRequest заполняются поля RequestAddress, DebtorAddress, DebtorTelephone</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SendRequestsToBankListRequest" type="tns:SendRequestsToBankListRequest"/>
+	<xs:element name="SendRequestsToBankListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SendRequestsToTaxAuthorityListRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода SendRequestsToTaxAuthority</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ExternalRequests" type="debtor:ExternalRequest" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Из базового класса DebtorAction заполняются поля DateStarted, Debtor. Из производного класса ExternalRequest заполняются поля RequestAddress, DebtorAddress, DebtorTelephone</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные параметры
+Тип запроса
+Name=RequestSubType
+Value=Group - групповой или Separated - oбособленный 
+DataType=String</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SendRequestsToTaxAuthorityListRequest" type="tns:SendRequestsToTaxAuthorityListRequest"/>
+	<xs:element name="SendRequestsToTaxAuthorityListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ChangeExternalRequestStatusRequestItem">
+		<xs:annotation>
+			<xs:documentation>линейка запрос метода ChangeExternalRequestStatusList</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:BusinessProcessRequestBase">
+				<xs:sequence>
+					<xs:element name="NewStatus" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>новый статус
+
+Возможные статусы 
+Code = InProcess, Name = Ожидается ответ
+Code = AnswerReceived, Name = Ответ получен
+Code = Expired, Name = Прошел срок ответа
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateChanged" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата изменения статуса</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DebtorsBanks" type="tns:DebtorBanksRequestItem" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Банки со счетами должников</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ChangeExternalRequestStatusListRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода ChangeExternalRequestStatusList</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestItems" type="tns:ChangeExternalRequestStatusRequestItem" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>линейки запроса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CancellationReason" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Причина аннулирования</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Note" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>комментарий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>дополнительные характеристики</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ChangeExternalRequestStatusListRequest" type="tns:ChangeExternalRequestStatusListRequest"/>
+	<xs:element name="ChangeExternalRequestStatusListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="DebtorBanksRequestItem">
+		<xs:sequence>
+			<xs:element name="Debtor" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные должника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WithdrawBanks" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Банки для снятия средств должника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangePaymentAgreementsStatusListRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода изменение статусов массива судопроизводства</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RequestItems" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="tns:ChangePaymentAgreementStatusRequest"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CancellationReason" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Причина аннулирования</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Note" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>комментарий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ChangePaymentAgreementsStatusListRequest" type="tns:ChangePaymentAgreementsStatusListRequest"/>
+	<xs:element name="ChangePaymentAgreementsStatusListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="core:OperationResult" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

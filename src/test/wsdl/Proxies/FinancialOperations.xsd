@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://external.operations.eirc.mos.ru/financial" xmlns:extcore="http://external.model.eirc.mos.ru/core" targetNamespace="http://external.operations.eirc.mos.ru/financial">
+	<xs:import namespace="http://external.model.eirc.mos.ru/core" schemaLocation="../BaseDomain/ExternalCore.xsd"/>
+	<xs:element name="LoadPaymentsRequest" type="tns:LoadPaymentsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода приема архива оплат</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LoadPaymentsResponse" type="extcore:ExternalOperationResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода приема архива оплат</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="LoadPaymentsRequest">
+		<xs:sequence>
+			<xs:element name="SignedXmlZip" type="xs:base64Binary"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="LoadPaymentsAdjustmentsRequest" type="tns:LoadPaymentsAdjustmentsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода приема архива корректировок оплат</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LoadPaymentsAdjustmentsResponse" type="extcore:ExternalOperationResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода приема архива корректировок оплат</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="LoadPaymentsAdjustmentsRequest">
+		<xs:sequence>
+			<xs:element name="SignedXmlZip" type="xs:base64Binary"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

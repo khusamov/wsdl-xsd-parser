@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:dictionary="http://domainmodel.eirc.mos.ru/model/dictionary" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" targetNamespace="http://domainmodel.eirc.mos.ru/model/dictionary" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:complexType name="DictionaryGroup">
+		<xs:annotation>
+			<xs:documentation>Группа словарей
+
+Обязательными полями при создании объекта являются
+ShortName, FullName
+
+При изменении нужны все поля объекта. Id обязателен</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dictionary:BaseMetadata">
+				<xs:sequence>
+					<xs:element name="ParentGroupId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор родительской группы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FullName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Полное название группы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ShortName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Краткое название группы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Tables" type="dictionary:DictionaryTable" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Входящие в группу таблицы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Groups" type="dictionary:DictionaryGroup" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Вложенные группы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DictionaryTable">
+		<xs:annotation>
+			<xs:documentation>справочник 
+Обязательными полями при создании объекта являются
+SystemName, GroupId, DictionaryType.Code (Codifier, Classifier, Nomenclature)
+, ShortName, FullName
+
+При изменении нужны все поля объекта. Id обязателен</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dictionary:BaseMetadata">
+				<xs:sequence>
+					<xs:element name="DateCreated" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата создания объекта</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateActivated" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата активации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateDeactivated" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата деактивации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateVerification" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата подтверждения актуальности</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FullName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Полное наименование справочника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ShortName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Краткое наименование справочника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GroupId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор группы спрвочников</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DictionaryType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип справочника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsEditable" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак редактируемости</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsNotifyable" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак возможности оповещения пользователей на email об изменениях
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsMonitoringOn" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Мониторинг качества загружаемых данных
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsEditableEirc" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Возможность редактирования через ЭФ АСУ ЕИРЦ
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsSynchronizable" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак синхронизуемости таблицы с окружной БД</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Version" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>версия</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Reason" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Основание. Название норматива или закона</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Responsible" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Ответственная организация - заказчик</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ExternalDataSource" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>внешний источник данных справочника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Columns" type="dictionary:DictionaryColumn" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>массив столбцов таблицы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SyncronizationState" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Состояние синхронизации справочника со справочником окружной БД
+Code = NotStarted, Name = Не начато
+Code = InProcess, Name = В процессе
+Code = Synchronized, Name = Синхронизовано
+Code = SynchronizationError, Name = Ошибка синхронизации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RegionTableName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Наименование справочника в окружной БД</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные атрибуты
+Часто используемые справочник
+Name - IsFrequentlyUsed
+Value - true/false
+DataType - Boolean
+
+Недавно редактируемые справочник
+Name - IsRecentlyEdited
+Value - true/false
+DataType - Boolean
+
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DictionaryColumn">
+		<xs:annotation>
+			<xs:documentation>столбец справочника
+
+Обязательными полями при создании объекта являются
+TableId, ShortName, FullName, DataType.Code (Varchar2,  Number, Integer, Date, Timestamp)
+
+При изменении нужны все поля объекта. Id обязателен</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dictionary:BaseMetadata">
+				<xs:sequence>
+					<xs:element name="ColumnUserName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Название столбца для пользователя</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TableId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор таблицы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DataType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип данных столбца 
+Code = Varchar2, Name=строковый 
+Code = Number, Name=числовой с плавающей точкой
+Code = Integer, Name=целочисленный, 37 знаков 
+Code = Date, Name=дата/время с точностью до секунды
+Code = Timestamp, Name=дата/время с точностью до миллисекунды
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DataLength" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Размерность столбца </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DefaultValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Значение по умолчанию
+
+Даты передаются в формате xsd xs:dateTime
+Значения с плавающей точкой передаются в формате xsd xs:double, т.е. с точкой в качестве десятичного разделителя</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsMandatory" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак обязательности поля</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsUnique" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак уникальности поля</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsUserVisible" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак видимости поля для пользователя</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsSystem" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак системного поля</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsEditable" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак редактируемости поля </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IsSynchronizable" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Признак синхронизуемости поля с окружной БД</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RegionColumnName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Наименование поля в окружной БД</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SortNumber" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер сортировки в массиве столбцов для вывода в GUI</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BaseMetadata">
+		<xs:annotation>
+			<xs:documentation>базовый тип метаданных</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SystemName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Системное название объекта. В зависимости от типа наследующего от базового типа BaseMetadata, соответствует полям TABLE_NAME или COLUMN_NAME или GROUP_CODE соответствующих таблиц</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата изменения объекта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата закрытия текущего состояния объекта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус создания объекта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsVisible" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак видимости объекта для администратора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор оператора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DataValue">
+		<xs:annotation>
+			<xs:documentation>Значение поля словаря</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="StringValue" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Строковое значение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NumericValue" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Значение с плавающей точкой</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IntegerValue" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Целочисленное значение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTimeValue" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Значение дата-время</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="DictionaryField">
+		<xs:annotation>
+			<xs:documentation>Поле словаря</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Column" type="dictionary:DictionaryColumn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Столбец таблицы.
+Заполняются поля Id, SystemName, DataType.Code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DataValue" type="dictionary:DataValue" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Значение столбца таблицы. В зависимости от типа Column.DataType.Code заполняется одно из полей DataValue</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DictionaryRecord">
+		<xs:annotation>
+			<xs:documentation>Запись словаря
+
+Обязательными полями при создании объекта являются поля, определенные обязательными при создании соответствующего справочника
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SystemId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Системный идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Code" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код справочника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateCreated" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата создания записи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateChanged" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата изменения записи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateActivated" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата активации записи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateDeactivated" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата деактивации записи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateDeleted" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата удаления записи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус записи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Note" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Fields" type="dictionary:DictionaryField" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Массив столбцов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RawDictionaryRecord">
+		<xs:annotation>
+			<xs:documentation>Конкатенированное значение поисковых столбцов справочника</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор строки справочника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConcatenatedValue" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>конкатенированное значение поисковых столбцов справочника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SynchronizationField">
+		<xs:annotation>
+			<xs:documentation>Поле справочника в окружной БД</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ColumnName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Название столбца таблицы в окружной БД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DataValue" type="dictionary:DataValue" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Значение столбца таблицы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SynchronizationRecord">
+		<xs:annotation>
+			<xs:documentation>Запись словаря справочника
+ в окружной БД</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Action" type="core:ActionTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Действие над записью</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор записи в таблице БД НСИ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Fields" type="dictionary:SynchronizationField" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Массив столбцов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SynchronizationRecordsArray">
+		<xs:annotation>
+			<xs:documentation>Массив словарных записей для синхронизации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TableName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Название таблицы окружной БД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SynchronizationRecords" type="dictionary:SynchronizationRecord" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Массив словарных записей для синхронизации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SynchronizationRecordStatus">
+		<xs:annotation>
+			<xs:documentation>Состояние синхронизации в окружной БД НСИ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор записи в таблице БД НСИ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegionEntityId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор записи в таблице окружной БД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegionTableName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Название таблицы окружной БД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="core:BusinessProcessState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус синхронизации
+Используются Unknown, InProgress, Faulted, Completed</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ErrorCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код ошибки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ErrorMessage" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сообщение об ошибке</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SynchronizationRecordsStatusesArray">
+		<xs:sequence>
+			<xs:element name="ProcessId" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор процесса синхронизации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecordsStatuses" type="dictionary:SynchronizationRecordStatus" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Статусы синхронизации массива строк</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CentralSynchronizationStatus">
+		<xs:annotation>
+			<xs:documentation>Состояние синхронизации в центральной БД НСИ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Region" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Округ. Заполняется Id и Name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TransactionDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата последнего завершения транзакции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="State" type="core:BusinessProcessState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Состояние синхронизации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Message" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сообщение о состоянии синхронизации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

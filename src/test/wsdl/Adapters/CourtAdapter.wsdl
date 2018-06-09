@@ -1,0 +1,97 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://court.adapter.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:agreement="http://domainmodel.eirc.mos.ru/model/agreement" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="http://court.adapter.eirc.mos.ru/model" targetNamespace="http://court.adapter.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://court.adapter.eirc.mos.ru" schemaLocation="CourtAdapter.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="SubscriberInformation">
+		<part name="SubscriberInformation" element="core:SubscriberInformation"/>
+	</message>
+	<message name="MessageId">
+		<part name="MessageId" element="core:MessageId"/>
+	</message>
+	<message name="CorrelationId">
+		<part name="CorrelationId" element="core:CorrelationId"/>
+	</message>
+	<message name="SubmitDocumentRequest">
+		<part name="parameter" element="tns:SubmitDocumentRequest"/>
+	</message>
+	<message name="SubmitDocumentResponse">
+		<part name="parameter" element="tns:SubmitDocumentResponse"/>
+	</message>
+	<message name="GetSubmitDocumentRequest">
+		<part name="parameter" element="tns:GetSubmitDocumentRequest"/>
+	</message>
+	<message name="GetSubmitDocumentResponse">
+		<part name="parameter" element="tns:GetSubmitDocumentResponse"/>
+	</message>
+	<message name="GetEventsRequest">
+		<part name="parameter" element="tns:GetEventsRequest"/>
+	</message>
+	<message name="GetEventsResponse">
+		<part name="parameter" element="tns:GetEventsResponse"/>
+	</message>
+	<portType name="CourtAdapter">
+		<documentation>Служба для проксирования вызовов из внутренних систем АСУ ЕИРЦ к сервисам Мосгорсуда. </documentation>
+		<operation name="SubmitDocument">
+			<documentation>Операция электронной подачи документа</documentation>
+			<input message="tns:SubmitDocumentRequest"/>
+			<output message="tns:SubmitDocumentResponse"/>
+		</operation>
+		<operation name="GetSubmitDocument">
+			<documentation>Операция получения ответа на ранее отправленный запрос на электронную подачу документа</documentation>
+			<input message="tns:GetSubmitDocumentRequest"/>
+			<output message="tns:GetSubmitDocumentResponse"/>
+		</operation>
+		<operation name="GetEvents">
+			<input message="tns:GetEventsRequest"/>
+			<output message="tns:GetEventsResponse"/>
+		</operation>
+	</portType>
+	<binding name="CourtAdapterPortBinding" type="tns:CourtAdapter">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="SubmitDocument">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:MessageId" part="MessageId" use="literal"/>
+				<soap:header message="tns:SubscriberInformation" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetSubmitDocument">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:MessageId" part="MessageId" use="literal"/>
+				<soap:header message="tns:CorrelationId" part="CorrelationId" use="literal"/>
+				<soap:header message="tns:SubscriberInformation" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetEvents">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:MessageId" part="MessageId" use="literal"/>
+				<soap:header message="tns:CorrelationId" part="CorrelationId" use="literal"/>
+				<soap:header message="tns:SubscriberInformation" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="CourtAdapterService">
+		<port name="CourtAdapterPort" binding="tns:CourtAdapterPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

@@ -1,0 +1,898 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://debtorinformation.eirc.mos.ru" xmlns:debtor="http://domainmodel.eirc.mos.ru/model/debtor" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns="http://domainmodel.eirc.mos.ru/core" xmlns:ns1="http://domainmodel.eirc.mos.ru/model" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://debtorinformation.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://debtorinformation.eirc.mos.ru" schemaLocation="DebtorInformation.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/model/debtor" schemaLocation="DebtorModel.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="GetDebtorsRequest">
+		<part name="parameters" element="tns:GetDebtorsRequest"/>
+	</message>
+	<message name="GetDebtorsResponse">
+		<part name="parameters" element="tns:GetDebtorsResponse"/>
+	</message>
+	<message name="GetPretrialProceedingsRequest">
+		<part name="parameters" element="tns:GetPretrialProceedingsRequest"/>
+	</message>
+	<message name="GetPretrialProceedingsResponse">
+		<part name="parameters" element="tns:GetPretrialProceedingsResponse"/>
+	</message>
+	<message name="GetExtendedDebtorRequest">
+		<part name="parameters" element="tns:GetExtendedDebtorRequest"/>
+	</message>
+	<message name="GetExtendedDebtorResponse">
+		<part name="parameters" element="tns:GetExtendedDebtorResponse"/>
+	</message>
+	<message name="GetDebtorsBySearchParamsRequest">
+		<part name="parameters" element="tns:GetDebtorsBySearchParamsRequest"/>
+	</message>
+	<message name="GetDebtorsBySearchParamsResponse">
+		<part name="parameters" element="tns:GetDebtorsBySearchParamsResponse"/>
+	</message>
+	<message name="GetDocumentOrdersFromMfcRequest">
+		<part name="parameters" element="tns:GetDocumentOrdersFromMfcRequest"/>
+	</message>
+	<message name="GetDocumentOrdersFromMfcResponse">
+		<part name="parameters" element="tns:GetDocumentOrdersFromMfcResponse"/>
+	</message>
+	<message name="GetLawCaseProceedingsRequest">
+		<part name="parameters" element="tns:GetLawCaseProceedingsRequest"/>
+	</message>
+	<message name="GetLawCaseProceedingsResponse">
+		<part name="parameters" element="tns:GetLawCaseProceedingsResponse"/>
+	</message>
+	<message name="GetCourtsBySearchParamsRequest">
+		<part name="parameters" element="tns:GetCourtsBySearchParamsRequest"/>
+	</message>
+	<message name="GetCourtsBySearchParamsResponse">
+		<part name="parameters" element="tns:GetCourtsBySearchParamsResponse"/>
+	</message>
+	<message name="GetDictionaryDetailsBySearchParamsRequest">
+		<part name="parameters" element="tns:GetDictionaryDetailsBySearchParamsRequest"/>
+	</message>
+	<message name="GetDictionaryDetailsBySearchParamsResponse">
+		<part name="parameters" element="tns:GetDictionaryDetailsBySearchParamsResponse"/>
+	</message>
+	<message name="GetOperatorByLoginParamsRequest">
+		<part name="parameters" element="tns:GetOperatorByLoginParamsRequest"/>
+	</message>
+	<message name="GetOperatorByLoginParamsResponse">
+		<part name="parameters" element="tns:GetOperatorByLoginParamsResponse"/>
+	</message>
+	<message name="GetLawCaseExecutionsRequest">
+		<part name="parameters" element="tns:GetLawCaseExecutionsRequest"/>
+	</message>
+	<message name="GetLawCaseExecutionsResponse">
+		<part name="parameters" element="tns:GetLawCaseExecutionsResponse"/>
+	</message>
+	<message name="GetUtilityActionsRequest">
+		<part name="parameters" element="tns:GetUtilityActionsRequest"/>
+	</message>
+	<message name="GetUtilityActionsResponse">
+		<part name="parameters" element="tns:GetUtilityActionsResponse"/>
+	</message>
+	<message name="GetPaymentsHistoryByDebtorRequest">
+		<part name="parameters" element="tns:GetPaymentsHistoryByDebtorRequest"/>
+	</message>
+	<message name="GetPaymentsHistoryByDebtorResponse">
+		<part name="parameters" element="tns:GetPaymentsHistoryByDebtorResponse"/>
+	</message>
+	<message name="GetDebtsHistoryByDebtorRequest">
+		<part name="parameters" element="tns:GetDebtsHistoryByDebtorRequest"/>
+	</message>
+	<message name="GetDebtsHistoryByDebtorResponse">
+		<part name="parameters" element="tns:GetDebtsHistoryByDebtorResponse"/>
+	</message>
+	<message name="GetNotificationsHistoryByDebtorRequest">
+		<part name="parameters" element="tns:GetNotificationsHistoryByDebtorRequest"/>
+	</message>
+	<message name="GetNotificationsHistoryByDebtorResponse">
+		<part name="parameters" element="tns:GetNotificationsHistoryByDebtorResponse"/>
+	</message>
+	<message name="GetPaymentAgreementByDebtorRequest">
+		<part name="parameters" element="tns:GetPaymentAgreementByDebtorRequest"/>
+	</message>
+	<message name="GetPaymentAgreementByDebtorResponse">
+		<part name="parameters" element="tns:GetPaymentAgreementByDebtorResponse"/>
+	</message>
+	<message name="GetPaymentAgreementsHistoryByDebtorRequest">
+		<part name="parameters" element="tns:GetPaymentAgreementsHistoryByDebtorRequest"/>
+	</message>
+	<message name="GetPaymentAgreementsHistoryByDebtorResponse">
+		<part name="parameters" element="tns:GetPaymentAgreementsHistoryByDebtorResponse"/>
+	</message>
+	<message name="GetActionsHistoryByDebtorRequest">
+		<part name="parameters" element="tns:GetActionsHistoryByDebtorRequest"/>
+	</message>
+	<message name="GetActionsHistoryByDebtorResponse">
+		<part name="parameters" element="tns:GetActionsHistoryByDebtorResponse"/>
+	</message>
+	<message name="GetPretrialProceedingsHistoryByDebtorRequest">
+		<part name="parameters" element="tns:GetPretrialProceedingsHistoryByDebtorRequest"/>
+	</message>
+	<message name="GetPretrialProceedingsHistoryByDebtorResponse">
+		<part name="parameters" element="tns:GetPretrialProceedingsHistoryByDebtorResponse"/>
+	</message>
+	<message name="GetLawCaseProceedingsHistoryByDebtorRequest">
+		<part name="parameters" element="tns:GetLawCaseProceedingsHistoryByDebtorRequest"/>
+	</message>
+	<message name="GetLawCaseProceedingsHistoryByDebtorResponse">
+		<part name="parameters" element="tns:GetLawCaseProceedingsHistoryByDebtorResponse"/>
+	</message>
+	<message name="GetDocumentBinaryByActionIdRequest">
+		<part name="parameters" element="tns:GetDocumentBinaryByActionIdRequest"/>
+	</message>
+	<message name="GetDocumentBinaryByActionIdResponse">
+		<part name="parameters" element="tns:GetDocumentBinaryByActionIdResponse"/>
+	</message>
+	<message name="GetPaymentAgreementBinaryByPADetailsRequest">
+		<part name="parameter" element="tns:GetPaymentAgreementBinaryByPADetailsRequest"/>
+	</message>
+	<message name="GetPaymentAgreementBinaryByPADetailsResponse">
+		<part name="parameter" element="tns:GetPaymentAgreementBinaryByPADetailsResponse"/>
+	</message>
+	<message name="GetEpdBinaryByDebtorRequest">
+		<part name="parameter" element="tns:GetEpdBinaryByDebtorRequest"/>
+	</message>
+	<message name="GetEpdBinaryByDebtorResponse">
+		<part name="parameter" element="tns:GetEpdBinaryByDebtorResponse"/>
+	</message>
+	<message name="GetMassOperationDetailsByIdRequest">
+		<part name="parameters" element="tns:GetMassOperationDetailsByIdRequest"/>
+	</message>
+	<message name="GetMassOperationDetailsByIdResponse">
+		<part name="parameters" element="tns:GetMassOperationDetailsByIdResponse"/>
+	</message>
+	<message name="GetMassOperationDocumentBinaryByIdRequest">
+		<part name="parameters" element="tns:GetMassOperationDocumentBinaryByIdRequest"/>
+	</message>
+	<message name="GetMassOperationDocumentBinaryByIdResponse">
+		<part name="parameters" element="tns:GetMassOperationDocumentBinaryByIdResponse"/>
+	</message>
+	<message name="GetHousesNumbersByStreetIdRequest">
+		<part name="parameters" element="tns:GetHousesNumbersByStreetIdRequest"/>
+	</message>
+	<message name="GetHousesNumbersByStreetIdResponse">
+		<part name="parameters" element="tns:GetHousesNumbersByStreetIdResponse"/>
+	</message>
+	<message name="GetApartmentTenantsDetailsByDebtorRequest">
+		<part name="parameters" element="tns:GetApartmentTenantsDetailsByDebtorRequest"/>
+	</message>
+	<message name="GetApartmentTenantsDetailsByDebtorResponse">
+		<part name="parameters" element="tns:GetApartmentTenantsDetailsByDebtorResponse"/>
+	</message>
+	<message name="GetExtendedDebtDetailsByDebtorRequest">
+		<part name="parameters" element="tns:GetExtendedDebtDetailsByDebtorRequest"/>
+	</message>
+	<message name="GetExtendedDebtDetailsByDebtorResponse">
+		<part name="parameter" element="tns:GetExtendedDebtDetailsByDebtorResponse"/>
+	</message>
+	<message name="GetAccountCategoriesRequest">
+		<part name="parameters" element="tns:GetAccountCategoriesRequest"/>
+	</message>
+	<message name="GetAccountCategoriesResponse">
+		<part name="parameters" element="tns:GetAccountCategoriesResponse"/>
+	</message>
+	<message name="GetMassOperationsDetailsByCompanyIdRequest">
+		<part name="parameter" element="tns:GetMassOperationsDetailsByCompanyIdRequest"/>
+	</message>
+	<message name="GetMassOperationsDetailsByCompanyIdResponse">
+		<part name="parameter" element="tns:GetMassOperationsDetailsByCompanyIdResponse"/>
+	</message>
+	<message name="GetDebtPeriodReportBinaryByDebtorRequest">
+		<part name="parameter" element="tns:GetDebtPeriodReportBinaryByDebtorRequest"/>
+	</message>
+	<message name="GetDebtPeriodReportBinaryByDebtorResponse">
+		<part name="parameter" element="tns:GetDebtPeriodReportBinaryByDebtorResponse"/>
+	</message>
+	<message name="GetExternalActionsHistoryByDebtorRequest">
+		<part name="parameter" element="tns:GetExternalActionsHistoryByDebtorRequest"/>
+	</message>
+	<message name="GetExternalActionsHistoryByDebtorResponse">
+		<part name="parameter" element="tns:GetExternalActionsHistoryByDebtorResponse"/>
+	</message>
+	<message name="GetDebtOwnersDistributionsByDebtorRequest">
+		<part name="parameter" element="tns:GetDebtOwnersDistributionsByDebtorRequest"/>
+	</message>
+	<message name="GetDebtOwnersDistributionsByDebtorResponse">
+		<part name="parameter" element="tns:GetDebtOwnersDistributionsByDebtorResponse"/>
+	</message>
+	<message name="GetDebtStagesDistributionsByDebtorRequest">
+		<part name="parameter" element="tns:GetDebtStagesDistributionsByDebtorRequest"/>
+	</message>
+	<message name="GetDebtStagesDistributionsByDebtorResponse">
+		<part name="parameter" element="tns:GetDebtStagesDistributionsByDebtorResponse"/>
+	</message>
+	<message name="GetMFCOrderDebtorsListByActionIdRequest">
+		<part name="parameter" element="tns:GetMFCOrderDebtorsListByActionIdRequest"/>
+	</message>
+	<message name="GetMFCOrderDebtorsListByActionIdResponse">
+		<part name="parameter" element="tns:GetMFCOrderDebtorsListByActionIdResponse"/>
+	</message>
+	<message name="GetEventsInformationHistoryRequest">
+		<part name="parameter" element="tns:GetEventsInformationHistoryRequest"/>
+	</message>
+	<message name="GetEventsInformationHistoryResponse">
+		<part name="parameter" element="tns:GetEventsInformationHistoryResponse"/>
+	</message>
+	<message name="GetRestrictionTravelAbroadBinaryRequest">
+		<part name="parameter" element="tns:GetRestrictionTravelAbroadBinaryRequest"/>
+	</message>
+	<message name="GetRestrictionTravelAbroadBinaryResponse">
+		<part name="parameter" element="tns:GetRestrictionTravelAbroadBinaryResponse"/>
+	</message>
+	<message name="GetDebtOnDateByDebtorRequest">
+		<part name="parameter" element="tns:GetDebtOnDateByDebtorRequest"/>
+	</message>
+	<message name="GetDebtOnDateByDebtorResponse">
+		<part name="parameter" element="tns:GetDebtOnDateByDebtorResponse"/>
+	</message>
+	<message name="GetDocumentBinaryByDebtorRequest">
+		<part name="parameter" element="tns:GetDocumentBinaryByDebtorRequest"/>
+	</message>
+	<message name="GetDocumentBinaryByDebtorResponse">
+		<part name="parameter" element="tns:GetDocumentBinaryByDebtorResponse"/>
+	</message>
+	<message name="GetExternalRequestsBySearchParamsRequest">
+		<part name="parameter" element="tns:GetExternalRequestsBySearchParamsRequest"/>
+	</message>
+	<message name="GetExternalRequestsBySearchParamsResponse">
+		<part name="parameter" element="tns:GetExternalRequestsBySearchParamsResponse"/>
+	</message>
+	<message name="GetOwnersStageDetalsByDebtorRequest">
+		<part name="parameter" element="tns:GetOwnersStageDetalsByDebtorRequest"/>
+	</message>
+	<message name="GetOwnersStageDetalsByDebtorResponse">
+		<part name="parameter" element="tns:GetOwnersStageDetalsByDebtorResponse"/>
+	</message>
+	<message name="GetPenaltyByDebtorRequest">
+		<part name="parameter" element="tns:GetPenaltyByDebtorRequest"/>
+	</message>
+	<message name="GetPenaltyByDebtorResponse">
+		<part name="parameter" element="tns:GetPenaltyByDebtorResponse"/>
+	</message>
+	<message name="GetManagingCompanyByMcIdRequest">
+		<part name="parameter" element="tns:GetManagingCompanyByMcIdRequest"/>
+	</message>
+	<message name="GetManagingCompanyByMcIdResponse">
+		<part name="parameter" element="tns:GetManagingCompanyByMcIdResponse"/>
+	</message>
+	<message name="GetWorkScheduleByPartyIdRequest">
+		<part name="parameter" element="tns:GetWorkScheduleByPartyIdRequest"/>
+	</message>
+	<message name="GetWorkScheduleByPartyIdResponse">
+		<part name="parameter" element="tns:GetWorkScheduleByPartyIdResponse"/>
+	</message>
+	<message name="GetCourtByDebtorRequest">
+		<part name="parameter" element="tns:GetCourtByDebtorRequest"/>
+	</message>
+	<message name="GetCourtByDebtorResponse">
+		<part name="parameter" element="tns:GetCourtByDebtorResponse"/>
+	</message>
+	<portType name="DebtorInformation">
+		<documentation>Служба, предоставляющая данные для UI ПИР</documentation>
+		<operation name="GetDebtors">
+			<documentation>Запрос данных должников без фильтров</documentation>
+			<input message="tns:GetDebtorsRequest"/>
+			<output message="tns:GetDebtorsResponse"/>
+		</operation>
+		<operation name="GetPretrialProceedings">
+			<input message="tns:GetPretrialProceedingsRequest"/>
+			<output message="tns:GetPretrialProceedingsResponse"/>
+		</operation>
+		<operation name="GetExtendedDebtor">
+			<documentation>Запрос расширенных данных должника</documentation>
+			<input message="tns:GetExtendedDebtorRequest"/>
+			<output message="tns:GetExtendedDebtorResponse"/>
+		</operation>
+		<operation name="GetDebtorsBySearchParams">
+			<documentation>Запрос данных должников с фильтрами</documentation>
+			<input message="tns:GetDebtorsBySearchParamsRequest"/>
+			<output message="tns:GetDebtorsBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetDocumentOrdersFromMfc">
+			<documentation>Запрос заказов документов на формирование документов в МФЦ</documentation>
+			<input message="tns:GetDocumentOrdersFromMfcRequest"/>
+			<output message="tns:GetDocumentOrdersFromMfcResponse"/>
+		</operation>
+		<operation name="GetLawCaseProceedings">
+			<documentation>Запрос данных судопроизводств</documentation>
+			<input message="tns:GetLawCaseProceedingsRequest"/>
+			<output message="tns:GetLawCaseProceedingsResponse"/>
+		</operation>
+		<operation name="GetLawCaseExecutions">
+			<documentation>Запрос данных исполнительного производств</documentation>
+			<input message="tns:GetLawCaseExecutionsRequest"/>
+			<output message="tns:GetLawCaseExecutionsResponse"/>
+		</operation>
+		<operation name="GetUtilityActions">
+			<documentation>Запрос данных ограничений коммунальных услуг</documentation>
+			<input message="tns:GetUtilityActionsRequest"/>
+			<output message="tns:GetUtilityActionsResponse"/>
+		</operation>
+		<operation name="GetCourtsBySearchParams">
+			<documentation>Запрос данных судов</documentation>
+			<input message="tns:GetCourtsBySearchParamsRequest"/>
+			<output message="tns:GetCourtsBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetDictionaryDetailsBySearchParams">
+			<documentation>Запрос справочных данных</documentation>
+			<input message="tns:GetDictionaryDetailsBySearchParamsRequest"/>
+			<output message="tns:GetDictionaryDetailsBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetOperatorByLoginParams">
+			<documentation>Аутентификация пользователя и получение данных оператора </documentation>
+			<input message="tns:GetOperatorByLoginParamsRequest"/>
+			<output message="tns:GetOperatorByLoginParamsResponse"/>
+		</operation>
+		<operation name="GetPaymentsHistoryByDebtor">
+			<documentation>Запрос истории платежей должника</documentation>
+			<input message="tns:GetPaymentsHistoryByDebtorRequest"/>
+			<output message="tns:GetPaymentsHistoryByDebtorResponse"/>
+		</operation>
+		<operation name="GetNotificationsHistoryByDebtor">
+			<documentation>Запрос истории уведомлений должника</documentation>
+			<input message="tns:GetNotificationsHistoryByDebtorRequest"/>
+			<output message="tns:GetNotificationsHistoryByDebtorResponse"/>
+		</operation>
+		<operation name="GetDebtsHistoryByDebtor">
+			<documentation>Запрос истории долга должника</documentation>
+			<input message="tns:GetDebtsHistoryByDebtorRequest"/>
+			<output message="tns:GetDebtsHistoryByDebtorResponse"/>
+		</operation>
+		<operation name="GetPaymentAgreementByDebtor">
+			<documentation>Запрос платежного соглашения</documentation>
+			<input message="tns:GetPaymentAgreementByDebtorRequest"/>
+			<output message="tns:GetPaymentAgreementByDebtorResponse"/>
+		</operation>
+		<operation name="GetPaymentAgreementsHistoryByDebtor">
+			<documentation>Запрос истории платежных соглашения</documentation>
+			<input message="tns:GetPaymentAgreementsHistoryByDebtorRequest"/>
+			<output message="tns:GetPaymentAgreementsHistoryByDebtorResponse"/>
+		</operation>
+		<operation name="GetActionsHistoryByDebtor">
+			<documentation>Запрос истории уведомлений</documentation>
+			<input message="tns:GetActionsHistoryByDebtorRequest"/>
+			<output message="tns:GetActionsHistoryByDebtorResponse"/>
+		</operation>
+		<operation name="GetPretrialProceedingsHistoryByDebtor">
+			<documentation>Запрос истории досудебных действий</documentation>
+			<input message="tns:GetPretrialProceedingsHistoryByDebtorRequest"/>
+			<output message="tns:GetPretrialProceedingsHistoryByDebtorResponse"/>
+		</operation>
+		<operation name="GetLawCaseProceedingsHistoryByDebtor">
+			<documentation>Запрос истории действий судопроизводства</documentation>
+			<input message="tns:GetLawCaseProceedingsHistoryByDebtorRequest"/>
+			<output message="tns:GetLawCaseProceedingsHistoryByDebtorResponse"/>
+		</operation>
+		<operation name="GetDocumentBinaryByActionId">
+			<documentation>Запрос бинарного документа по идентификатору действия</documentation>
+			<input message="tns:GetDocumentBinaryByActionIdRequest"/>
+			<output message="tns:GetDocumentBinaryByActionIdResponse"/>
+		</operation>
+		<operation name="GetPaymentAgreementBinaryByPADetails">
+			<documentation>Запрос бинарного документа платежного соглашения по деталям платежного соглашения</documentation>
+			<input message="tns:GetPaymentAgreementBinaryByPADetailsRequest"/>
+			<output message="tns:GetPaymentAgreementBinaryByPADetailsResponse"/>
+		</operation>
+		<operation name="GetEpdBinaryByDebtor">
+			<documentation>Запрос бинарного ЕПД по данным должника</documentation>
+			<input message="tns:GetEpdBinaryByDebtorRequest"/>
+			<output message="tns:GetEpdBinaryByDebtorResponse"/>
+		</operation>
+		<operation name="GetMassOperationDetailsById">
+			<documentation>Запрос статуса массовой операции</documentation>
+			<input message="tns:GetMassOperationDetailsByIdRequest"/>
+			<output message="tns:GetMassOperationDetailsByIdResponse"/>
+		</operation>
+		<operation name="GetMassOperationDocumentBinaryById">
+			<documentation>Запрос бинарного zip-архива с документами массовых операций по идентификатору массовой операции</documentation>
+			<input message="tns:GetMassOperationDocumentBinaryByIdRequest"/>
+			<output message="tns:GetMassOperationDocumentBinaryByIdResponse"/>
+		</operation>
+		<operation name="GetHousesNumbersByStreetId">
+			<documentation>Запрос номеров домов по идентификатору улицы</documentation>
+			<input message="tns:GetHousesNumbersByStreetIdRequest"/>
+			<output message="tns:GetHousesNumbersByStreetIdResponse"/>
+		</operation>
+		<operation name="GetApartmentTenantsDetailsByDebtor">
+			<input message="tns:GetApartmentTenantsDetailsByDebtorRequest"/>
+			<output message="tns:GetApartmentTenantsDetailsByDebtorResponse"/>
+		</operation>
+		<operation name="GetExtendedDebtDetailsByDebtor">
+			<documentation>Запрос расширенных данных долга</documentation>
+			<input message="tns:GetExtendedDebtDetailsByDebtorRequest"/>
+			<output message="tns:GetExtendedDebtDetailsByDebtorResponse"/>
+		</operation>
+		<operation name="GetAccountCategories">
+			<input message="tns:GetAccountCategoriesRequest"/>
+			<output message="tns:GetAccountCategoriesResponse"/>
+		</operation>
+		<operation name="GetMassOperationsDetailsByCompanyId">
+			<documentation>запрос истории массовых операций</documentation>
+			<input message="tns:GetMassOperationsDetailsByCompanyIdRequest"/>
+			<output message="tns:GetMassOperationsDetailsByCompanyIdResponse"/>
+		</operation>
+		<operation name="GetDebtPeriodReportBinaryByDebtor">
+			<documentation>Запрос отчета по долгам по периодам</documentation>
+			<input message="tns:GetDebtPeriodReportBinaryByDebtorRequest"/>
+			<output message="tns:GetDebtPeriodReportBinaryByDebtorResponse"/>
+		</operation>
+		<operation name="GetExternalActionsHistoryByDebtor">
+			<documentation>Запрос истории действий с должником не в системе ПИР</documentation>
+			<input message="tns:GetExternalActionsHistoryByDebtorRequest"/>
+			<output message="tns:GetExternalActionsHistoryByDebtorResponse"/>
+		</operation>
+		<operation name="GetDebtOwnersDistributionsByDebtor">
+			<documentation>Запрос распределения долга по собственникам</documentation>
+			<input message="tns:GetDebtOwnersDistributionsByDebtorRequest"/>
+			<output message="tns:GetDebtOwnersDistributionsByDebtorResponse"/>
+		</operation>
+		<operation name="GetDebtStagesDistributionsByDebtor">
+			<documentation>Запрос распределения долга по стадиям</documentation>
+			<input message="tns:GetDebtStagesDistributionsByDebtorRequest"/>
+			<output message="tns:GetDebtStagesDistributionsByDebtorResponse"/>
+		</operation>
+		<operation name="GetMFCOrderDebtorsListByActionId">
+			<documentation>Запрос списка должников по которым отправлен заказ на формирование документов в МФЦ</documentation>
+			<input message="tns:GetMFCOrderDebtorsListByActionIdRequest"/>
+			<output message="tns:GetMFCOrderDebtorsListByActionIdResponse"/>
+		</operation>
+		<operation name="GetEventsInformationHistory">
+			<documentation>Запрос истории событий для прелоставления информации оператором</documentation>
+			<input message="tns:GetEventsInformationHistoryRequest"/>
+			<output message="tns:GetEventsInformationHistoryResponse"/>
+		</operation>
+		<operation name="GetRestrictionTravelAbroadBinary">
+			<documentation>Запрос бинарного заявление об ограничении выезда за границу</documentation>
+			<input message="tns:GetRestrictionTravelAbroadBinaryRequest"/>
+			<output message="tns:GetRestrictionTravelAbroadBinaryResponse"/>
+		</operation>
+		<operation name="GetDebtOnDateByDebtor">
+			<documentation>Запрос долга должника на дату</documentation>
+			<input message="tns:GetDebtOnDateByDebtorRequest"/>
+			<output message="tns:GetDebtOnDateByDebtorResponse"/>
+		</operation>
+		<operation name="GetDocumentBinaryByDebtor">
+			<documentation>Запрос бинарного документа по данным должника и типу документа</documentation>
+			<input message="tns:GetDocumentBinaryByDebtorRequest"/>
+			<output message="tns:GetDocumentBinaryByDebtorResponse"/>
+		</operation>
+		<operation name="GetExternalRequestsBySearchParams">
+			<documentation>Запрос данных запросов к внешним системам</documentation>
+			<input message="tns:GetExternalRequestsBySearchParamsRequest"/>
+			<output message="tns:GetExternalRequestsBySearchParamsResponse"/>
+		</operation>
+		<operation name="GetOwnersStageDetalsByDebtor">
+			<documentation>Данные по стадиям, на которых находится должник</documentation>
+			<input message="tns:GetOwnersStageDetalsByDebtorRequest"/>
+			<output message="tns:GetOwnersStageDetalsByDebtorResponse"/>
+		</operation>
+		<operation name="GetPenaltyByDebtor">
+			<documentation>Запрос пени должника</documentation>
+			<input message="tns:GetPenaltyByDebtorRequest"/>
+			<output message="tns:GetPenaltyByDebtorResponse"/>
+		</operation>
+		<operation name="GetManagingCompanyByMcId">
+			<documentation>Запрос данных управляющей компании по ее Id</documentation>
+			<input message="tns:GetManagingCompanyByMcIdRequest"/>
+			<output message="tns:GetManagingCompanyByMcIdResponse"/>
+		</operation>
+		<operation name="GetWorkScheduleByPartyId">
+			<documentation>Запрос данных рабочего расписания по идентификатору участника</documentation>
+			<input message="tns:GetWorkScheduleByPartyIdRequest"/>
+			<output message="tns:GetWorkScheduleByPartyIdResponse"/>
+		</operation>
+		<operation name="GetCourtByDebtor">
+			<documentation>Запрос судебного участка должника</documentation>
+			<input message="tns:GetCourtByDebtorRequest"/>
+			<output message="tns:GetCourtByDebtorResponse"/>
+		</operation>
+	</portType>
+	<binding name="DebtorInformationPortBinding" type="tns:DebtorInformation">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="GetDebtors">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetPretrialProceedings">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetExtendedDebtor">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDebtorsBySearchParams">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDocumentOrdersFromMfc">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetLawCaseProceedings">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetCourtsBySearchParams">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDictionaryDetailsBySearchParams">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOperatorByLoginParams">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetLawCaseExecutions">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetUtilityActions">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetPaymentsHistoryByDebtor">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetNotificationsHistoryByDebtor">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDebtsHistoryByDebtor">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetPaymentAgreementByDebtor">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetPaymentAgreementsHistoryByDebtor">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetActionsHistoryByDebtor">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetPretrialProceedingsHistoryByDebtor">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetLawCaseProceedingsHistoryByDebtor">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDocumentBinaryByActionId">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetPaymentAgreementBinaryByPADetails">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetEpdBinaryByDebtor">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetMassOperationDetailsById">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetMassOperationDocumentBinaryById">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetHousesNumbersByStreetId">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetApartmentTenantsDetailsByDebtor">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetExtendedDebtDetailsByDebtor">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetAccountCategories">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetMassOperationsDetailsByCompanyId">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDebtPeriodReportBinaryByDebtor">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetExternalActionsHistoryByDebtor">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDebtOwnersDistributionsByDebtor">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDebtStagesDistributionsByDebtor">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetMFCOrderDebtorsListByActionId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetEventsInformationHistory">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetRestrictionTravelAbroadBinary">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDebtOnDateByDebtor">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDocumentBinaryByDebtor">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetExternalRequestsBySearchParams">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOwnersStageDetalsByDebtor">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetPenaltyByDebtor">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetManagingCompanyByMcId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetWorkScheduleByPartyId">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetCourtByDebtor">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="DebtorInformationService">
+		<port name="DebtorInformationPort" binding="tns:DebtorInformationPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

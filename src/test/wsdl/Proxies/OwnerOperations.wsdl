@@ -1,0 +1,44 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:extcore="http://external.model.eirc.mos.ru/core" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://external.operations.mos.ru/owner" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns="http://domainmodel.eirc.mos.ru/core" xmlns:ns1="http://domainmodel.eirc.mos.ru/model" targetNamespace="http://external.operations.mos.ru/owner">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://external.operations.mos.ru/owner" schemaLocation="OwnerOperations.xsd"/>
+			<xsd:import namespace="http://external.model.eirc.mos.ru/core" schemaLocation="../BaseDomain/ExternalCore.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="SubscriberInformation">
+		<part name="SubscriberInformation" element="extcore:ExternalSubscriberInformation"/>
+	</message>
+	<message name="ChangeOwnerRequest">
+		<part name="parameter" element="tns:ChangeOwnerRequest"/>
+	</message>
+	<message name="ChangeOwnerResponse">
+		<part name="parameter" element="tns:ChangeOwnerResponse"/>
+	</message>
+	<portType name="OwnerOperations">
+		<documentation>Операции с собственниками</documentation>
+		<operation name="ChangeOwner">
+			<documentation>Метод смены собственника</documentation>
+			<input message="tns:ChangeOwnerRequest"/>
+			<output message="tns:ChangeOwnerResponse"/>
+		</operation>
+	</portType>
+	<binding name="OwnerOperationsPortBinding" type="tns:OwnerOperations">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ChangeOwner">
+			<soap:operation soapAction="urn:#ChangeOwner"/>
+			<input>
+				<soap:body use="encoded"/>
+				<soap:header message="tns:SubscriberInformation" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="OwnerOperationsService">
+		<port name="OwnerOperationsPort" binding="tns:OwnerOperationsPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

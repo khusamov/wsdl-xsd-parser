@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:tns="http://bpm.ora.processservice.eirc.mos.ru" xmlns:core="http://domainmodel.eirc.mos.ru/core" targetNamespace="http://bpm.ora.processservice.eirc.mos.ru" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:complexType name="StartBusinessProcessRequest">
+		<xs:sequence>
+			<xs:element name="BusinessProcessName" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="StartBusinessProcessRequest" type="tns:StartBusinessProcessRequest"/>
+	<xs:element name="StartBusinessProcessResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="ProcessInstanceId" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Идентификатор инстанса процесса</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ExecuteHumanTaskRequest">
+		<xs:sequence>
+			<xs:element name="BPInstanseId" type="xs:string" minOccurs="0"/>
+			<xs:element name="TaskType" type="tns:HumanTaskType" minOccurs="0"/>
+			<xs:element name="Payload" type="xs:string" minOccurs="0"/>
+			<xs:element name="Action" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ExecuteHumanTaskRequest" type="tns:ExecuteHumanTaskRequest"/>
+	<xs:element name="ExecuteHumanTaskResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="TaskNumber" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="HumanTaskType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Initiator"/>
+			<xs:enumeration value="Regular"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

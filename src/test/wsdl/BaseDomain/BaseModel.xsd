@@ -1,0 +1,1045 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" targetNamespace="http://domainmodel.eirc.mos.ru/model" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="ProcessCore.xsd"/>
+	<xs:complexType name="Agreement">
+		<xs:annotation>
+			<xs:documentation>Договор</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AgreementId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор договора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AgreementNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер договора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AgreementName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Название договора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AgreementType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип договора
+Code = Management - договор на управление
+Code = Delivery - договор на поставку
+Code = Settlement3 - 3-х сторонний договор на расчет
+Code = Settlement4 - 4-х сторонний договор на расчет
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AgreementStatus" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус договора
+Code = Created - создание договора завершено</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStart" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата начала действия договора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFinish" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата окончания действия договора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTerminated" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата прекращения действия договора (незапланированное окончание)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateSettlementStarted" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата начала расчета по договору</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Services" type="dom:Service" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Услуги по договору</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Parties" type="dom:Organization" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Участники договора
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Addresses" type="dom:Address" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Адреса, обслуживаемые по договору</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Attachments" type="dom:AgreementAttachment" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Приложения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные параметры
+ConnectedManagingAgreementNumber - номер связанного договора на управление
+ConnectedSupplyAgreementNumber - номер связанного договора на поставку
+ConnectedSettlementAgreementNumber - номер связанного договора  на расчет
+
+ConnectedManagingAgreementId - идентификатор связанного договора на управление
+ConnectedSupplyAgreementId - идентификатор связанного договора на поставку
+ConnectedSettlementAgreementId - идентификатор связанного договора  на расчет
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Party">
+		<xs:annotation>
+			<xs:documentation>Участник. Может быть как физическим так и юридическим лицом.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PartyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="DateTo" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="PartyType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Физическое лицо: PartyType.Code = Individual
+Юридическое лицо: PartyType.Code = Organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationAddress" type="dom:Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационный адрес</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FactAddress" type="dom:Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation> Фактический адрес </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonalAccountNumber" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер или идентификатор лицевого счета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Contacts" type="dom:Contact" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Список контактов. Может входить как PhoneContact (контакты по телефону), так и EmailContact (контакты по email)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Account" type="dom:PersonalAccount" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные лицевого счета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AccountCategories" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Список Категорий ФЛС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Address">
+		<xs:annotation>
+			<xs:documentation>Адрес</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="City" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Город</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="District" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Район</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Street" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Улица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="House" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дом</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Building" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Здание/строение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Housing" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Корпус</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Entrance" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Подъезд</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Appartment" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Квартира</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZipCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Индекс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PhoneNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер телефона фиксированной связи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StreetId" type="core:UniqueIdentifier" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор улицы в окружной БД АСУ ЕИРЦ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HouseUniqueNumber" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Уникальный номер дома</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FullAddress" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Полный адрес</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="OrganizationTypeEnum">
+		<xs:annotation>
+			<xs:documentation>Перечисление типов организации</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OOO"/>
+			<xs:enumeration value="Enterpreneur"/>
+			<xs:enumeration value="PAO"/>
+			<xs:enumeration value="Individual"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PhoneTypeEnum">
+		<xs:annotation>
+			<xs:documentation>Перечисление типов телефонов</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Mobile"/>
+			<xs:enumeration value="Fix"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Individual">
+		<xs:annotation>
+			<xs:documentation>Физическое лицо</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Party">
+				<xs:sequence>
+					<xs:element name="FirstName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Имя</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SecondName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Отчество</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SurName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Фамилия</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BirthDate" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата рождения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BirthPlace" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Место рождения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SNILS" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>СНИЛС</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IdentificationDocuments" type="dom:IdentificationDocument" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Массив идентификационных документов</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MilitaryRegistration" type="dom:MilitaryRegistration" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Данные воинского учета</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BaseDictionary">
+		<xs:annotation>
+			<xs:documentation>Базовый тип словарной сущности</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStart" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="DateFinish" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="Code" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Название</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AgreementAttachment">
+		<xs:annotation>
+			<xs:documentation>Приложение к договору</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:BaseDictionary">
+				<xs:sequence>
+					<xs:element name="AttachmentType" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип приложения
+Приложение к договору
+Code = Attachment
+Дополнение к договору
+Code = Supplement
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AttachmentNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер приложения</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Service">
+		<xs:annotation>
+			<xs:documentation>услуга</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:BaseDictionary">
+				<xs:sequence>
+					<xs:element name="Status" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Organization">
+		<xs:annotation>
+			<xs:documentation>организация</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Party">
+				<xs:sequence>
+					<xs:element name="FullName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Полное название организации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ShortName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Краткое название организации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OrganizationType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип организации</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="dom:OrganizationTypeEnum">
+								<xs:enumeration value="OOO"/>
+								<xs:enumeration value="Enterpreneur"/>
+								<xs:enumeration value="PAO"/>
+								<xs:enumeration value="Individual"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="TransitionAccountNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер или идентификатор транзитного счета</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BankAccounts" type="dom:OrganizationBankAccount" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Номер расчетного счета</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="INN" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ИНН</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OGRN" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ОГРН</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OKPO" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ОКПО</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OKVED" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ОКВЭД</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="KPP" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>КПП</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OKOPF" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ОКОПФ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="KBK" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Код бюджетного классификатора</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OKTMO" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Общероссийский классификатор территорий муниципальных образований организации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OKATO" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>ОКАТО</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Manager" type="dom:Individual" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Руководитель</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="WorkSchedules" type="dom:WorkSchedule" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Рабочие расписания</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ManagingStuff" type="dom:PartyRole" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Руководящий персонал</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Contact">
+		<xs:annotation>
+			<xs:documentation>контактные данные</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ContactType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип контакта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата контакта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="IsEditable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>true, если атрибут разрешено править</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsMain" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак главного контакта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Note" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Комментарий</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EmailContact">
+		<xs:annotation>
+			<xs:documentation>контактные данные email</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Contact">
+				<xs:sequence>
+					<xs:element name="EmailAddress" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Email адрес</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PhoneContact">
+		<xs:annotation>
+			<xs:documentation>контактные данные телефон</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Contact">
+				<xs:sequence>
+					<xs:element name="PhoneType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип телефона</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="dom:PhoneTypeEnum">
+								<xs:enumeration value="Mobile"/>
+								<xs:enumeration value="Fix"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="PhoneNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Номер телефона</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IdentificationDocument">
+		<xs:annotation>
+			<xs:documentation>идентификационный документ</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Document">
+				<xs:sequence>
+					<xs:element name="DocumentSeries" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Серия документа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Country" type="dom:BaseDictionary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Страна</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Issuer" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Орган, выпустивший документ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateOfValidity" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Годен до</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AlternativeIssuer" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Альтернативный орган, выпустивший документ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Note" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Комментарий</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DocumentBinary" type="xs:base64Binary" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>бинарник документа</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Document">
+		<xs:annotation>
+			<xs:documentation>документ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DocumentId" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип документа
+Паспорт
+DocumentType.Code=Passport</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateIssued" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата выпуска</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FileReference" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ссылка на скан</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Notification">
+		<xs:annotation>
+			<xs:documentation>уведомление</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NotificationType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип уведомления. Коды/названия берутся из таблицы PRETRIAL_PROCEEDING_TYPE</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotificationMessage" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сообщение уведомления</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateSent" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Время отправки уведомления. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotificationsNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Количесво уведомлений данного типа к данной дате</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateNextPhoneCall" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата следующегро звонка абоненту</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonalAccount">
+		<xs:annotation>
+			<xs:documentation>лицевой счет</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AccountId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор лицевого счета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AccountNumber" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер лицевого счета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayerCode" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код плательщика</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MassOperation">
+		<xs:annotation>
+			<xs:documentation>массовая операция</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MassOperationId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор массовой операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Type" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип массовой операции
+
+Для операции формирования информационных листов
+Code: InformationList
+
+Для операции формирования уведомлений
+Code: PretrialProcNotification
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текущий статус массовой операции:
+InQueue - в очереди на выполнение
+InProcess - в поцессе
+FinishedSuccessful - закончен без ошибок
+FinishedFailed - закончен с ошибками
+SystemError - системная ошибка
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStarted" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата начала операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFinished" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата конца операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор оператора, инициировавшего массовую операцию</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Protocol" type="dom:MassOperationProtocol" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Протокол массовой операции</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MassOperationProtocol">
+		<xs:annotation>
+			<xs:documentation>Протокол массовой операции</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Items" type="dom:MassOperationProtocolItem" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MassOperationProtocolItem">
+		<xs:annotation>
+			<xs:documentation>Линейка протокола массовой операции</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Error" type="core:OperationResult" minOccurs="0"/>
+			<xs:element name="Party" type="dom:Party" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Tenant">
+		<xs:annotation>
+			<xs:documentation>Квартиросъемщик</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Party" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>данные квартиросъемщика</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PropertyShare" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Часть собственности, принадлежащая квартиросъемщику</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RelationshipType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип родственной связи с ответственным квартиросъемщиком
+Code =  M -  мать
+Code =  F -  отец
+Code =  SF -  отчим
+Code =  SM -  мачеха
+Code =   S -  сын
+Code =   D -  дочь
+Code =   SS -  пасынок
+Code =   SD -  падчерица
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Признак несовершеннолетнего съемщика:
+Name: IsUnderage
+DataType: Boolean
+Value: true
+
+Признак общей собственности:
+Name: IsCommonProperty
+DataType: Boolean
+Value: true
+
+Признак ОКС:
+Name: IsResponsible
+DataType: Boolean
+Value: true
+
+Признак незарегистрированного квартиросъемщика:
+Name: IsUnregistered
+DataType: Boolean
+Value: true
+
+Признак умершего квартиросъемщика:
+Name: IsDead
+DataType: Boolean
+Value: true</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DocumentTemplate">
+		<xs:annotation>
+			<xs:documentation>Шаблон бинарника документа</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:BaseDictionary">
+				<xs:sequence>
+					<xs:element name="CustomizedName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>кастомизированное имя шаблона</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Format" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Тип расширения файла: pdf, docx, xlsx</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ManagingCompany">
+		<xs:annotation>
+			<xs:documentation>Управляющая компания</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Organization"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SupplierCompany">
+		<xs:annotation>
+			<xs:documentation>Поставщик</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Organization"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrganizationBankAccount">
+		<xs:annotation>
+			<xs:documentation>Банковский счет организации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор счета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatingAccountNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер расчетного счета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Bank" type="dom:Bank" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Банк</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Bank">
+		<xs:annotation>
+			<xs:documentation>Банк</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:BaseDictionary">
+				<xs:sequence>
+					<xs:element name="CorrespondentAccount" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>корреспондентский счет </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BIC" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>БИК </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RegistrationNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Регистрационный номер банка</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Address" type="dom:Address" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Адрес</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="MilitaryRegistration">
+		<xs:annotation>
+			<xs:documentation>Воинский учет</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RegistrationType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип регистрации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecruitmentOffice" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Военкомат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStart" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>дата начала постановки на воинский учет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFinish" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>дата окончания постановки на воинский учет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WorkScheduleItem">
+		<xs:annotation>
+			<xs:documentation>Элемент рабочего расписания</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DayOfWeek" type="core:DayOfWeekEnum" minOccurs="0"/>
+			<xs:element name="IsForAllWeek" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Признак всех дней недели</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HourFrom" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Часы начала работы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MinuteFrom" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Минуты начала работы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BreakHourFrom" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Часы начала перерыва</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BreakMinuteFrom" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Минуты начала  перерыва</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BreakHourTo" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Часы конца перерыва</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BreakMinuteTo" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Минуты конца перерыва</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HourTo" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Часы конца работы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MinuteTo" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Минуты конца работы</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WorkSchedule">
+		<xs:annotation>
+			<xs:documentation>Рабочее расписание</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:BaseDictionary">
+				<xs:sequence>
+					<xs:element name="ScheduleItems" type="dom:WorkScheduleItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PartyRole">
+		<xs:annotation>
+			<xs:documentation>Роль которую играет участник</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PartyRoleId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор роли </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyId" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор участинка, играющего роль </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="DateTo" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="PartyRoleType" type="dom:BaseDictionary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип роли</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Manager">
+		<xs:annotation>
+			<xs:documentation>Руководитель</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:PartyRole">
+				<xs:sequence>
+					<xs:element name="Individual" type="dom:Individual" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Данные физического лица</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DeathSertificate">
+		<xs:annotation>
+			<xs:documentation>Свидетельство о смерти</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:IdentificationDocument">
+				<xs:sequence>
+					<xs:element name="DateOfDeath" type="xs:date" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата смерти</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StateRegistrationPlace" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Место государственной регистрации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

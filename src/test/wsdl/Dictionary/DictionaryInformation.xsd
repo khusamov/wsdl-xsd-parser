@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:tns="http://dictionary.information.eirc.mos.ru" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:dictionary="http://domainmodel.eirc.mos.ru/model/dictionary" targetNamespace="http://dictionary.information.eirc.mos.ru" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model/dictionary" schemaLocation="DictionaryModel.xsd"/>
+	<xs:complexType name="GetDictionaryTablesBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetDictionaryTablesBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Фильтры поиска. В случае отсутствия фильтров выдаются все данные. Возможны следующие фильтры.
+
+Name: TableId
+Value: идентификатор справочника
+DataType: Integer
+
+Name: GroupId
+Value: идентификатор группы справочников
+DataType: Integer
+
+Признак включения столбцов в вывод метода. Включаются поля Columns.Id и Columns.SystemName
+Name: IsShortColumnsIncluded
+Value: true или false
+DataType: Boolean
+
+Признак часто используемого справочника
+Name - IsFrequentlyUsed
+Value - true/false
+DataType - Boolean
+
+Признак недавно редактируемого справочника
+Name - IsRecentlyEdited
+Value - true/false
+DataType - Boolean
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение. В случае отсутствия значения выдаются все данные.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryTablesBySearchParamsRequest" type="tns:GetDictionaryTablesBySearchParamsRequest"/>
+	<xs:complexType name="GetDictionaryTablesBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetDictionaryTablesBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="DictionaryTables" type="dictionary:DictionaryTable" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryTablesBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDictionaryTablesBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDictionaryColumnsByTableIdRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetDictionaryColumnsByTableId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="TableId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>идентификатор таблицы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryColumnsByTableIdRequest" type="tns:GetDictionaryColumnsByTableIdRequest"/>
+	<xs:complexType name="GetDictionaryColumnsByTableIdResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetDictionaryColumnsByTableId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="DictionaryColumns" type="dictionary:DictionaryColumn" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryColumnsByTableIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDictionaryColumnsByTableIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDictionaryGroupsBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetDictionaryGroupsBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Фильтры поиска. В случае отсутствия фильтров выдаются следующие данные. FullName и Id группы со всеми вложенными группами.
+
+Возможны следующие фильтры.
+
+Name: TableId
+Value: идентификатор справочника, который входит в группу
+DataType: Integer
+
+Name: GroupId
+Value: идентификатор группы справочников
+DataType: Integer
+
+По умолчанию вложенные массив таблиц не заполняется.
+Для заполнения полей Tables.Id и Tables.SystemName, Tables.FullName и Tables.ShortName массива таблиц передается флаг
+Name: IsShortTablesIncluded
+Value: true или false
+DataType: Boolean
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение. В случае отсутствия значения выдаются все данные.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryGroupsBySearchParamsRequest" type="tns:GetDictionaryGroupsBySearchParamsRequest"/>
+	<xs:complexType name="GetDictionaryGroupsBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetDictionaryGroupsBySearchParams. Правила заполнения полей приведены в описании типа GetDictionaryGroupsBySearchParamsRequest</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="DictionaryGroups" type="dictionary:DictionaryGroup" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryGroupsBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDictionaryGroupsBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetOperatorByLoginParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetOperatorByLoginParams</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Login" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Логин оператора
+
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Password" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пароль оператора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetOperatorByLoginParamsRequest" type="tns:GetOperatorByLoginParamsRequest"/>
+	<xs:complexType name="GetOperatorByLoginParamsResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetOperatorByLoginParams</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Operator" type="dom:Party" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Возвращается поле типа Individual.
+В нем заполняются поля: 
+PartyId, FirstName, SecondName, Surname</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SecurityToken" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Маркер безопасности</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ServerVersion" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Версия серверной части ПИР</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorRoles" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Список ролей оператора</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetOperatorByLoginParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetOperatorByLoginParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDictionaryDataByTableIdRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetDictionaryDataByTableId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="TableId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>идентификатор таблицы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateSearch" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата поиска</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные параметры
+
+Для включения исторических данных
+Name = IsHistoricalDataIncluded
+Value = true
+DataType = Boolean
+
+Идентификатор (не системный) строки справочник
+Name = RecordId
+Value = значение идентификатора
+DataType = Integer
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryDataByTableIdRequest" type="tns:GetDictionaryDataByTableIdRequest"/>
+	<xs:complexType name="GetDictionaryDataByTableIdResult">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetDictionaryDataByTableId</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="DictionaryRecords" type="dictionary:DictionaryRecord" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Словарные записи</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryDataByTableIdResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDictionaryDataByTableIdResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetBaseDictionaryDataBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetBaseDictionaryDataBySearchParams.
+Заполняются поля 
+DictionaryCode - код справочника
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=String
+Characteristic.Value=name:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DictionaryCode" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Код словаря. 
+Используются следующие коды
+
+DictionaryType - тип справочника
+Responsible - ответственный
+DictionaryDataType - тип данных столбца справочника
+DictionaryStatus - статус справочника, столбца справочника или группы
+DictionaryActionType - статус действия
+DictionaryOutSystem - Список внешних систем
+DictionarySyncState - Состояния синхронизации справочника со справочником окружной БД
+DictionaryRegionTable - Список региональных справочников</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetBaseDictionaryDataBySearchParamsRequest" type="tns:GetBaseDictionaryDataBySearchParamsRequest"/>
+	<xs:complexType name="GetBaseDictionaryDataBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetBaseDictionaryDataBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetBaseDictionaryDataBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetBaseDictionaryDataBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetDictionaryDataBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetDictionaryDataBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="TableId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор справочника, из которого считываются данные</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RecordSystemId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Идентификатор строки справочника, из которого считываются данные</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateSearch" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата поиска</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Фильтры поиска. В случае отсутствия фильтров выдаются все данные. 
+
+Для поиска данных справочника в окружных БД
+Name: Regions
+Value: All - округа или коды регионов через запятую
+DataType: String
+Пример  Name: Regions, Value: CAO,NAO,SAO,SVAO,SZAO,TAO,UAO,UVAO,UZAO,VAO,ZAO,ZELGRD
+
+Для поиска данных справочника по статусам
+Name: Status
+Value: All - все статусы или коды статусов через запятую
+DataType: String
+Пример Name: Status Value: New,Changed,Closed,Deleted
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение. В случае отсутствия значения выдаются все данные.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetDictionaryDataBySearchParamsRequest" type="tns:GetDictionaryDataBySearchParamsRequest"/>
+	<xs:complexType name="GetDictionaryDataBySearchParamsResult">
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="tns:GetDictionaryDataBySearchParamsResultItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GetDictionaryDataBySearchParamsResultItem">
+		<xs:sequence>
+			<xs:element name="Dictionary" type="dictionary:DictionaryTable" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Заполняются только следующие поля
+Id
+SystemName
+ShortName
+FullName</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DictionaryRecords" type="dictionary:DictionaryRecord" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Словарные записи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetDictionaryDataBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetDictionaryDataBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetExpiredDateBySecurityTokenRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetExpiredDateBySecurityToken</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SecurityToken" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Токен  безопасности</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Дополнительные параметры
+
+Для включения данных оператора
+Name = IsOperatorDataIncluded
+Value = true
+DataType = Boolean</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetExpiredDateBySecurityTokenRequest" type="tns:GetExpiredDateBySecurityTokenRequest"/>
+	<xs:complexType name="GetExpiredDateBySecurityTokenResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetExpiredDateBySecurityToken</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ExpiredDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Время истечения токена</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorDetails" type="tns:GetOperatorByLoginParamsResult" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Заполняются в случае наличия в запросе опции IsOperatorDataIncluded</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetExpiredDateBySecurityTokenResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetExpiredDateBySecurityTokenResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetRawDictionariesDataBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetRawDictionariesDataBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DateSearch" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата поиска</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Фильтры поиска. В случае отсутствия фильтров выдаются все данные. 
+
+Для поиска данных в определенной группе справочников
+Name: GroupId
+Value: Идентификатор группы
+DataType: Integer
+
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Поисковое значение. В случае отсутствия значения выдаются все данные.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetRawDictionariesDataBySearchParamsRequest" type="tns:GetRawDictionariesDataBySearchParamsRequest"/>
+	<xs:complexType name="GetRawDictionariesDataBySearchParamsResult">
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="tns:GetRawDictionariesDataBySearchParamsResultItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GetRawDictionariesDataBySearchParamsResultItem">
+		<xs:sequence>
+			<xs:element name="Dictionary" type="dictionary:DictionaryTable" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Справочник
+Заполняются только следующие поля
+Id
+SystemName
+ShortName
+FullName</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RawDictionaryRecords" type="dictionary:RawDictionaryRecord" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Конкатенированные записи справочника</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetRawDictionariesDataBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetRawDictionariesDataBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetSynchronizationStatusesRequestByRecordId">
+		<xs:annotation>
+			<xs:documentation>Запрос метода GetSynchronizationStatuses</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="TableId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>идентификатор таблицы</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RecordId" type="xs:integer" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>идентификатор записи</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateSearch" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Дата поиска</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdditionalCharacteristics" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Дополнительные параметры
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetSynchronizationStatusesRequestByRecordId" type="tns:GetSynchronizationStatusesRequestByRecordId"/>
+	<xs:complexType name="GetSynchronizationStatusesResultByRecordId">
+		<xs:annotation>
+			<xs:documentation>Ответ метода GetSynchronizationStatuses</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="SynchronizationStatuses" type="dictionary:CentralSynchronizationStatus" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Состояния синхронизации</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetSynchronizationStatusesResponseByRecordId">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetSynchronizationStatusesResultByRecordId" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="GetShortDictionaryDataBySearchParamsRequest">
+		<xs:annotation>
+			<xs:documentation>запрос метода GetShortDictionaryDataBySearchParams
+Заполняются поля 
+DictionaryCode - код справочника
+SortOrder - сортировка
+Characteristic.Name=orderBy
+Characteristic.DataType=String
+Characteristic.Value=name:A</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:PagingInfo">
+				<xs:sequence>
+					<xs:element name="DictionaryCode" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Код словаря. 
+Используются следующие коды
+
+PreferenceType - тип льготы
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SearchParameters" type="core:Characteristic" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Фильтры поиска. В случае отсутствия фильтров выдаются все данные. 
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetShortDictionaryDataBySearchParamsRequest" type="tns:GetShortDictionaryDataBySearchParamsRequest"/>
+	<xs:complexType name="GetShortDictionaryDataBySearchParamsResult">
+		<xs:annotation>
+			<xs:documentation>ответ метода GetShortDictionaryDataBySearchParams</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="core:GetReponseBase">
+				<xs:sequence>
+					<xs:element name="ResultItems" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Id - идентификатор строки справочника, соответствующий полю SYS_ID таблицы справочника
+Code - код строки справочника , соответствующий полю CODE таблицы справочника в случае его присутсвия
+Name - наименование строки справочника , соответствующее полю VAL таблицы справочника</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GetShortDictionaryDataBySearchParamsResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="core:OperationResult">
+					<xs:sequence>
+						<xs:element name="result" type="tns:GetShortDictionaryDataBySearchParamsResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

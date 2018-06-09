@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<xs:schema xmlns:agreement="http://domainmodel.eirc.mos.ru/model/agreement" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" targetNamespace="http://domainmodel.eirc.mos.ru/model/agreement" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/model" schemaLocation="../BaseDomain/BaseModel.xsd"/>
+	<xs:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+	<xs:complexType name="AgreementRelationship">
+		<xs:annotation>
+			<xs:documentation>Связь договоров</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Id" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор связи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Agreements" type="dom:Agreement" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>договоры разных типов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateStart" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата формирования связи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RelationshipType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип связи 
+3-х сторонний договор
+4-х сторонний договор</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Parties-3"/>
+						<xs:enumeration value="Parties-4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Address" type="dom:Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес привязки договора управления</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Service" type="dom:BaseDictionary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Оказываемая по договору поставки услуга</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegionMFC" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Район МФЦ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManagementCompanyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Название управляющей компании</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ManagingCompanyAgreement">
+		<xs:annotation>
+			<xs:documentation>Договор управления</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Agreement">
+				<xs:sequence>
+					<xs:element name="RegionMFC" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Район МФЦ</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SupplyAgreement">
+		<xs:annotation>
+			<xs:documentation>Договор на поставку</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Agreement"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SettlementAgreement">
+		<xs:annotation>
+			<xs:documentation>Договор на расчет</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dom:Agreement"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SupplierBankAccount">
+		<xs:sequence>
+			<xs:element name="BankSupplierCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Коды поставщиков банка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BankAccount" type="dom:OrganizationBankAccount" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Банковские реквизиты организации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

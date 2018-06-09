@@ -1,0 +1,43 @@
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://party.operations.eirc.mos.ru" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:dom="http://domainmodel.eirc.mos.ru/model" xmlns:core="http://domainmodel.eirc.mos.ru/core" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://party.operations.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://party.operations.eirc.mos.ru" schemaLocation="PartyOperations.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/core" schemaLocation="../BaseDomain/ProcessCore.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="PartyHeader">
+		<part name="SubscriberInformation" element="core:SubscriberInformation"/>
+	</message>
+	<message name="CreateManagingCompanyRequest">
+		<part name="parameter" element="tns:CreateManagingCompanyRequest"/>
+	</message>
+	<message name="CreateManagingCompanyResponse">
+		<part name="parameter" element="tns:CreateManagingCompanyResponse"/>
+	</message>
+	<portType name="PartyOperations">
+		<operation name="CreateManagingCompany">
+			<documentation>Создание управляющей компании</documentation>
+			<input message="tns:CreateManagingCompanyRequest"/>
+			<output message="tns:CreateManagingCompanyResponse"/>
+		</operation>
+	</portType>
+	<binding name="PartyOperationsPortBinding" type="tns:PartyOperations">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="CreateManagingCompany">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:PartyHeader" part="SubscriberInformation" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="PartyOperations">
+		<port name="PartyOperationsPort" binding="tns:PartyOperationsPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>

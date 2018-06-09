@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://debtoroperations.eirc.mos.ru" xmlns:debtor="http://domainmodel.eirc.mos.ru/model/debtor" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns="http://domainmodel.eirc.mos.ru/core" xmlns:ns1="http://domainmodel.eirc.mos.ru/model" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://debtoroperations.eirc.mos.ru">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://debtoroperations.eirc.mos.ru" schemaLocation="DebtorOperations.xsd"/>
+			<xsd:import namespace="http://domainmodel.eirc.mos.ru/model/debtor" schemaLocation="DebtorModel.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="StartBusinessProcessRequest">
+		<part name="parameters" element="tns:StartBusinessProcessRequest"/>
+	</message>
+	<message name="StartBusinessProcessResponse">
+		<part name="parameters" element="tns:StartBusinessProcessResponse"/>
+	</message>
+	<message name="FinishBusinessProcessRequest">
+		<part name="parameters" element="tns:FinishBusinessProcessRequest"/>
+	</message>
+	<message name="FinishBusinessProcessResponse">
+		<part name="parameters" element="tns:FinishBusinessProcessResponse"/>
+	</message>
+	<message name="CreatePretrialProceedingsListRequest">
+		<part name="parameters" element="tns:CreatePretrialProceedingsListRequest"/>
+	</message>
+	<message name="CreatePretrialProceedingsListResponse">
+		<part name="parameters" element="tns:CreatePretrialProceedingsListResponse"/>
+	</message>
+	<message name="CreatePretrialProceedingRequest">
+		<part name="parameters" element="tns:CreatePretrialProceedingRequest"/>
+	</message>
+	<message name="CreatePretrialProceedingResponse">
+		<part name="parameters" element="tns:CreatePretrialProceedingResponse"/>
+	</message>
+	<message name="CreatePaymentAgreementRequest">
+		<part name="parameters" element="tns:CreatePaymentAgreementRequest"/>
+	</message>
+	<message name="CreatePaymentAgreementResponse">
+		<part name="parameters" element="tns:CreatePaymentAgreementResponse"/>
+	</message>
+	<message name="FinishPretrialProceedingSubProcessRequest">
+		<part name="parameters" element="tns:FinishPretrialProceedingSubProcessRequest"/>
+	</message>
+	<message name="FinishPretrialProceedingSubProcessResponse">
+		<part name="parameters" element="tns:FinishPretrialProceedingSubProcessResponse"/>
+	</message>
+	<message name="StartLawCaseProceedingSubProcessRequest">
+		<part name="parameters" element="tns:StartLawCaseProceedingSubProcessRequest"/>
+	</message>
+	<message name="StartLawCaseProceedingSubProcessResponse">
+		<part name="parameters" element="tns:StartLawCaseProceedingSubProcessResponse"/>
+	</message>
+	<message name="ChangePretrialProceedingStatusRequest">
+		<part name="parameters" element="tns:ChangePretrialProceedingStatusRequest"/>
+	</message>
+	<message name="ChangePretrialProceedingStatusResponse">
+		<part name="parameters" element="tns:ChangePretrialProceedingStatusResponse"/>
+	</message>
+	<message name="ChangePretrialProceedingsStatusListRequest">
+		<part name="parameters" element="tns:ChangePretrialProceedingsStatusListRequest"/>
+	</message>
+	<message name="ChangePretrialProceedingsStatusListResponse">
+		<part name="parameters" element="tns:ChangePretrialProceedingsStatusListResponse"/>
+	</message>
+	<message name="SendNotificationToCustomerRequest">
+		<part name="parameters" element="tns:SendNotificationToCustomerRequest"/>
+	</message>
+	<message name="SendNotificationToCustomerResponse">
+		<part name="parameters" element="tns:SendNotificationToCustomerResponse"/>
+	</message>
+	<message name="SendNotificationsListRequest">
+		<part name="parameters" element="tns:SendNotificationsListRequest"/>
+	</message>
+	<message name="SendNotificationsListResponse">
+		<part name="parameters" element="tns:SendNotificationsListResponse"/>
+	</message>
+	<message name="ReceivePaymentFromCustomerRequest">
+		<part name="parameters" element="tns:ReceivePaymentFromCustomerRequest"/>
+	</message>
+	<message name="ReceivePaymentFromCustomerResponse">
+		<part name="parameters" element="tns:ReceivePaymentFromCustomerResponse"/>
+	</message>
+	<message name="CreateLawCaseProceedingsListRequest">
+		<part name="parameters" element="tns:CreateLawCaseProceedingsListRequest"/>
+	</message>
+	<message name="CreateLawCaseProceedingsListResponse">
+		<part name="parameters" element="tns:CreateLawCaseProceedingsListResponse"/>
+	</message>
+	<message name="ReceiveCourtDecisionRequest">
+		<part name="parameters" element="tns:ReceiveCourtDecisionRequest"/>
+	</message>
+	<message name="ReceiveCourtDecisionResponse">
+		<part name="parameters" element="tns:ReceiveCourtDecisionResponse"/>
+	</message>
+	<message name="ChangeLawCaseProceedingStatusRequest">
+		<part name="parameters" element="tns:ChangeLawCaseProceedingStatusRequest"/>
+	</message>
+	<message name="ChangeLawCaseProceedingStatusResponse">
+		<part name="parameters" element="tns:ChangeLawCaseProceedingStatusResponse"/>
+	</message>
+	<message name="ChangeLawCaseProceedingsStatusListRequest">
+		<part name="parameters" element="tns:ChangeLawCaseProceedingsStatusListRequest"/>
+	</message>
+	<message name="ChangeLawCaseProceedingsStatusListResponse">
+		<part name="parameters" element="tns:ChangeLawCaseProceedingsStatusListResponse"/>
+	</message>
+	<message name="FinishLawCaseProceedingSubProcessRequest">
+		<part name="parameters" element="tns:FinishLawCaseProceedingSubProcessRequest"/>
+	</message>
+	<message name="FinishLawCaseProceedingSubProcessResponse">
+		<part name="parameters" element="tns:FinishLawCaseProceedingSubProcessResponse"/>
+	</message>
+	<message name="StartLawCaseExecutionSubProcessRequest">
+		<part name="parameters" element="tns:StartLawCaseExecutionSubProcessRequest"/>
+	</message>
+	<message name="StartLawCaseExecutionSubProcessResponse">
+		<part name="parameters" element="tns:StartLawCaseExecutionSubProcessResponse"/>
+	</message>
+	<message name="SendApplicationToTrialRequest">
+		<part name="parameters" element="tns:SendApplicationToTrialRequest"/>
+	</message>
+	<message name="SendApplicationToTrialResponse">
+		<part name="parameters" element="tns:SendApplicationToTrialResponse"/>
+	</message>
+	<message name="SendDocumentsOrderToMfcRequest">
+		<part name="parameters" element="tns:SendDocumentsOrderToMfcRequest"/>
+	</message>
+	<message name="SendDocumentsOrderToMfcResponse">
+		<part name="parameters" element="tns:SendDocumentsOrderToMfcResponse"/>
+	</message>
+	<message name="SendDocumentOrdersListToMfcRequest">
+		<part name="parameters" element="tns:SendDocumentOrdersListToMfcRequest"/>
+	</message>
+	<message name="SendDocumentOrdersListToMfcResponse">
+		<part name="parameters" element="tns:SendDocumentOrdersListToMfcResponse"/>
+	</message>
+	<message name="ReceiveExecutionActRequest">
+		<part name="parameters" element="tns:ReceiveExecutionActRequest"/>
+	</message>
+	<message name="ReceiveExecutionActResponse">
+		<part name="parameters" element="tns:ReceiveExecutionActResponse"/>
+	</message>
+	<message name="SentRequestToBankRequest">
+		<part name="parameters" element="tns:SentRequestToBankRequest"/>
+	</message>
+	<message name="SentRequestToBankResponse">
+		<part name="parameters" element="tns:SentRequestToBankResponse"/>
+	</message>
+	<message name="SendRequestToTaxAuthorityRequest">
+		<part name="parameters" element="tns:SendRequestToTaxAuthorityRequest"/>
+	</message>
+	<message name="SendRequestToTaxAuthorityResponse">
+		<part name="parameters" element="tns:SendRequestToTaxAuthorityResponse"/>
+	</message>
+	<message name="FinishLawCaseExecutionSubProcessRequest">
+		<part name="parameters" element="tns:FinishLawCaseExecutionSubProcessRequest"/>
+	</message>
+	<message name="FinishLawCaseExecutionSubProcessResponse">
+		<part name="parameters" element="tns:FinishLawCaseExecutionSubProcessResponse"/>
+	</message>
+	<message name="ChangeLawCaseExecutionStatusRequest">
+		<part name="parameters" element="tns:ChangeLawCaseExecutionStatusRequest"/>
+	</message>
+	<message name="ChangeLawCaseExecutionStatusResponse">
+		<part name="parameters" element="tns:ChangeLawCaseExecutionStatusResponse"/>
+	</message>
+	<message name="ChangeUtilityActionStatusRequest">
+		<part name="parameters" element="tns:ChangeUtilityActionStatusRequest"/>
+	</message>
+	<message name="ChangeUtilityActionStatusResponse">
+		<part name="parameters" element="tns:ChangeUtilityActionStatusResponse"/>
+	</message>
+	<message name="StartUtilityActionSubProcessRequest">
+		<part name="parameters" element="tns:StartUtilityActionSubProcessRequest"/>
+	</message>
+	<message name="StartUtilityActionSubProcessResponse">
+		<part name="parameters" element="tns:StartUtilityActionSubProcessResponse"/>
+	</message>
+	<message name="FinishUtilityActionSubProcessRequest">
+		<part name="parameters" element="tns:FinishUtilityActionSubProcessRequest"/>
+	</message>
+	<message name="FinishUtilityActionSubProcessResponse">
+		<part name="parameters" element="tns:FinishUtilityActionSubProcessResponse"/>
+	</message>
+	<message name="ApplyUtilityActionRequest">
+		<part name="parameters" element="tns:ApplyUtilityActionRequest"/>
+	</message>
+	<message name="ApplyUtilityActionResponse">
+		<part name="parameters" element="tns:ApplyUtilityActionResponse"/>
+	</message>
+	<message name="ChangePaymentAgreementStatusRequest">
+		<part name="parameters" element="tns:ChangePaymentAgreementStatusRequest"/>
+	</message>
+	<message name="ChangePaymentAgreementStatusResponse">
+		<part name="parameters" element="tns:ChangePaymentAgreementStatusResponse"/>
+	</message>
+	<message name="AddCommentRequest">
+		<part name="parameter" element="tns:AddCommentRequest"/>
+	</message>
+	<message name="AddCommentResponse">
+		<part name="parameter" element="tns:AddCommentResponse"/>
+	</message>
+	<message name="NewMessage"/>
+	<message name="SendMassNotificationsRequest">
+		<part name="parameters" element="tns:SendMassNotificationsRequest"/>
+	</message>
+	<message name="SendMassNotificationsResponse">
+		<part name="parameters" element="tns:SendMassNotificationsResponse"/>
+	</message>
+	<message name="ChangeDebtorRequest">
+		<part name="parameters" element="tns:ChangeDebtorRequest"/>
+	</message>
+	<message name="NewMessage3">
+		<part name="parameter" element="tns:ChangeDebtorResponse"/>
+	</message>
+	<message name="ChangeDebtorResponse">
+		<part name="parameters" element="tns:ChangeDebtorResponse"/>
+	</message>
+	<message name="CreateExternalDebtorActionsListRequest">
+		<part name="parameter" element="tns:CreateExternalDebtorActionsListRequest"/>
+	</message>
+	<message name="CreateExternalDebtorActionsListResponse">
+		<part name="parameter" element="tns:CreateExternalDebtorActionsListResponse"/>
+	</message>
+	<message name="ModifyExternalDebtorActionsListRequest">
+		<part name="parameter" element="tns:ModifyExternalDebtorActionsListRequest"/>
+	</message>
+	<message name="ModifyExternalDebtorActionsListResponse">
+		<part name="parameter" element="tns:ModifyExternalDebtorActionsListResponse"/>
+	</message>
+	<message name="ModifyMassOperationsListRequest">
+		<part name="parameter" element="tns:ModifyMassOperationsListRequest"/>
+	</message>
+	<message name="ModifyMassOperationsListResponse">
+		<part name="parameter" element="tns:ModifyMassOperationsListResponse"/>
+	</message>
+	<message name="ChangeDebtorsBalancesRequest">
+		<part name="parameter" element="tns:ChangeDebtorsBalancesRequest"/>
+	</message>
+	<message name="ChangeDebtorsBalancesResponse">
+		<part name="parameter" element="tns:ChangeDebtorsBalancesResponse"/>
+	</message>
+	<message name="SendExecutionActsToBailiffOfficeListRequest">
+		<part name="parameter" element="tns:SendExecutionActsToBailiffOfficeListRequest"/>
+	</message>
+	<message name="SendExecutionActsToBailiffOfficeListResponse">
+		<part name="parameter" element="tns:SendExecutionActsToBailiffOfficeListResponse"/>
+	</message>
+	<message name="ChangeLawCaseExecutionsStatusListRequest">
+		<part name="parameter" element="tns:ChangeLawCaseExecutionsStatusListRequest"/>
+	</message>
+	<message name="ChangeLawCaseExecutionsStatusListResponse">
+		<part name="parameter" element="tns:ChangeLawCaseExecutionsStatusListResponse"/>
+	</message>
+	<message name="CreateLawCaseExecutionsListRequest">
+		<part name="parameter" element="tns:CreateLawCaseExecutionsListRequest"/>
+	</message>
+	<message name="CreateLawCaseExecutionsListResponse">
+		<part name="parameter" element="tns:CreateLawCaseExecutionsListResponse"/>
+	</message>
+	<message name="ResumeLawCaseExecutionsListRequest">
+		<part name="parameter" element="tns:ResumeLawCaseExecutionsListRequest"/>
+	</message>
+	<message name="ResumeLawCaseExecutionsListResponse">
+		<part name="parameter" element="tns:ResumeLawCaseExecutionsListResponse"/>
+	</message>
+	<message name="ModifySystemEventsListRequest">
+		<part name="parameter" element="tns:ModifySystemEventsListRequest"/>
+	</message>
+	<message name="ModifySystemEventsListResponse">
+		<part name="parameter" element="tns:ModifySystemEventsListResponse"/>
+	</message>
+	<message name="SendRequestsToBankListRequest">
+		<part name="parameter" element="tns:SendRequestsToBankListRequest"/>
+	</message>
+	<message name="SendRequestsToBankListResponse">
+		<part name="parameter" element="tns:SendRequestsToBankListResponse"/>
+	</message>
+	<message name="SendRequestsToTaxAuthorityListRequest">
+		<part name="parameter" element="tns:SendRequestsToTaxAuthorityListRequest"/>
+	</message>
+	<message name="SendRequestsToTaxAuthorityListResponse">
+		<part name="parameter" element="tns:SendRequestsToTaxAuthorityListResponse"/>
+	</message>
+	<message name="ChangeExternalRequestStatusListRequest">
+		<part name="parameter" element="tns:ChangeExternalRequestStatusListRequest"/>
+	</message>
+	<message name="ChangeExternalRequestStatusListResponse">
+		<part name="parameter" element="tns:ChangeExternalRequestStatusListResponse"/>
+	</message>
+	<message name="ChangePaymentAgreementsStatusListRequest">
+		<part name="parameter" element="tns:ChangePaymentAgreementsStatusListRequest"/>
+	</message>
+	<message name="ChangePaymentAgreementsStatusListResponse">
+		<part name="parameter" element="tns:ChangePaymentAgreementsStatusListResponse"/>
+	</message>
+	<portType name="DebtorOperations">
+		<documentation>Служба, предоставляющая методы для запуска бизнес-операций</documentation>
+		<operation name="StartBusinessProcess">
+			<documentation>
+Запуск бизнес-процесса работы с должниками. 
+Происходит до запуска любой другой бизнес-операции. 
+Возвращает номер БП, 
+который потом передается на вход любой другой БО 
+</documentation>
+			<input message="tns:StartBusinessProcessRequest"/>
+			<output message="tns:StartBusinessProcessResponse"/>
+		</operation>
+		<operation name="FinishBusinessProcess">
+			<input message="tns:FinishBusinessProcessRequest"/>
+			<output message="tns:FinishBusinessProcessResponse"/>
+		</operation>
+		<!-- Pretrial -->
+		<operation name="CreatePretrialProceedingsList">
+			<input message="tns:CreatePretrialProceedingsListRequest"/>
+			<output message="tns:CreatePretrialProceedingsListResponse"/>
+		</operation>
+		<operation name="CreatePretrialProceeding">
+			<input message="tns:CreatePretrialProceedingRequest"/>
+			<output message="tns:CreatePretrialProceedingResponse"/>
+		</operation>
+		<operation name="CreatePaymentAgreement">
+			<input message="tns:CreatePaymentAgreementRequest"/>
+			<output message="tns:CreatePaymentAgreementResponse"/>
+		</operation>
+		<operation name="FinishPretrialProceedingSubProcess">
+			<input message="tns:FinishPretrialProceedingSubProcessRequest"/>
+			<output message="tns:FinishPretrialProceedingSubProcessResponse"/>
+		</operation>
+		<operation name="StartLawCaseProceedingSubProcess">
+			<input message="tns:StartLawCaseProceedingSubProcessRequest"/>
+			<output message="tns:StartLawCaseProceedingSubProcessResponse"/>
+		</operation>
+		<operation name="ChangePretrialProceedingStatus">
+			<documentation>метод, изменяющий статус после выполнения заказа документов в МФЦ</documentation>
+			<input message="tns:ChangePretrialProceedingStatusRequest"/>
+			<output message="tns:ChangePretrialProceedingStatusResponse"/>
+		</operation>
+		<operation name="ChangePretrialProceedingsStatusList">
+			<documentation>метод, изменяющий массив статусов после выполнения заказов документов в МФЦ</documentation>
+			<input message="tns:ChangePretrialProceedingsStatusListRequest"/>
+			<output message="tns:ChangePretrialProceedingsStatusListResponse"/>
+		</operation>
+		<operation name="SendNotificationToCustomer">
+			<documentation>метод, осуществляющий уведомление должника</documentation>
+			<input message="tns:SendNotificationToCustomerRequest"/>
+			<output message="tns:SendNotificationToCustomerResponse"/>
+		</operation>
+		<operation name="SendNotificationsList">
+			<documentation>метод, осуществляющий уведомление массива должников</documentation>
+			<input message="tns:SendNotificationsListRequest"/>
+			<output message="tns:SendNotificationsListResponse"/>
+		</operation>
+		<operation name="ReceivePaymentFromCustomer">
+			<input message="tns:ReceivePaymentFromCustomerRequest"/>
+			<output message="tns:ReceivePaymentFromCustomerResponse"/>
+		</operation>
+		<!-- Proceeding -->
+		<operation name="CreateLawCaseProceedingsList">
+			<documentation>метод, осуществляющий создание массива судопроизодств</documentation>
+			<input message="tns:CreateLawCaseProceedingsListRequest"/>
+			<output message="tns:CreateLawCaseProceedingsListResponse"/>
+		</operation>
+		<operation name="ReceiveCourtDecision">
+			<input message="tns:ReceiveCourtDecisionRequest"/>
+			<output message="tns:ReceiveCourtDecisionResponse"/>
+		</operation>
+		<operation name="ChangeLawCaseProceedingStatus">
+			<documentation>метод, осуществляющий изменения статуса судопроизодства</documentation>
+			<input message="tns:ChangeLawCaseProceedingStatusRequest"/>
+			<output message="tns:ChangeLawCaseProceedingStatusResponse"/>
+		</operation>
+		<operation name="ChangeLawCaseProceedingsStatusList">
+			<documentation>метод, осуществляющий изменение статусов массива судопроизодств</documentation>
+			<input message="tns:ChangeLawCaseProceedingsStatusListRequest"/>
+			<output message="tns:ChangeLawCaseProceedingsStatusListResponse"/>
+		</operation>
+		<operation name="FinishLawCaseProceedingSubProcess">
+			<input message="tns:FinishLawCaseProceedingSubProcessRequest"/>
+			<output message="tns:FinishLawCaseProceedingSubProcessResponse"/>
+		</operation>
+		<operation name="StartLawCaseExecutionSubProcess">
+			<input message="tns:StartLawCaseExecutionSubProcessRequest"/>
+			<output message="tns:StartLawCaseExecutionSubProcessResponse"/>
+		</operation>
+		<operation name="SendApplicationToTrial">
+			<input message="tns:SendApplicationToTrialRequest"/>
+			<output message="tns:SendApplicationToTrialResponse"/>
+		</operation>
+		<operation name="SendDocumentsOrderToMfc">
+			<documentation>
+метод, направляющий заявку в МФЦ 
+для формирования пакета документов для направления в суд.
+</documentation>
+			<input message="tns:SendDocumentsOrderToMfcRequest"/>
+			<output message="tns:SendDocumentsOrderToMfcResponse"/>
+		</operation>
+		<operation name="SendDocumentOrdersListToMfc">
+			<documentation>
+метод, направляющий массив заявок в МФЦ 
+для формирования пакета документов для направления в суд.
+</documentation>
+			<input message="tns:SendDocumentOrdersListToMfcRequest"/>
+			<output message="tns:SendDocumentOrdersListToMfcResponse"/>
+		</operation>
+		<!-- Execution -->
+		<operation name="ReceiveExecutionAct">
+			<input message="tns:ReceiveExecutionActRequest"/>
+			<output message="tns:ReceiveExecutionActResponse"/>
+		</operation>
+		<operation name="SentRequestToBank">
+			<input message="tns:SentRequestToBankRequest"/>
+			<output message="tns:SentRequestToBankResponse"/>
+		</operation>
+		<operation name="SendRequestToTaxAuthority">
+			<input message="tns:SendRequestToTaxAuthorityRequest"/>
+			<output message="tns:SendRequestToTaxAuthorityResponse"/>
+		</operation>
+		<operation name="FinishLawCaseExecutionSubProcess">
+			<input message="tns:FinishLawCaseExecutionSubProcessRequest"/>
+			<output message="tns:FinishLawCaseExecutionSubProcessResponse"/>
+		</operation>
+		<operation name="ChangeLawCaseExecutionStatus">
+			<input message="tns:ChangeLawCaseExecutionStatusRequest"/>
+			<output message="tns:ChangeLawCaseExecutionStatusResponse"/>
+		</operation>
+		<!-- Utility -->
+		<operation name="StartUtilityActionSubProcess">
+			<input message="tns:StartUtilityActionSubProcessRequest"/>
+			<output message="tns:StartUtilityActionSubProcessResponse"/>
+		</operation>
+		<operation name="ChangeUtilityActionStatus">
+			<input message="tns:ChangeUtilityActionStatusRequest"/>
+			<output message="tns:ChangeUtilityActionStatusResponse"/>
+		</operation>
+		<operation name="FinishUtilityActionSubProcess">
+			<input message="tns:FinishUtilityActionSubProcessRequest"/>
+			<output message="tns:FinishUtilityActionSubProcessResponse"/>
+		</operation>
+		<operation name="ApplyUtilityAction">
+			<input message="tns:ApplyUtilityActionRequest"/>
+			<output message="tns:ApplyUtilityActionResponse"/>
+		</operation>
+		<operation name="ChangePaymentAgreementStatus">
+			<documentation>метод, осуществляющий изменение статусов платежного соглашения</documentation>
+			<input message="tns:ChangePaymentAgreementStatusRequest"/>
+			<output message="tns:ChangePaymentAgreementStatusResponse"/>
+		</operation>
+		<operation name="AddComment">
+			<documentation>метод, сохраняющий комментарии</documentation>
+			<input message="tns:AddCommentRequest"/>
+			<output message="tns:AddCommentResponse"/>
+		</operation>
+		<operation name="SendMassNotifications">
+			<documentation>метод, осуществляющий массовое уведомление должников</documentation>
+			<input message="tns:SendMassNotificationsRequest"/>
+			<output message="tns:SendMassNotificationsResponse"/>
+		</operation>
+		<operation name="ChangeDebtor">
+			<input message="tns:ChangeDebtorRequest"/>
+			<output message="tns:ChangeDebtorResponse"/>
+		</operation>
+		<operation name="CreateExternalDebtorActionsList">
+			<documentation>Создание истории действий с должником не в системе ПИР</documentation>
+			<input message="tns:CreateExternalDebtorActionsListRequest"/>
+			<output message="tns:CreateExternalDebtorActionsListResponse"/>
+		</operation>
+		<operation name="ModifyExternalDebtorActionsList">
+			<documentation>Изменение истории действий с должником не в системе ПИР</documentation>
+			<input message="tns:ModifyExternalDebtorActionsListRequest"/>
+			<output message="tns:ModifyExternalDebtorActionsListResponse"/>
+		</operation>
+		<operation name="ModifyMassOperationsList">
+			<documentation>Изменение массовых операций</documentation>
+			<input message="tns:ModifyMassOperationsListRequest"/>
+			<output message="tns:ModifyMassOperationsListResponse"/>
+		</operation>
+		<operation name="ChangeDebtorsBalances">
+			<documentation>Изменение распределения балансов должников</documentation>
+			<input message="tns:ChangeDebtorsBalancesRequest"/>
+			<output message="tns:ChangeDebtorsBalancesResponse"/>
+		</operation>
+		<operation name="SendExecutionActsToBailiffOfficeList">
+			<documentation>метод, направляющий список заявок в ФСПП для возбуждения исполнительного производства</documentation>
+			<input message="tns:SendExecutionActsToBailiffOfficeListRequest"/>
+			<output message="tns:SendExecutionActsToBailiffOfficeListResponse"/>
+		</operation>
+		<operation name="ChangeLawCaseExecutionsStatusList">
+			<documentation>метод, осуществляющий изменение статусов массива исполнительных произодств</documentation>
+			<input message="tns:ChangeLawCaseExecutionsStatusListRequest"/>
+			<output message="tns:ChangeLawCaseExecutionsStatusListResponse"/>
+		</operation>
+		<operation name="CreateLawCaseExecutionsList">
+			<documentation>метод, осуществляющий создание массива исполнительных произодств</documentation>
+			<input message="tns:CreateLawCaseExecutionsListRequest"/>
+			<output message="tns:CreateLawCaseExecutionsListResponse"/>
+		</operation>
+		<operation name="ResumeLawCaseExecutionsList">
+			<documentation>метод, осуществляющий возобновление массива исполнительных произодств</documentation>
+			<input message="tns:ResumeLawCaseExecutionsListRequest"/>
+			<output message="tns:ResumeLawCaseExecutionsListResponse"/>
+		</operation>
+		<operation name="ModifySystemEventsList">
+			<documentation>Изменение аттрибутов системных событий</documentation>
+			<input message="tns:ModifySystemEventsListRequest"/>
+			<output message="tns:ModifySystemEventsListResponse"/>
+		</operation>
+		<operation name="SendRequestsToBankList">
+			<documentation>метод, осуществляющий запрос данных группы должников в банке</documentation>
+			<input message="tns:SendRequestsToBankListRequest"/>
+			<output message="tns:SendRequestsToBankListResponse"/>
+		</operation>
+		<operation name="SendRequestsToTaxAuthorityList">
+			<documentation>метод, осуществляющий запрос данных группы должников в ИФНС</documentation>
+			<input message="tns:SendRequestsToTaxAuthorityListRequest"/>
+			<output message="tns:SendRequestsToTaxAuthorityListResponse"/>
+		</operation>
+		<operation name="ChangeExternalRequestStatusList">
+			<documentation>метод, осуществляющий изменение статуса внешнего запроса</documentation>
+			<input message="tns:ChangeExternalRequestStatusListRequest"/>
+			<output message="tns:ChangeExternalRequestStatusListResponse"/>
+		</operation>
+		<operation name="ChangePaymentAgreementsStatusList">
+			<documentation>метод, осуществляющий изменение статусов массива платежных соглашений</documentation>
+			<input message="tns:ChangePaymentAgreementsStatusListRequest"/>
+			<output message="tns:ChangePaymentAgreementsStatusListResponse"/>
+		</operation>
+	</portType>
+	<binding name="DebtorOperationsPortBinding" type="tns:DebtorOperations">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="StartBusinessProcess">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="FinishBusinessProcess">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<!-- Pretrial -->
+		<operation name="CreatePretrialProceedingsList">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreatePretrialProceeding">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreatePaymentAgreement">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SendNotificationToCustomer">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SendNotificationsList">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ReceivePaymentFromCustomer">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="FinishPretrialProceedingSubProcess">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<!-- Proceeding -->
+		<operation name="CreateLawCaseProceedingsList">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="StartLawCaseProceedingSubProcess">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangePretrialProceedingStatus">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangePretrialProceedingsStatusList">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ReceiveCourtDecision">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangeLawCaseProceedingStatus">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangeLawCaseProceedingsStatusList">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="FinishLawCaseProceedingSubProcess">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="StartLawCaseExecutionSubProcess">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SendApplicationToTrial">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SendDocumentsOrderToMfc">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SendDocumentOrdersListToMfc">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<!-- Execution -->
+		<operation name="ReceiveExecutionAct">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SentRequestToBank">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SendRequestToTaxAuthority">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="FinishLawCaseExecutionSubProcess">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangeLawCaseExecutionStatus">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<!-- Utility -->
+		<operation name="StartUtilityActionSubProcess">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangeUtilityActionStatus">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="FinishUtilityActionSubProcess">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ApplyUtilityAction">
+			<soap:operation soapAction='""'/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangePaymentAgreementStatus">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="AddComment">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SendMassNotifications">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangeDebtor">
+			<soap:operation soapAction="urn:#ChangeDebtor"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateExternalDebtorActionsList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyExternalDebtorActionsList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifyMassOperationsList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangeDebtorsBalances">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SendExecutionActsToBailiffOfficeList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangeLawCaseExecutionsStatusList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="CreateLawCaseExecutionsList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ResumeLawCaseExecutionsList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ModifySystemEventsList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SendRequestsToBankList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SendRequestsToTaxAuthorityList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangeExternalRequestStatusList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ChangePaymentAgreementsStatusList">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="DebtorOperationsService">
+		<port name="DebtorOperationsPort" binding="tns:DebtorOperationsPortBinding">
+			<soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+		</port>
+	</service>
+</definitions>
