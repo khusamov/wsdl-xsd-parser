@@ -16,13 +16,14 @@
   },
   "scripts": {
     "test": "ts-mocha src/test/**/*.spec.ts",
-    "version:minor": "npm version minor",
-    "version:patch": "npm version patch",
-    "preversion": "npm test",
-    "version": "npm publish",
-    "postversion": "git push && git push --tags",
-    "prepublishOnly": "tsc",
-    "postpublish": "rmdir /S /Q dist"
+    "release:start:minor": "npm version minor --no-git-tag-version",
+    "release:start:patch": "npm version patch --no-git-tag-version",
+    "release:finish:npm-publish": "npm run release:finish && npm publish",
+    "release:finish": "git flow release finish v%npm_package_version% -m \"Версия %npm_package_version%\"",
+    "preversion": "npm test && git checkout develop && git flow release start v%npm_package_version%",
+    "postversion": "git add . && git commit -m \"Изменение версии на %npm_package_version%\"",
+    "prepublishOnly": "npm test && tsc",
+    "postpublish": "rmdir /S /Q dist && git push && git push --tags"
   },
   "devDependencies": {
     "@types/chai": "^4.1.2",
