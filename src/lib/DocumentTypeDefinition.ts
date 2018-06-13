@@ -1,4 +1,6 @@
 
+import * as pascalcase from 'pascalcase';
+
 import XmlSchemaDefinition from './XmlSchemaDefinition';
 import AutoType from './node/simpleType/AutoType';
 import IntType from './node/simpleType/IntType';
@@ -10,7 +12,44 @@ import BooleanType from './node/simpleType/BooleanType';
 import IntegerType from './node/simpleType/IntegerType';
 import Base64BinaryType from './node/simpleType/Base64BinaryType';
 
+import Node from './node/Node';
+import ComplexType from './node/ComplexType';
+import Element from './node/Element';
+
 export default class DocumentTypeDefinition {
+
+	/**
+	 * Выделить безымянные типы, добавить им имена и добавить их в DTD.
+	 *
+	 * Проходимся по всем узлам, ищем типы комплексные и безымянные.
+	 * Необходимо, чтобы такие типы были оформлены как отдельные модели.
+	 * Иначе не будет возможности сослаться на них в Ext.data.field.Field.reference.
+	 * http://docs.sencha.com/extjs/6.2.0/classic/Ext.data.field.Field.html#cfg-reference
+	 * http://docs.sencha.com/extjs/6.2.0/classic/Ext.data.schema.Reference.html#cfg-type
+	 *
+	 * Пример такого элемента это SendNotificationsListMPResponse из файла DebtorOperations.xsd
+	 *
+	 * @param {DocumentTypeDefinition} dtd
+	 */
+	static findAndAddNonameTypes(dtd: DocumentTypeDefinition) {
+		// Вспомогательная рекурсивная функция.
+		function findAndAddNonameTypes(node: Node) {
+			node.childs.forEach(findAndAddNonameTypes);
+			if (node instanceof ComplexType && node.isNoname) {
+				// Присваиваем имя (собираем из имен всех предков-элементов).
+				node.name = node.ancestors
+					.filter(node => node instanceof Element)
+					.map(node => (node as Element).name)
+					.map(pascalcase)
+					.reverse().join('');
+				// Далее тип включаем в схему.
+				node.xsd.addType(node);
+			}
+		}
+		dtd.schemas.forEach(xsd => {
+			xsd.childs.forEach(findAndAddNonameTypes);
+		});
+	}
 
 	static createBaseXsd(): XmlSchemaDefinition {
 		const baseXsd = new XmlSchemaDefinition({

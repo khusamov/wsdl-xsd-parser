@@ -1,40 +1,47 @@
+TODO
+====
+
+Перенести сюда чтение XML и его парсинг
+
+	/**
+	 * Загрузить один XSD-файл.
+	 * Загружает XML-файл, парсит при помощи Jsonix в JSON-формат.
+	 * Файл превращает в XmlSchemaDefinition, а также сохраняет для контроля процесса 
+	 * обработки в файл, если указана опция config.dirs.output.json.
+	 * @param pathToFile 
+	 * @param filename 
+	 */
+	private processXsdFile(pathToFile, filename): Promise<XmlSchemaDefinition> {
+		var context = new Jsonix.Context([XSD_1_0]);
+		var unmarshaller = context.createUnmarshaller();
+		return new Promise((resolve, reject) => {
+			unmarshaller.unmarshalFile(pathToFile, xsdJson => {
+				if (this.config.dirs.output.json) {
+					const resultFileName = Path.basename(pathToFile, Path.extname(pathToFile)) + '.json';
+					const outputJsonDir = Path.join(this.configFileDir, this.config.dirs.output.json);
+					const resultFilePath = Path.join(outputJsonDir, resultFileName);
+					Fs.writeFileSync(resultFilePath, JSON.stringify(xsdJson, null, 2));
+				}
+				const id = Path.basename(filename, Path.extname(filename));
+				resolve(new XmlSchemaDefinition(xsdJson, id));
+			});
+		});
+	}
+
+
+— — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — 
+
 
 
 Попробовать использовать модуль чтения WSDL-файлов:
 https://www.npmjs.com/package/apiconnect-wsdl
+Похоже этот код не совсем по теме... точнее совсем не по теме...
+Откуда этот бред вообще взялся?
 
-
-Выделить в отдельный модуль генератор классов ExtJS.
-
-Сделать дополнительную функцию: 
-Добавление дополнительного кода в классы
-Сейчас придется в определенные классы вставлять: proxy: { serviceMethod: "getDebtorsBySearchParams" }
-
-Создание CLI-интерфейса конвертера.
-
-Создание NPM-модуля для данного конвертера.
 
 — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — 
 
-Сделать генерацию модуля ExtJS целиком. 
-На основе шаблона. Шаблон можно внешний так и внутренний использовать.
-Также должна быть возможность добавлять туда дополнительные классы, например базовые модели.
 
-Добавлять комментарии в typeProperty, чтобы было понятно, какие именно дочерние классы могут подключаться.
-
-Если есть наследование модели, то нужно пройтись по предкам и собрать список полей.
-Эти поля нужно исключить в производном классе.
-
-Сделать отслеживание повторов в секции requires модели.
 
 — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — 
 
-Проблема рекурсивной зависимости пока решена открытием секции USES.
-[WRN] C1009: Circular reference in requirements chain (
-C:\@repositories\pir-model-preparer-test\packages\local\pir-server\src\model\baseModel\type\TMassOperation.js:12 [ClassRequire] ->
-C:\@repositories\pir-model-preparer-test\packages\local\pir-server\src\model\baseModel\type\TMassOperationProtocol.js:3 [ClassRequire] ->
-C:\@repositories\pir-model-preparer-test\packages\local\pir-server\src\model\baseModel\type\TMassOperationProtocolItem.js:26 [ClassRequire] ->
-C:\@repositories\pir-model-preparer-test\packages\local\pir-server\src\model\debtorInformation\type\TGetMassOperationDetailsByIdResponse.js:3 [ClassRequire] ->
-C:\@repositories\pir-model-preparer-test\packages\local\pir-server\src\model\debtorInformation\type\TGetMassOperationDetailsByIdResult.js:3 [ClassRequire] ->
-C:\@repositories\pir-model-preparer-test\packages\local\pir-server\src\model\baseModel\type\TMassOperation.js
-) -- unknown-file:-1

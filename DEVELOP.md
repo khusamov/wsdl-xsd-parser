@@ -5,12 +5,17 @@
 
 
 
+Инструкция как пользоваться скриптами package.json
+----------------------
+https://github.com/khusamov/git-flow-and-npm-version-publish/blob/master/README.md
 
 
 
 
 
 
+авыавыа
+--------
 
 
 
