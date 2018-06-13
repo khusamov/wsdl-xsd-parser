@@ -21,7 +21,7 @@ import { XSD_1_0 } from 'w3c-schemas';
  * @param pathToFile
  * @returns {object}
  */
-async function loadXsdFile(pathToFile): object {
+async function loadXsdFile(pathToFile): Promise<object> {
 	return await new Promise((resolve, reject) => {
         const context = new Jsonix.Context([XSD_1_0]);
         const unmarshaller = context.createUnmarshaller();
