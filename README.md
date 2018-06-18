@@ -6,6 +6,13 @@
 
 Парсер основан на коде [Jsonix](Jsonix) и [W3C Schemas](w3c-schemas).
 
+Инсталяция
+----------
+
+```bash
+npm install wsdl-xsd-parser --save
+```
+
 
 Пример на TypeScript
 --------------------
