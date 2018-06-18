@@ -10,7 +10,12 @@
 https://github.com/khusamov/git-flow-and-npm-version-publish/blob/master/README.md
 
 
+Убраны зависимости:
+--------
 
+    "xml2js": "^0.4.17",
+    "xsd": "0.0.2",
+    "xsd2json": "^1.11.3"
 
 
 
