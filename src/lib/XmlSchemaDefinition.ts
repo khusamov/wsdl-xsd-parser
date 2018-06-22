@@ -1,5 +1,7 @@
 
 import * as camelcase from 'camelcase';
+import { Jsonix } from 'jsonix';
+import { XSD_1_0 } from 'w3c-schemas';
 
 import DocumentTypeDefinition from './DocumentTypeDefinition';
 import OtherAttribute from './OtherAttribute';
@@ -12,6 +14,15 @@ import Namespace from './Namespace';
 import Element from './node/Element';
 
 export default class XmlSchemaDefinition extends Node {
+
+	static async load(id: string, filePath: string): Promise<XmlSchemaDefinition> {
+		const data = await new Promise((resolve, reject) => {
+			const context = new Jsonix.Context([XSD_1_0]);
+			const unmarshaller = context.createUnmarshaller();
+			unmarshaller.unmarshalFile(filePath, resolve);
+		});
+		return new this(data, id);
+	}
 
 	protected namespaces: Namespace[] = [];
 
