@@ -1,7 +1,7 @@
 import * as Path from 'path';
 import { describe, it } from 'mocha';
 import { assert } from 'chai';
-import { DocumentTypeDefinition as Dtd, XmlSchemaDefinition as Xsd } from '../';
+import { XsdGroup, Xsd } from '../';
 import { Jsonix } from 'jsonix';
 import { XSD_1_0 } from 'w3c-schemas';
 
@@ -21,12 +21,12 @@ async function loadXsdFile(pathToFile): Promise<object> {
 
 describe('XmlSchemaDefinition', function() {
 	it('XmlSchemaDefinition', async function() {
-		const dtd = new Dtd();
+		const xsdGroup = new XsdGroup();
 		const xsdJsonData = await loadXsdFile(Path.join(__dirname, 'wsdl/Debtor/DebtorModel.xsd'));
 		const xsd1 = new Xsd(xsdJsonData, 'file-id1');
-		dtd.addXsd(xsd1);
+		xsdGroup.addXsd(xsd1);
 		// В объекте dtd изначально включается базовая схема.
 		// См. метод static DocumentTypeDefinition.createBaseXsd().
-		assert.strictEqual<number>(dtd.schemas.length, 2);
+		assert.strictEqual<number>(xsdGroup.schemas.length, 2);
 	});
 });

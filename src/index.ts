@@ -1,6 +1,6 @@
-export { default as WebServicesDescription } from './lib/wsdl/WebServicesDescription';
-export { default as DocumentTypeDefinition } from './lib/DocumentTypeDefinition';
-export { default as XmlSchemaDefinition } from './lib/XmlSchemaDefinition';
+export { default as Wsdl } from './lib/wsdl/WebServiceDefinition';
+export { default as XsdGroup } from './lib/DocumentTypeDefinition';
+export { default as Xsd } from './lib/XmlSchemaDefinition';
 export { default as OtherAttribute } from './lib/OtherAttribute';
 export { default as Namespace } from './lib/Namespace';
 

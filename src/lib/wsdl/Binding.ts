@@ -6,7 +6,11 @@ export default class Binding {
 		return this.bindingNode.getAttribute('name');
 	}
 	get portType(): PortType {
-		return this.bindingNode.getAttribute('type');
+		const portTypeName = this.bindingNode.getAttribute('type');
+		return this.wsdl.findPortType(portTypeName);
 	}
-	constructor(private bindingNode: any, wsdl: WebServiceDefinition) {}
+	constructor(private bindingNode: any, public wsdl: WebServiceDefinition) {}
+	select(xpath: string): any[] {
+		return this.wsdl.wsdlDocumentSelect(xpath, this.bindingNode);
+	}
 }
