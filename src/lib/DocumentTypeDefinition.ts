@@ -16,6 +16,9 @@ import Node from './node/Node';
 import ComplexType from './node/ComplexType';
 import Element from './node/Element';
 
+// TODO В будущем от этого класса надо избавляться. Он никакого отношения к XSD не имеет))
+// И каким-то образом надо избавляться от createBaseXsd()
+
 export default class DocumentTypeDefinition {
 
 	/**
