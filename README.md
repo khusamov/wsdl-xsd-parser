@@ -18,29 +18,11 @@ npm install wsdl-xsd-parser --save
 --------------------
 
 ```typescript
-import { DocumentTypeDefinition as Dtd, XmlSchemaDefinition as Xsd } from 'wsdl-xsd-parser';
-import { Jsonix } from 'jsonix';
-import { XSD_1_0 } from 'w3c-schemas';
-
-/**
- * Загрузка XSD-файла в JavaScript-объект.
- * Вспомогательная функция.
- * @param pathToFile
- * @returns {object}
- */
-async function loadXsdFile(pathToFile): Promise<object> {
-	return await new Promise((resolve, reject) => {
-        const context = new Jsonix.Context([XSD_1_0]);
-        const unmarshaller = context.createUnmarshaller();
-        unmarshaller.unmarshalFile(pathToFile, resolve);
-    });
-}
+import { XsdGroup, Xsd } from 'wsdl-xsd-parser';
 
 (async () => {
-	const dtd = new Dtd();
-    const xsdJsonData = await loadXsdFile('path/to/xsdfile.xsd');
-	const xsd1 = new Xsd(xsdJsonData, 'file-id1');
-	dtd.addXsd(xsd1);
+	const xsdGroup = new XsdGroup();
+	xsdGroup.addXsd(Xsd.load('file-id1', 'path/to/xsdfile.xsd'));
 })();
 ``` 
 
