@@ -31,6 +31,24 @@ describe('WebServiceDefinition', function() {
 		const wsdl = await new Wsdl().load(Path.join(__dirname, 'wsdl/Adapters/BailiffOfficeAdapter.wsdl'));
 		assert.deepEqual(wsdl.services.map(service => service.name), ['BailiffOfficeAdapterService']);
 
+		// definitions
+		//     service
+		//         ports -> port
+		//             binding
+		//                 portType
+		//                     documentation
+		//                     operations -> operation
+		//                         name
+		//                         documentation
+		//                         input
+		//                             message
+		//                         output
+		//                             message
+		//                                 name
+		//                                 parts -> part
+		//                                     name
+		//                                     elementLink
+
 		assert.deepEqual(wsdl.services.map(service => ({
 			name: service.name,
 			ports: service.ports.map(port => ({
