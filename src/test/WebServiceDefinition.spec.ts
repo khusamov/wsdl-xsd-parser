@@ -27,7 +27,7 @@ async function createWsdlPathList(dirPath: string): Promise<string[]> {
 }
 
 describe('WebServiceDefinition', function() {
-	it('WebServiceDefinition', async function() {
+	it('wsdl/Adapters/BailiffOfficeAdapter.wsdl', async function() {
 		const wsdl = await new Wsdl().load(Path.join(__dirname, 'wsdl/Adapters/BailiffOfficeAdapter.wsdl'));
 		assert.deepEqual(wsdl.services.map(service => service.name), ['BailiffOfficeAdapterService']);
 
@@ -57,8 +57,8 @@ describe('WebServiceDefinition', function() {
 				operations: port.binding.portType.operations.map(operation => ({
 					name: operation.name,
 					documentation: operation.documentation,
-					inputMessagePartElementLinks: operation.input.message.parts.map(part => part.elementLink),
-					outputMessagePartElementLinks: operation.output.message.parts.map(part => part.elementLink)
+					inputMessagePartElementLinks: operation.input ? operation.input.message.parts.map(part => part.elementLink) : [],
+					outputMessagePartElementLinks: operation.output ? operation.output.message.parts.map(part => part.elementLink) : []
 				}))
 			}))
 		})), [
@@ -107,7 +107,48 @@ describe('WebServiceDefinition', function() {
 
 
 	});
+	it('wsdl/ExternalCallback/CallbackService.wsdl', async function() {
+		const wsdl = await new Wsdl().load(Path.join(__dirname, 'wsdl/ExternalCallback/CallbackService.wsdl'));
+		assert.deepEqual(wsdl.services.map(service => service.name), ['CallbackService']);
+		assert.deepEqual(wsdl.services.map(service => ({
+			name: service.name,
+			ports: service.ports.map(port => ({
+				name: port.name,
+				documentation: port.binding.portType.documentation,
+				operations: port.binding.portType.operations.map(operation => ({
+					name: operation.name,
+					documentation: operation.documentation,
+					inputMessagePartElementLinks: operation.input ? operation.input.message.parts.map(part => part.elementLink) : [],
+					outputMessagePartElementLinks: operation.output ? operation.output.message.parts.map(part => part.elementLink) : []
+				}))
+			}))
+		})), [
+			{
+				"name": "CallbackService",
+				"ports": [
+					{
+						"documentation": "Служба callback-методов",
+						"name": "CallbackServicePort",
+						"operations": [
+							{
+								"documentation": "Универсальный callback-метод",
+								"inputMessagePartElementLinks": [
+									"tns:UniversalCallbackRequest"
+								],
+								"name": "UniversalCallback",
+								"outputMessagePartElementLinks": []
+							}
+						]
+					}
+				]
+			}
+		]);
+
+
+	});
 });
+
+
 
 // describe('WebServiceDefinition', function() {
 // 	it('WebServiceDefinition', async function() {

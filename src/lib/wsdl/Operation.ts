@@ -9,11 +9,13 @@ export default class Operation {
 	get documentation(): string {
 		return this.select('string(wsdl:documentation)');
 	}
-	get input(): Input {
-		return new Input(this.select('wsdl:input')[0], this);
+	get input(): Input | undefined {
+		const inputNode = this.select('wsdl:input')[0];
+		return inputNode ? new Input(inputNode, this) : undefined;
 	}
-	get output(): Output {
-		return new Output(this.select('wsdl:output')[0], this);
+	get output(): Output | undefined {
+		const outputNode = this.select('wsdl:output')[0];
+		return outputNode ? new Output(outputNode, this) : undefined;
 	}
 	constructor(private operationNode: any, public portType: PortType) {}
 	select(xpath: string): any {
