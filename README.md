@@ -4,7 +4,10 @@
 Парсер WSDL и XSD файлов для создания ограниченной модели в оперативной памяти на JavaScript и TypeScript.
 Предназначен для анализа веб-сервисов, описанных на WSDL.
 
-Парсер основан на коде [Jsonix](Jsonix) и [W3C Schemas](w3c-schemas).
+Парсер основан на коде [xpath](xpath) и [xmldom](xmldom).
+
+Для Xsd пока используются модули [Jsonix](Jsonix) и [W3C Schemas](w3c-schemas).
+Но это временно и в будущем будет переписано на [xpath](xpath) и [xmldom](xmldom).
 
 Инсталяция
 ----------
@@ -18,29 +21,11 @@ npm install wsdl-xsd-parser --save
 --------------------
 
 ```typescript
-import { DocumentTypeDefinition as Dtd, XmlSchemaDefinition as Xsd } from 'wsdl-xsd-parser';
-import { Jsonix } from 'jsonix';
-import { XSD_1_0 } from 'w3c-schemas';
-
-/**
- * Загрузка XSD-файла в JavaScript-объект.
- * Вспомогательная функция.
- * @param pathToFile
- * @returns {object}
- */
-async function loadXsdFile(pathToFile): Promise<object> {
-	return await new Promise((resolve, reject) => {
-        const context = new Jsonix.Context([XSD_1_0]);
-        const unmarshaller = context.createUnmarshaller();
-        unmarshaller.unmarshalFile(pathToFile, resolve);
-    });
-}
+import { XsdGroup, Xsd } from 'wsdl-xsd-parser';
 
 (async () => {
-	const dtd = new Dtd();
-    const xsdJsonData = await loadXsdFile('path/to/xsdfile.xsd');
-	const xsd1 = new Xsd(xsdJsonData, 'file-id1');
-	dtd.addXsd(xsd1);
+	const xsdGroup = new XsdGroup();
+	xsdGroup.addXsd(Xsd.load('file-id1', 'path/to/xsdfile.xsd'));
 })();
 ``` 
 
@@ -48,3 +33,6 @@ async function loadXsdFile(pathToFile): Promise<object> {
 
 [w3c-schemas]: https://github.com/highsource/w3c-schemas
 [Jsonix]: https://github.com/highsource/jsonix
+
+[xpath]: https://www.npmjs.com/package/xpath
+[xmldom]: https://www.npmjs.com/package/xmldom
