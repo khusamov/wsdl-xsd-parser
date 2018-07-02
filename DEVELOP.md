@@ -19,13 +19,9 @@ https://github.com/khusamov/git-flow-and-npm-version-publish/blob/master/README.
 
 
 
-авыавыа
---------
 
 
 
-Попробовать использовать модуль чтения WSDL-файлов:
-https://www.npmjs.com/package/apiconnect-wsdl
 
 
 Конвертация моделей данных из формата XSD ПИР в формат Sencha Ext JS Model
