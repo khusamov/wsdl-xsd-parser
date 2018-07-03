@@ -31,7 +31,7 @@ export default class Node {
 
 	childs: Node[] = [];
 
-	constructor(protected data: any, protected ownerNode?: Node) {
+	constructor(protected data: any, public ownerNode?: Node) {
 		if (_.isEmpty(this.data)) throw new Error('Попытка создать пустой узел.');
 		if ('otherAttributes' in data) for (let otherAttribute in data.otherAttributes) {
 			this.otherAttributes.push(new OtherAttribute(
