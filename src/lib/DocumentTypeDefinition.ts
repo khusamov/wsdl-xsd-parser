@@ -4,6 +4,7 @@ import * as pascalcase from 'pascalcase';
 import XmlSchemaDefinition from './XmlSchemaDefinition';
 import AutoType from './node/simpleType/AutoType';
 import IntType from './node/simpleType/IntType';
+import LongType from './node/simpleType/LongType';
 import StringType from './node/simpleType/StringType';
 import DateType from './node/simpleType/DateType';
 import DateTimeType from './node/simpleType/DateTimeType';
@@ -66,6 +67,7 @@ export default class DocumentTypeDefinition {
 		}, 'BaseXmlSchemaDefinition');
 		baseXsd.types.push(new AutoType(baseXsd));
 		baseXsd.types.push(new IntType(baseXsd));
+		baseXsd.types.push(new LongType(baseXsd));
 		baseXsd.types.push(new StringType(baseXsd));
 		baseXsd.types.push(new DateType(baseXsd));
 		baseXsd.types.push(new DateTimeType(baseXsd));
