@@ -26,25 +26,25 @@
     "postpublish": "rmdir /S /Q dist && git push --all && git push --tags"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.2",
+    "@types/chai": "^4.1.4",
     "@types/del": "^3.0.1",
     "@types/expect": "^1.20.3",
-    "@types/express": "^4.0.35",
+    "@types/express": "^4.16.0",
     "@types/jsonpath": "^0.2.0",
-    "@types/lodash": "^4.14.109",
+    "@types/lodash": "^4.14.110",
     "@types/mkdirp-promise": "^5.0.0",
-    "@types/mocha": "^5.2.0",
-    "@types/node": "^10.1.2",
+    "@types/mocha": "^5.2.4",
+    "@types/node": "^10.5.1",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "ts-mocha": "^1.2.0",
-    "ts-node": "^6.0.5",
+    "ts-node": "^6.2.0",
     "tslint": "^5.10.0",
-    "typescript": "^2.8.3"
+    "typescript": "^2.9.2"
   },
   "dependencies": {
     "camelcase": "^4.1.0",
-    "circular-json": "^0.5.4",
+    "circular-json": "^0.5.5",
     "del": "^2.2.2",
     "express": "4.14.0",
     "json-stringify-safe": "^5.0.1",
@@ -53,7 +53,7 @@
     "lodash-decorators": "^4.3.1",
     "mkdirp-promise": "^5.0.1",
     "pascalcase": "^0.1.1",
-    "prettier": "^1.4.2",
+    "prettier": "^1.13.7",
     "w3c-schemas": "^1.4.0",
     "xmldom": "^0.1.27",
     "xpath": "0.0.27"
