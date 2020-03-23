@@ -11,7 +11,7 @@
     "removeComments": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "lib": ["es2017"],
+    "lib": ["dom", "es2017"],
 
     "sourceRoot": ".",
     "sourceMap": false,

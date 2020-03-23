@@ -1,6 +1,6 @@
 {
   "name": "wsdl-xsd-parser",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Парсер WSDL-сервиса",
   "author": "Khusamov Sukhrob <khusamov@yandex.ru>",
   "homepage": "https://github.com/khusamov/wsdl-xsd-parser",
