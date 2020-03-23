@@ -1,6 +1,6 @@
 {
   "name": "wsdl-xsd-parser",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Парсер WSDL-сервиса",
   "author": "Khusamov Sukhrob <khusamov@yandex.ru>",
   "homepage": "https://github.com/khusamov/wsdl-xsd-parser",
@@ -11,9 +11,6 @@
   "files": [
     "dist"
   ],
-  "engines": {
-    "node": "^8.11.2"
-  },
   "scripts": {
     "test": "ts-mocha src/test/**/*.spec.ts",
     "release:start:minor": "npm version minor --no-git-tag-version",
