@@ -10,6 +10,7 @@ TODO
 Проследить за судьбой тикетов:
     https://github.com/jindw/xmldom/issues/240
     https://github.com/goto100/xpath/issues/86
+    https://github.com/DefinitelyTyped/DefinitelyTyped/issues/26745
 — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 Попробовать использовать модуль чтения WSDL-файлов:
     https://www.npmjs.com/package/apiconnect-wsdl
