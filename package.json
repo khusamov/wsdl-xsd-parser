@@ -11,9 +11,6 @@
   "files": [
     "dist"
   ],
-  "engines": {
-    "node": "^8.11.2"
-  },
   "scripts": {
     "test": "ts-mocha src/test/**/*.spec.ts",
     "release:start:minor": "npm version minor --no-git-tag-version",
